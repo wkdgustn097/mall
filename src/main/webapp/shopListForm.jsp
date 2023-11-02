@@ -4,8 +4,25 @@
 <%@ page import = "vo.*" %>
 <%@ page import = "dao.*" %>
 <%
+
+	// 페이징 변수 
+	// rowPerPage 8로 잡
+	int currentPage = 1;	
+	if(request.getParameter("currentPage") != null) {
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	}
+	int rowPerPage = 8;
+	int beginRow = (currentPage-1) * rowPerPage;
+	int total = 0;
+	
+	// totalRow는 goods가 기
 	MallDao mallDao = new MallDao();
-	ArrayList<Gijoin> list = mallDao.selectShopList();
+	ArrayList<Gijoin> list = mallDao.selectShopList(beginRow, rowPerPage);
+	int totalRow = mallDao.lastPage(total);
+	int lastPage = totalRow/rowPerPage;
+    if(totalRow % rowPerPage != 0){
+        lastPage = lastPage + 1;
+     }
 %>
 <!doctype html>
 <html lang="UTF-8">
@@ -76,6 +93,55 @@
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>
+		
+		
+	<!-- 페이징 부트 스트랩 사용  -->
+	<div class="container">
+	 <ul class="pagination" style="padding-left:500px">
+	      <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/shopListForm.jsp?currentPage=1">처음으로</a></li>
+	  <%
+		  if(currentPage > 1) {
+  	  %>
+			 <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/shopListForm.jsp?currentPage=<%=currentPage-1%>">이전</a></li>
+	  <%
+       		 if(currentPage>2){
+      %>
+       
+        		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/shopListForm.jsp?currentPage=<%=currentPage-2%>"><%=currentPage-2%></a></li>
+      <%
+			 }
+	  %>
+	    	 <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/shopListForm.jsp?currentPage=<%=currentPage-1%>"><%=currentPage-1%></a></li>
+      <%
+        	 }
+      %>
+          <li class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>/shopListForm.jsp?currentPage=<%=currentPage%>"><%=currentPage%></a></li>
+    
+      <%
+		  if(currentPage < lastPage) {
+	  %>
+	   		 <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/shopListForm.jsp?currentPage=<%=currentPage+1%>"><%=currentPage+1%></a></li>
+	    	 <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/shopListForm.jsp?currentPage=<%=currentPage+2%>"><%=currentPage+2%></a></li>
+      <%
+              if(currentPage==1){
+      %>
+      	     	 <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/shopListForm.jsp?currentPage=<%=currentPage+3%>"><%=currentPage+3%></a></li>
+      			 <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/shopListForm.jsp?currentPage=<%=currentPage+4%>"><%=currentPage+4%></a></li>
+      <%  	 
+              }
+        	  if(currentPage==2){
+      %>
+      		  	 <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/shopListForm.jsp?currentPage=<%=currentPage+3%>"><%=currentPage+3%></a></li>
+      <%  	 
+         	  }
+      %>
+	           <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/shopListForm.jsp?currentPage=<%=currentPage+1%>">다음</a></li>
+	  <%
+	
+		  }
+      %>
+	    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/shopListForm.jsp?currentPage=<%=lastPage%>">마지막으로</a></li>
+	   </ul>
+	  </div>
 	</body>
-
 </html>
