@@ -1,35 +1,29 @@
 package vo;
 
 public class Customer {
-	private int cartNo;
-	private int goodsNo;
 	private int customerNo;
-	private int quantify;
+	private String customerId;
+	private String customerPw;
 	private String createdate;
 	private String updatedate;
-	public int getCartNo() {
-		return cartNo;
-	}
-	public void setCartNo(int cartNo) {
-		this.cartNo = cartNo;
-	}
-	public int getGoodsNo() {
-		return goodsNo;
-	}
-	public void setGoodsNo(int goodsNo) {
-		this.goodsNo = goodsNo;
-	}
+	private String active;
 	public int getCustomerNo() {
 		return customerNo;
 	}
 	public void setCustomerNo(int customerNo) {
 		this.customerNo = customerNo;
 	}
-	public int getQuantify() {
-		return quantify;
+	public String getCustomerId() {
+		return customerId;
 	}
-	public void setQuantify(int quantify) {
-		this.quantify = quantify;
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+	public String getCustomerPw() {
+		return customerPw;
+	}
+	public void setCustomerPw(String customerPw) {
+		this.customerPw = customerPw;
 	}
 	public String getCreatedate() {
 		return createdate;
@@ -42,6 +36,12 @@ public class Customer {
 	}
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
+	}
+	public String getActive() {
+		return active;
+	}
+	public void setActive(String active) {
+		this.active = active;
 	}
 	
 }
