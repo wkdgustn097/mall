@@ -32,7 +32,7 @@
 							<div class="intro-excerpt">
 								<h1>모든 순간이 완벽한 <span clsas="d-block">감성 무드의 완성</span></h1>
 								<p class="mb-4">La perfection de l'ambiance émotionnelle à chaque instant.juste ici </p>
-								<p><a href="" class="btn btn-secondary me-2">상품 보러가기</a><a href="#" class="btn btn-white-outline">여기다뭐넣지 </a></p>
+								<p><a href="" class="btn btn-secondary me-2">상품 보러가기</a><a href="#" class="btn btn-white-outline">아직도 고민 </a></p>
 							</div>
 						</div>
 						<div class="col-lg-7">
