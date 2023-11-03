@@ -149,5 +149,54 @@ public class MallDao {
 		
 		return list;
 	}
-
+	public ArrayList<Login> login(String customerId, String customerPw, String managerId, String managerPw)throws Exception {
+		ArrayList<Login> login = new ArrayList<>();
+		
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		// 고객 로그인 시도
+		String sql1 = "SELECT customer_id customerId1, customer_no customerNo1 FROM customer WHERE customer_id = ? AND customer_pw = ? ";
+		PreparedStatement stmt1 = conn.prepareStatement(sql1);
+		stmt1.setString(1, customerId);
+		stmt1.setString(2, customerPw);
+		ResultSet rs1 = stmt1.executeQuery();
+		System.out.println(stmt1 + "<--stmt1");
+		
+		
+		
+		if(rs1.next()) { // 로그인 성공
+			
+			Login log1 = new Login(); 
+			log1.setCustomerNo(rs1.getInt("customerNo1"));
+			log1.setCustomerId(rs1.getString("customerId1"));
+			login.add(log1);
+			
+			System.out.println("고객 로그인 성공");
+			System.out.println(login + "<-- 배열값 확인");
+			return login;
+		} else { // 로그인 실패 -> 매니저로그인 시도
+			
+			String sql2 = "SELECT manager_id managerId, manager_no managerNo FROM manager WHERE manager_id = ? AND manager_pw = ?";
+			PreparedStatement stmt2 = conn.prepareStatement(sql2);
+			stmt2.setString(1, managerId);
+			stmt2.setString(2, managerPw);
+			ResultSet rs2 = stmt2.executeQuery();
+			
+			if(rs2.next()) { // 매니저 로그인 성공
+				Login log2 = new Login();
+				log2.setManagerNo(rs2.getInt("managerNo"));
+				log2.setManagerId(rs2.getString("managerId"));
+				System.out.println("매니저 로그인 성공");
+			}else {	// 매니저 로그인 실패
+				System.out.println("로그인 실패");
+			}
+			
+		}
+		return login;
+	}
 }
