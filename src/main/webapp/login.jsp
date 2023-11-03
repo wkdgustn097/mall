@@ -8,7 +8,7 @@
 <%
 	// 로그인 전
 	if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면
-		response.sendRedirect(request.getContextPath()+"/login.jsp");
+		response.sendRedirect(request.getContextPath()+"/main.jsp");
 		return;
 	}
 	

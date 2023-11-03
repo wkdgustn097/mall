@@ -165,8 +165,6 @@ public class MallDao {
 		stmt1.setString(1, customerId);
 		stmt1.setString(2, customerPw);
 		ResultSet rs1 = stmt1.executeQuery();
-		System.out.println(stmt1 + "<--stmt1");
-		
 		
 		
 		if(rs1.next()) { // 로그인 성공
@@ -174,8 +172,7 @@ public class MallDao {
 			Login log1 = new Login(); 
 			log1.setCustomerNo(rs1.getInt("customerNo1"));
 			log1.setCustomerId(rs1.getString("customerId1"));
-			login.add(log1);
-			
+			login.add(log1);	// 고객번호 고객아이디 login에 저장
 			System.out.println("고객 로그인 성공");
 			System.out.println(login + "<-- 배열값 확인");
 			return login;
@@ -191,12 +188,14 @@ public class MallDao {
 				Login log2 = new Login();
 				log2.setManagerNo(rs2.getInt("managerNo"));
 				log2.setManagerId(rs2.getString("managerId"));
+				login.add(log2);	// 매니저번호 매니저아이디 login에 저장
 				System.out.println("매니저 로그인 성공");
+				System.out.println(log2.getManagerId()+"<--매니저아이디 확인");
+				return login;
 			}else {	// 매니저 로그인 실패
 				System.out.println("로그인 실패");
+				return login;
 			}
-			
 		}
-		return login;
 	}
 }
