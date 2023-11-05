@@ -75,7 +75,7 @@
 							%>
 		      		<!-- Start Column 1 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
+						<a class="product-item" href="<%=request.getContextPath()%>/shopOne.jsp?goodsNo=<%=g.getGoodsNo()%>">
 							<img src="<%=request.getContextPath()%>/upload/<%=g.getOriginName()%>" class="img-fluid product-thumbnail">
 							<h3 class="product-title"><%=g.getGoodsTitle()%></h3>
 							<strong class="product-price"><%=g.getGoodsPrice() %></strong>
