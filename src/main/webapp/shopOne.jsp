@@ -52,7 +52,7 @@
 				</div>
 			</div>
 		<!-- End Hero Section -->
-				
+		<form action="<%=request.getContextPath()%>/orderForm.jsp">
 		<div class="untree_co-section">
 			<div class="container">
 			  <div class="row">
@@ -61,12 +61,12 @@
 			   <div class="p-3 p-lg-5 border bg-white">  
 		          <div class="form-group row">
                      <div class="col-md-6">
-                        <img src="<%=request.getContextPath()%>/upload/<%=gigjoin.getOriginName()%>" class="img-fluid product-thumbnail" style="align-center">
+                        <img src="<%=request.getContextPath()%>/upload/<%=gigjoin.getOriginName()%>" class="img-fluid product-thumbnail">
                      </div>
                   </div>
                   <div class="form-group">
                     <label for="c_country" class="text-black">갯수</label>
-                    <select id="c_country" class="form-control">
+                    <select id="c_country" class="form-control" name="quantity">
                       <option value="1">1</option>    
                       <option value="2">2</option>    
                       <option value="3">3</option>    
@@ -81,7 +81,6 @@
                   </div>
                </div>
                <br>
-                <button type="submit" class="btn btn-success">상품 주</button>
              </div>
               
             
@@ -91,56 +90,59 @@
                     <div class="form-group row">
                     <div class="col-md-12">
                       <label for="c_companyname" class="text-black">상품 번호</label>
-                      <input type="text" class="form-control" id="c_companyname" name="c_companyname"value="<%=gigjoin.getGoodsNo()%>" readonly="readonly">
+                      <input type="text" class="form-control" id="c_companyname" name="goodsNo"value="<%=gigjoin.getGoodsNo()%>" readonly="readonly">
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <div class="col-md-12">
                       <label for="c_companyname" class="text-black">상품 이름</label>
-                      <input type="text" class="form-control" id="c_companyname" name="c_companyname"value="<%=gigjoin.getGoodsTitle()%>" readonly="readonly">
+                      <input type="text" class="form-control" id="c_companyname" name="goodsTitle"value="<%=gigjoin.getGoodsTitle()%>" readonly="readonly">
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <div class="col-md-12">
                       <label for="c_address" class="text-black">상품 가격</label>
-                      <input type="text" class="form-control" id="c_address" name="c_address" value="<%=gigjoin.getGoodsPrice()%>" readonly="readonly">
+                      <input type="text" class="form-control" id="c_address" name="goodsPrice" value="<%=gigjoin.getGoodsPrice()%>" readonly="readonly">
                     </div>
                   </div>
 
                   <div class="form-group row">
                     <div class="col-md-12">
                       <label for="c_companyname" class="text-black">재고량</label>
-                      <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=gigjoin.getSoldout()%>" readonly="readonly">
+                      <input type="text" class="form-control" id="c_companyname" name="soldout" value="<%=gigjoin.getSoldout()%>" readonly="readonly">
                     </div>
                   </div>
 
                  <div class="form-group row">
                     <div class="col-md-12">
                       <label for="c_companyname" class="text-black">상품 설명</label>
-                      <input type="text" class="form-control" id="c_companyname" name="c_companyname"value="<%=gigjoin.getGoodsMemo()%>" readonly="readonly">
+                      <input type="text" class="form-control" id="c_companyname" name="goodsMemo"value="<%=gigjoin.getGoodsMemo()%>" readonly="readonly">
                     </div>
                   </div>
                  <div class="form-group row">
                     <div class="col-md-12">
                       <label for="c_companyname" class="text-black">상품 출시일</label>
-                      <input type="text" class="form-control" id="c_companyname" name="c_companyname"value="<%=gigjoin.getCreatedate()%>" readonly="readonly">
+                      <input type="text" class="form-control" id="c_companyname" name="createdate"value="<%=gigjoin.getCreatedate()%>" readonly="readonly">
                     </div>
                   </div>
 
                  <div class="form-group row">
                     <div class="col-md-12">
                       <label for="c_companyname" class="text-black">상품 업데이트일</label>
-                      <input type="text" class="form-control" id="c_companyname" name="c_companyname"value="<%=gigjoin.getUpdatedate()%>" readonly="readonly">
+                      <input type="text" class="form-control" id="c_companyname" name="updatedate"value="<%=gigjoin.getUpdatedate()%>" readonly="readonly">
                     </div>
                   </div>
                 </div>
+                <br>
+                <button type="submit" class="btn btn-success">상품 주문</button>
               </div>
               </div>
 		      <!-- </form> -->
 		     </div>
 		    </div>
+		    </form>
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>
