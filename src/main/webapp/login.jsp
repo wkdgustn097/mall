@@ -46,6 +46,8 @@
 					<button type="submit" class="btn btn-primary">로그인</button>
 					<a href="<%=request.getContextPath()%>/insert.jsp" 
 					class="btn btn-success">회원가입</a>
+					<a href="<%=request.getContextPath()%>/managerInsert.jsp" 
+					class="btn btn-success">매니저가입</a>
 				</th>
 			</tr>
 		</table>

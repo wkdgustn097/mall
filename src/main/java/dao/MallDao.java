@@ -1,6 +1,9 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import vo.*;
 import java.sql.*;
 
@@ -37,14 +40,40 @@ public class MallDao {
 //		return list;
 //	}
 	
-	public ArrayList<Insert> insert(String customerId, String customerPw, String customerName, String customerPhone, String address) throws Exception {
-	    ArrayList<Insert> insert = new ArrayList<>();
+	public Map<String, Object> insert(String customerId, String customerPw, String customerName, String customerPhone, String address) throws Exception {
+		Map<String, Object> result = new HashMap<>();
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 성공");
 		String url = "jdbc:mariadb://localhost:3306/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		// 아이디 중복체크로직 customer , manager
+		String sqlCId = "SELECT customer_no customerCNo, customer_id customerIdCk FROM customer where customer_id = ?";
+		PreparedStatement stmtCId = conn.prepareStatement(sqlCId);
+		stmtCId.setString(1, customerId);
+		ResultSet rsCId = stmtCId.executeQuery();
+		if(rsCId.next()){
+			System.out.println("사용불가능 아이디 (customer_id 중복)");
+			rsCId.close();
+			stmtCId.close();
+			conn.close();
+			result.put("status", "중복 아이디입니다");	//	리턴
+			return result;
+		}
+		String sqlMId = "SELECT manager_no managerMNo, manager_id managerIdCk FROM manager where manager_id = ?";
+		PreparedStatement stmtMId = conn.prepareStatement(sqlMId);
+		stmtMId.setString(1, customerId);
+		ResultSet rsMId = stmtMId.executeQuery();
+		if(rsMId.next()){
+			System.out.println("사용불가능 아이디 (manager_id 중복)");
+			rsMId.close();
+			stmtMId.close();
+			conn.close();
+			result.put("status", "중복 아이디입니다");	//	리턴
+			return result;
+		}
 		
 		
 		//1단계 custoemr id pw 저장 (1)		
@@ -58,6 +87,8 @@ public class MallDao {
 			System.out.println("입력성공");
 		}  else {
 			System.out.println("입력실패");
+			result.put("status", "회원가입 실패");	//	리턴
+			return result;
 		}
 		
 		//1단계 완료 후 customer_no 추출 (11)
@@ -83,6 +114,8 @@ public class MallDao {
 			System.out.println("입력성공");
 		}  else {
 			System.out.println("입력실패");
+			result.put("status", "회원가입 실패");	//	리턴
+			return result;
 		}
 		
 		
@@ -97,9 +130,11 @@ public class MallDao {
 			System.out.println("입력성공");
 		}  else {
 			System.out.println("입력실패");
+			result.put("status", "회원가입 실패");	//	리턴
+			return result;
 		}
-
-		 return insert; // ArrayList를 반환
+		result.put("status", "회원가입 성공");	//	리턴
+		return result; 
 	}
 	
 	public int lastPage(int total) throws Exception{
