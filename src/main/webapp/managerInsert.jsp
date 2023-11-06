@@ -1,21 +1,25 @@
-<!-- insert -->
+<!-- managerInsert -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Latest compiled JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<!DOCTYPE html>
 <%
 	String msg = request.getParameter("msg");
 %>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
 </head>
 <body>
 	<div class="container">
-		<h1>회원가입</h1>
-		<form action="<%=request.getContextPath()%>/insertAction.jsp" id="insertForm"> <!-- form으로 데이터 전송 -->
+		<h1>매니저 전용 페이지</h1>
+		<form action="<%=request.getContextPath()%>/managerInsertAction.jsp" id="insertForm"> <!-- from으로 데이터 전송 -->
 		<table border="1" class="table table-primary">
 		<tr>
 			<%
@@ -36,21 +40,13 @@
 			<td>비밀번호 확인</td>
 			<td><input type="password" name="insertPwCk" id="insertPwCk"></td>
 		</tr>
-		
 		<tr>
 			<td>이름</td>
-			<td><input type="text" name="insertName" id="insertName"></td>
-		</tr>
-		<tr>
-			<td>전화번호</td>
-			<td><input type="text" name="insertPhone" id="insertPhone"></td>
-		</tr>
-		<tr>
-			<td>주소</td>
-			<td><input type="text" name="insertAddress" id="insertAddress"></td>
+			<td><input type="text" name="insertName" id="insertName" ></td>
 		</tr>
 		</table>
-		<button type="submit" class="btn btn-success" id="insertBtn">회원가입</button>
+		<button type="button" class="btn btn-success" id="insertBtn">매니저 계정생성</button>
+		</form>
 		<script>
 			
 			$(document).ready(function(){
@@ -87,8 +83,8 @@
 			
 		</script>
 		
-		
-		</form>
 	</div>
+	
 </body>
+
 </html>
