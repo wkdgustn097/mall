@@ -11,14 +11,16 @@
 
 	
 		
-	String memberId = (String)(session.getAttribute("loginId")); 
+	String memberId = (String)(session.getAttribute("loginId")); //session 값 가져오기 
 	
 
-	OrderDao orderDao = new OrderDao();
+	OrderDao orderDao = new OrderDao(); 
 	
-	OrderFormJoin order = orderDao.selectAddrList(memberId);
-    String address = order.getAddress();
-
+	OrderFormJoin order = orderDao.selectAddrList(memberId); // Dao에 memberId값 넘겨주기 
+    String address = order.getAddress(); // Dao에서 select된 address 값 가져오기 
+    int customerNo = order.getCustomerNo(); // Dao에서 select된 customerNo 값 가져오기 
+    int customerAddrNo = order.getCustomerAddrNo(); // Dao에서 select된 customerAddrNo 값 가져오기 
+    
 	int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 	String goodsTitle = request.getParameter("goodsTitle");
 	int goodsPrice = Integer.parseInt(request.getParameter("goodsPrice"));
@@ -26,7 +28,7 @@
 	String goodsMemo = request.getParameter("goodsMemo");
 	int quantity = Integer.parseInt(request.getParameter("quantity"));
 	
-	int total = 0;
+	int total = 0; // 총가격 구하
 	total = quantity * goodsPrice;
 	
 	
@@ -74,6 +76,8 @@
 		<!-- End Hero Section -->
 		<form action="<%=request.getContextPath()%>/orderAction.jsp">
 		<input type="hidden" name="goodsTotal" value="<%=total%>">
+		<input type="hidden" name="customerNo" value="<%=customerNo%>">
+		<input type="hidden" name="customerAddrNo" value="<%=customerAddrNo%>">
 		<div class="untree_co-section">
 		    <div class="container">
 		      <div class="row">
@@ -160,7 +164,7 @@
 		                </table>
 
 		                <div class="form-group">
-		                  <button class="btn btn-black btn-lg py-3 btn-block">주문하</button>
+		                  <button class="btn btn-black btn-lg py-3 btn-block">주문하기</button>
 		                </div>
 
 		              </div>
