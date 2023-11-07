@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import vo.*;
@@ -195,5 +196,86 @@ public class MallDaoLee {
 		stmt1.close();
 		String result = "false";
 		return result;
+	}
+	public List<String> myPageInfo(String inId) throws Exception {
+		List<String> myPageInfoList = new ArrayList<>();
+		
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		String sql1 = "SELECT C.customer_id loadId, C.createdate createdate, C.updatedate updatedate, D.customer_name loadName, D.customer_phone loadPhone, A.address loadAddr FROM customer C INNER JOIN customer_addr A ON C.customer_no = A.customer_no INNER JOIN customer_detail D ON A.customer_no = D.customer_no WHERE customer_id = ?";
+		PreparedStatement stmt1 = conn.prepareStatement(sql1);
+		stmt1.setString(1, inId);
+		ResultSet rs1 = stmt1.executeQuery();
+		if (rs1.next()) {
+			String loadId = rs1.getString("loadId");	
+			System.out.println(loadId + " : 고객정보 로드 성공");
+		    String loadName = rs1.getString("loadName");			
+		    String loadPhone = rs1.getString("loadPhone");
+		    String loadAddr = rs1.getString("loadAddr");
+		    String createdate = rs1.getString("createdate");
+		    String updatedate = rs1.getString("updatedate");
+		    
+		    myPageInfoList.add(loadId);
+		    myPageInfoList.add(loadName);
+		    myPageInfoList.add(loadPhone);
+		    myPageInfoList.add(loadAddr);
+		    myPageInfoList.add(createdate);
+		    myPageInfoList.add(updatedate); 
+		    conn.close();
+		    stmt1.close();
+		    rs1.close();
+		    return myPageInfoList;
+		    
+		}else {
+			
+			String sql2 = "SELECT manager_id loadId, manager_name loadName, createdate, updatedate FROM manager WHERE manager_id = ?";
+			PreparedStatement stmt2 = conn.prepareStatement(sql2);
+			stmt2.setString(1, inId);
+			ResultSet rs2 = stmt2.executeQuery();
+			if (rs2.next()) {
+				String loadId = rs2.getString("loadId");	
+				System.out.println(loadId + " : 매니저정보 로드 성공");
+			    String loadName = rs2.getString("loadName");
+			    String loadPhone = "non";
+			    String loadAddr = "non";
+			    String createdate = rs2.getString("createdate");
+			    String updatedate = rs2.getString("updatedate");
+			    myPageInfoList.add(loadId);
+			    myPageInfoList.add(loadName);
+			    myPageInfoList.add(loadPhone);
+			    myPageInfoList.add(loadAddr);
+			    myPageInfoList.add(createdate);
+			    myPageInfoList.add(updatedate); 
+			    conn.close();
+			    stmt1.close();
+			    rs1.close();
+			    stmt2.close();
+			    rs2.close();
+			    return myPageInfoList;
+			    
+			}
+		}
+		String loadId = "loadFail";	
+		System.out.println(loadId + " 로드 실패");
+	    String loadName = "loadFail";
+	    String loadPhone = "loadFail";
+	    String loadAddr = "loadFail";
+	    String createdate = "loadFail";
+	    String updatedate = "loadFail";
+	    myPageInfoList.add(loadId);
+	    myPageInfoList.add(loadName);
+	    myPageInfoList.add(loadPhone);
+	    myPageInfoList.add(loadAddr);
+	    myPageInfoList.add(createdate);
+	    myPageInfoList.add(updatedate); 
+		conn.close();
+	    stmt1.close();
+	    rs1.close();
+		return myPageInfoList;
 	}
 }
