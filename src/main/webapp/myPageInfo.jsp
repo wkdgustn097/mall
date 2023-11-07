@@ -73,7 +73,7 @@
 		<a href="<%=request.getContextPath()%>/myPage.jsp" 
 		class="btn btn-success">회원정보수정</a>
 		<br>
-		<a href="<%=request.getContextPath()%>/deleteMemberForm.jsp"
+		<a href="<%=request.getContextPath()%>/myPageDelete.jsp"
 		class="btn btn-danger">회원탈퇴</a>
 		<br><br>
 		
