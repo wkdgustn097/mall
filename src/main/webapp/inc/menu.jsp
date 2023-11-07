@@ -17,7 +17,7 @@
 						</li>
 						<li><a class="nav-link" href="shop.html">BEST</a></li>
 						<li><a class="nav-link" href="about.html">SALE</a></li>
-						<li><a class="nav-link" href="services.html">NOTICE</a></li>
+						<li><a class="nav-link" href="notice.jsp">NOTICE</a></li>
 						<li><a class="nav-link" href="blog.html">REVIEW</a></li>
 						<li><a class="nav-link" href="contact.html">Q&A</a></li>
 						
@@ -35,7 +35,7 @@
 							}
 						%>
 						
-						<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
+						<li><a class="nav-link" href="cartForm.jsp"><img src="images/cart.svg"></a></li>
 					</ul>
 				</div>
 			</div>

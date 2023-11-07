@@ -8,9 +8,15 @@
 		response.sendRedirect(request.getContextPath()+"/main.jsp");
 		return;
 	}
-
 	
-		
+	// 같은 폼에서 cart로 가기위한 코드 
+	String action = request.getParameter("action");	
+	if ("장바구니 추가".equals(action)) {	
+		 int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+		 response.sendRedirect(request.getContextPath() + "/cartInsertAction.jsp");
+	}
+	
+	
 	String memberId = (String)(session.getAttribute("loginId")); //session 값 가져오기 
 	
 

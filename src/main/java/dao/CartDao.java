@@ -19,7 +19,7 @@ public class CartDao {
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT c2.cart_no cartNo, c2.quantity quantity, g.goods_price goodsPrice, g.goodsTitle goodsTitle FROM customer c1 INNER JOIN cart c2 ON c1.customer_no = c2.customer_no INNER JOIN goods g ON c2.goods_no = g.goods_no WHERE c1.customer_id = ? LIMIT ?,?";
+		String sql = "SELECT c2.cart_no cartNo, c2.quantity quantity, g.goods_price goodsPrice, g.goods_title goodsTitle FROM customer c1 INNER JOIN cart c2 ON c1.customer_no = c2.customer_no INNER JOIN goods g ON c2.goods_no = g.goods_no WHERE c1.customer_id = ? LIMIT ?,?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, memberId);	
 		stmt.setInt(2, beginRow);

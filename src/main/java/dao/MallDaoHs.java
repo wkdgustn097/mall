@@ -36,6 +36,9 @@ public class MallDaoHs {
 			gijoin.setUpdatedate(rs.getString("updatedate"));
 			gijoin.setOriginName(rs.getString("originName"));
 		}
+		rs.close();
+		stmt.close();
+		conn.close();
 		return gijoin;
 	}
 

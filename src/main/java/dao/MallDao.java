@@ -169,6 +169,9 @@ public class MallDao {
 		if(rs.next()) {
 			row = rs.getInt("COUNT(*)");
 		}
+		rs.close();
+		stmt.close();
+		conn.close();
 		return row;
 	}
 	
@@ -199,7 +202,9 @@ public class MallDao {
 			g.setOriginName(rs.getString("originName"));
 			list.add(g);
 		}
-		
+		rs.close();
+		stmt.close();
+		conn.close();
 		return list;
 	}
 	public ArrayList<Login> login(String customerId, String customerPw, String managerId, String managerPw)throws Exception {

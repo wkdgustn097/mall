@@ -137,6 +137,7 @@
                 </div>
                 <br>
                 <button type="submit" class="btn btn-success">상품 주문</button>
+                <input type="submit" class="btn btn-success" name="action" value="장바구니 추가">
               </div>
               </div>
 		      <!-- </form> -->
