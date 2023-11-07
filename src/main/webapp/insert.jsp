@@ -4,8 +4,13 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <%
+if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면
+	response.sendRedirect(request.getContextPath()+"/main.jsp"); // 메인페이지 
+	return;
+}
 	String msg = request.getParameter("msg");
 %>
+<jsp:include page="/inc/menuLogin.jsp"></jsp:include> <!-- 네비게이션바 -->
 <!DOCTYPE html>
 <html>
 <head>

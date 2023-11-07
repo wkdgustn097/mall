@@ -131,9 +131,27 @@ public class MallDao {
 		}  else {
 			System.out.println("입력실패");
 			result.put("status", "회원가입 실패");	//	리턴
+			rsCId.close();
+			stmtCId.close();
+			rsMId.close();
+			stmtMId.close();
+			stmt1.close();
+			stmt11.close();
+			rs11.close();
+			stmt2.close();
+			stmt3.close();
 			return result;
 		}
 		result.put("status", "회원가입 성공");	//	리턴
+		rsCId.close();
+		stmtCId.close();
+		rsMId.close();
+		stmtMId.close();
+		stmt1.close();
+		stmt11.close();
+		rs11.close();
+		stmt2.close();
+		stmt3.close();
 		return result; 
 	}
 	
@@ -226,9 +244,20 @@ public class MallDao {
 				login.add(log2);	// 매니저번호 매니저아이디 login에 저장
 				System.out.println("매니저 로그인 성공");
 				System.out.println(log2.getManagerId()+"<--매니저아이디 확인");
+				stmt1.close();
+				rs1.close();
+				stmt2.close();
+				rs2.close();
+				conn.close();
+				
 				return login;
 			}else {	// 매니저 로그인 실패
 				System.out.println("로그인 실패");
+				stmt1.close();
+				rs1.close();
+				stmt2.close();
+				rs2.close();
+				conn.close();
 				return login;
 			}
 		}

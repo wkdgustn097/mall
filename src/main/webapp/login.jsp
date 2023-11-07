@@ -1,20 +1,16 @@
 <!-- login -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Latest compiled JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <%@ page import="java.net.URLEncoder"%>
 <%
-	// 로그인 전
 	if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면
 		response.sendRedirect(request.getContextPath()+"/main.jsp");
 		return;
 	}
-	
 	String msg = request.getParameter("msg");
 %>
-
+<jsp:include page="/inc/menuLogin.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>

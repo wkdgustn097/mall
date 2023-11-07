@@ -12,14 +12,7 @@
 
 				<div class="collapse navbar-collapse" id="navbarsFurni">
 					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-						<li class="nav-item">
-							<a class="nav-link" href="shopListForm.jsp">SHOP</a>
-						</li>
-						<li><a class="nav-link" href="shop.html">BEST</a></li>
-						<li><a class="nav-link" href="about.html">SALE</a></li>
-						<li><a class="nav-link" href="services.html">NOTICE</a></li>
-						<li><a class="nav-link" href="blog.html">REVIEW</a></li>
-						<li><a class="nav-link" href="contact.html">Q&A</a></li>
+
 						
 					</ul>
 
@@ -27,14 +20,13 @@
 						<li><a class="nav-link" href="login.jsp"><img src="images/user.svg"></a></li>
 						
 						<%
-							if(session.getAttribute("loginId") != null) { 	// 로그인 되어 있으면	
+							if(session.getAttribute("loginId") != null) { 	// 로그인 되어 있으면
 						%>
 						<li><a class="nav-link" href="logout.jsp">Logout</a></li>
 						<li><a class="nav-link" href="myPage.jsp">MyPage</a></li>
 						<%
 							}
 						%>
-						
 						<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
 					</ul>
 				</div>
