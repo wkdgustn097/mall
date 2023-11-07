@@ -29,6 +29,9 @@ public class OrderDao {
 			orderFormJoin.setCustomerNo(rs.getInt("customerNo"));
 			orderFormJoin.setCustomerAddrNo(rs.getInt("customerAddrNo"));
 		}
+		rs.close();
+		stmt.close();
+		conn.close();
 		return orderFormJoin;
 	}
 	
@@ -56,6 +59,8 @@ public class OrderDao {
 		}  else {
 			System.out.println("입력실패");
 		}
+		stmt.close();
+		conn.close();
 		return orders;
 		
 	}
