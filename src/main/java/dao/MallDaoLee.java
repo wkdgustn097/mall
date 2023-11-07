@@ -41,6 +41,8 @@ public class MallDaoLee {
 		ResultSet rsMId = stmtMId.executeQuery();
 		if(rsMId.next()){
 			System.out.println("사용불가능 아이디 (manager_id 중복)");
+			rsCId.close();
+			stmtCId.close();
 			rsMId.close();
 			stmtMId.close();
 			conn.close();
@@ -61,6 +63,12 @@ public class MallDaoLee {
 		}  else {
 			System.out.println("매니저 입력실패");
 			result.put("status", "중복 아이디입니다");
+			rsCId.close();
+			stmtCId.close();
+			conn.close();
+			rsMId.close();
+			stmtMId.close();
+			stmt1.close();
 			return result;
 		}
 		
@@ -73,5 +81,52 @@ public class MallDaoLee {
 		result.put("status", "사용가능한 아이디입니다");
 		return result;
 		
+	}
+	
+	public String pwCk(String idIn, String pwIn) throws Exception {
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		System.out.println(idIn);
+		System.out.println(pwIn);
+		
+		// 패스워드 체크 로직
+		String sqlCId = "SELECT customer_no customerCNo FROM customer where customer_id = ? AND customer_pw = ?";
+		PreparedStatement stmtCId = conn.prepareStatement(sqlCId);
+		stmtCId.setString(1, idIn);
+		stmtCId.setString(2, pwIn);
+		ResultSet rsCId = stmtCId.executeQuery();
+		if(rsCId.next()){	// 고객 아이디 패스워드 확인
+			System.out.println("고객 아이디 패스워드 확인");
+			conn.close();
+			rsCId.close();
+			stmtCId.close();
+			String result = "true"; 	
+			return result;
+		}else {
+		String sqlMId = "SELECT manager_no managerMNo FROM manager where manager_id = ? AND manager_pw = ?";
+		PreparedStatement stmtMId = conn.prepareStatement(sqlMId);
+		stmtMId.setString(1, idIn);
+		stmtMId.setString(2, pwIn);
+		ResultSet rsMId = stmtMId.executeQuery();
+		if(rsMId.next()){	//매니저 아이디 패스워드 확인
+			System.out.println("매니저 아이디 패스워드 확인");
+			conn.close();
+			stmtMId.close();
+			rsMId.close();
+			String result = "true";
+			return result;
+		}
+		}
+		
+		System.out.println("아이디 패스워드 확인 실패");
+		rsCId.close();
+		stmtCId.close();
+		conn.close();
+		String result = "false";
+		return result;
 	}
 }
