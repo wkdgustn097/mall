@@ -129,4 +129,71 @@ public class MallDaoLee {
 		String result = "false";
 		return result;
 	}
+	public String updateUser(String idIn, String updatePw, String updateName, String updatePhone, String updateAddress) throws Exception  {
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		// 데이터 확인
+		System.out.println(idIn + "<-아이디 , "+updatePw + "<-비밀번호 , "+updateName + "<-이름 , "+updatePhone + "<-전화번호 , "+updateAddress + "<-주소 , ");
+		
+		/*
+		UPDATE customer C
+		INNER JOIN customer_addr A ON C.customer_no = A.customer_no
+		INNER JOIN customer_detail D ON A.customer_no = D.customer_no
+		SET C.customer_pw = '1234',
+		    D.customer_name = ?,
+		    D.customer_phone = ?,
+		    A.address = ?,
+		    C.updatedate = NOW(),
+		    A.updatedate = NOW(),
+		    D.updatedate = NOW()
+		WHERE C.customer_id = ?;
+		*/
+		
+		
+		String sql1 = "UPDATE customer C INNER JOIN customer_addr A ON C.customer_no = A.customer_no INNER JOIN customer_detail D ON A.customer_no = D.customer_no SET C.customer_pw = ?, D.customer_name = ?, D.customer_phone = ?, A.address = ?, C.updatedate = NOW(), A.updatedate = NOW(), D.updatedate = NOW() WHERE C.customer_id = ?";
+		PreparedStatement stmt1 = conn.prepareStatement(sql1);
+		
+		stmt1.setString(1, updatePw);	
+		stmt1.setString(2, updateName);	
+		stmt1.setString(3, updatePhone);
+		stmt1.setString(4, updateAddress);
+		stmt1.setString(5, idIn);
+		int rowsUpdated1 = stmt1.executeUpdate();
+		
+		if (rowsUpdated1 > 0) { // 업데이트가 성공한 경우
+			System.out.println("고객 정보 업데이트 성공");
+			conn.close();
+			stmt1.close();
+			String result = "true";
+			return result;
+		}
+		else{	//실패시 오류메세지 출력
+			
+			String sql2 = "UPDATE manager SET manager_pw = ?, manager_name = ?, updatedate = NOW() WHERE manager_id = ?";
+			PreparedStatement stmt2 = conn.prepareStatement(sql2);
+			
+			stmt2.setString(1, updatePw);	
+			stmt2.setString(2, updateName);	
+			stmt2.setString(3, idIn);
+			int rowsUpdated2 = stmt2.executeUpdate();
+			if (rowsUpdated2 > 0) { // 업데이트가 성공한 경우
+				System.out.println("매니저 정보 업데이트 성공");
+				conn.close();
+				stmt1.close();
+				stmt2.close();
+				String result = "true";
+				return result;
+			}
+		}
+		System.out.println("업데이트 실패");
+		conn.close();
+		stmt1.close();
+		String result = "false";
+		return result;
+	}
 }
