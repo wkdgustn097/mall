@@ -5,8 +5,11 @@
 <meta charset="UTF-8">
 <title>noticeOne</title>
 </head>
+<%
+	int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+%>
 <body>
-	<form action="<%=request.getContextPath()%>/insertNoticeAction.jsp">
+	<form action="<%=request.getContextPath()%>/updateNoticeAction.jsp">
 		<table border="1">
 			<tr>
 				<td>제목</td>
@@ -24,8 +27,7 @@
 
 
 		</table>
-		<button><a href="<%=request.getContextPath() %>/updateNoticeForm.jsp?noticeNo">공지사항수정</a></button>
-		<button><a href="<%=request.getContextPath() %>/deleteNoticeAction.jsp?noticeNo">공지사항삭제</a></button>
+		<button>공지사항수정</button>
 	</form>
 </body>
 </html>

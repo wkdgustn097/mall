@@ -25,7 +25,7 @@
 
 
 		</table>
-		<button>공지사항추가</button>
+		<button>완료</button>
 	</form>
 </body>
 </html>

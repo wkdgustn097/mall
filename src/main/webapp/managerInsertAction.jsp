@@ -19,7 +19,7 @@
 	
 	if (status.equals("중복 아이디입니다")) {
 		System.out.println("매니저 아이디 중복");
-		String msg = URLEncoder.encode("중복된 아이디입니다"); // 한글이 깨찜 방지
+		String msg = URLEncoder.encode("중복된 아이디입니다"); // 한글이 깨짐 방지
 		response.sendRedirect(request.getContextPath()+"/managerInsert.jsp?msg="+msg);
 	}else{
 		response.sendRedirect(request.getContextPath()+"/login.jsp");

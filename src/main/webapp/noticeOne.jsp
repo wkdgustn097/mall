@@ -11,6 +11,7 @@
     <title>noticeOne</title>
 </head>
 <%
+	
     int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
     Class.forName("org.mariadb.jdbc.Driver");
     System.out.println("드라이브 로딩 성공");
