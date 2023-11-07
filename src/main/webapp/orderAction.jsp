@@ -19,5 +19,5 @@
 	OrderDao orderDao = new OrderDao();
 	Orders orders = orderDao.insertOrders(goodsNo, goodsTotal, quantity, customerNo, customerAddrNo); //orderDao.insertOrders에 값 넘겨주
 	
-	response.sendRedirect(request.getContextPath()+"/main.jsp"); // update 되면 main으로 넘어가
+	response.sendRedirect(request.getContextPath()+"/thankYou.jsp"); // update 되면 main으로 넘어가
 %>

@@ -87,14 +87,14 @@
 		            <div class="form-group row">
 		              <div class="col-md-12">
 		                <label for="c_companyname" class="text-black">고객 ID</label>
-		                <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=memberId%>">
+		                <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=memberId%>" readonly="readonly">
 		              </div>
 		            </div>
 		            
 		            <div class="form-group row">
 		              <div class="col-md-12">
 		                <label for="c_companyname" class="text-black">고객 주소</label>
-		                <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=address%>">
+		                <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=address%>" readonly="readonly">
 		              </div>
 		            </div>
 		            
@@ -102,14 +102,14 @@
 		            <div class="form-group row">
 		              <div class="col-md-12">
 		                <label for="c_companyname" class="text-black">상품 설명</label>
-		                <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=goodsMemo%>">
+		                <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=goodsMemo%>" readonly="readonly">
 		              </div>
 		            </div>
 		            
 		            <div class="form-group row">
 		              <div class="col-md-12">
 		                <label for="c_companyname" class="text-black">수량</label>
-		                <input type="text" class="form-control" id="c_companyname" name="quantity" value="<%=quantity%>">
+		                <input type="text" class="form-control" id="c_companyname" name="quantity" value="<%=quantity%>" readonly="readonly">
 		              </div>
 		            </div>
 		            
@@ -117,28 +117,28 @@
 		            <div class="form-group row">
 		              <div class="col-md-12">
 		                <label for="c_companyname" class="text-black">상품 번호</label>
-		                <input type="text" class="form-control" id="c_companyname" name="goodsNo" value="<%=goodsNo%>">
+		                <input type="text" class="form-control" id="c_companyname" name="goodsNo" value="<%=goodsNo%>" readonly="readonly">
 		              </div>
 		            </div>
 		            
 		            <div class="form-group row">
 		              <div class="col-md-12">
 		                <label for="c_companyname" class="text-black">상품 이름</label>
-		                <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=goodsTitle%>">
+		                <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=goodsTitle%>" readonly="readonly">
 		              </div>
 		            </div>
 
 			         <div class="form-group row">
 		              <div class="col-md-12">
 		                <label for="c_companyname" class="text-black">상품 가격</label>
-		                <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=goodsPrice%>">
+		                <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=goodsPrice%>" readonly="readonly">
 		              </div>
 		            </div>
 		            
 		            <div class="form-group row">
 		              <div class="col-md-12">
 		                <label for="c_companyname" class="text-black">재고량</label>
-		                <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=soldout%>">
+		                <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="<%=soldout%>" readonly="readonly">
 		              </div>
 		            </div>
 		          </div>
