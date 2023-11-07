@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div class="container">
-	<form action="<%=request.getContextPath()%>/myPageAction.jsp" id="myPageForm">	<!-- 비밀번호 수정값 전송 form -->
+	
 	<%
 		if(msg != null) {
 	%>
@@ -29,78 +29,90 @@
 	<%
 		}
 	%>
-	<table border="1" class="table">
-		<tr>
-			<td>아이디</td>
-			<td><%=loginId%></td>
-		</tr>
+	
 		<%
 			if(myPageOpen == null || "false".equals(myPageOpen)) {
 		%>
+				<form action="<%=request.getContextPath()%>/myPageAction.jsp">	<!-- 비밀번호 확인 전송 form -->
+					<table border="1" class="table">
+						<tr>
+							<td>아이디</td>
+							<td><%=loginId%></td>
+						</tr>	
+						<tr>
+							<td>원래 비밀번호</td>
+							<td><input type="password" name="beforePw" id="beforePw"></td>
+						</tr>
+					</table>
+					<button type="submit" class="btn btn-success">수정</button>
+				</form>
+		<%
+			}
+		%>
+		<%
+			if("true".equals(myPageOpen)) {	//비밀번호 확인 후 마이페이지 노출
+		%>
+			<form action="<%=request.getContextPath()%>/myPageActionGo.jsp" id="myPageForm">	<!-- 마이페이지 수정 form -->
+				<table border="1" class="table">
+						<tr>
+							<td>아이디</td>
+							<td><%=loginId%></td>
+						</tr>
 				<tr>
-				<td>원래 비밀번호</td>
-				<td><input type="password" name="beforePw" id="beforePw"></td>
+					<td>새로운비밀번호</td>
+					<td><input type="password" name="updatePw" id="updatePw"></td>
 				</tr>
-		<%
-			}
-		%>
-		<%
-			if("true".equals(myPageOpen)) {
-		%>
-		
-			<tr>
-				<td>새로운비밀번호</td>
-				<td><input type="password" name="updatePw" id="updatePw"></td>
-			</tr>
-			<tr>
-				<td>비밀번호 확인</td>
-				<td><input type="password" name="updatePwCk" id="updatePwCk"></td>
-			</tr>
+				<tr>
+					<td>비밀번호 확인</td>
+					<td><input type="password" name="updatePwCk" id="updatePwCk"></td>
+				</tr>
+				
+				<tr>
+					<td>이름</td>
+					<td><input type="text" name="updateName" id="updateName"></td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td><input type="text" name="updatePhone" id="updatePhone"></td>
+				</tr>
+				<tr>
+					<td>주소</td>
+					<td><input type="text" name="updateAddress" id="updateAddress"></td>
+				</tr>
 			
-			<tr>
-				<td>이름</td>
-				<td><input type="text" name="updateName" id="updateName"></td>
-			</tr>
-			<tr>
-				<td>전화번호</td>
-				<td><input type="text" name="updatePhone" id="updatePhone"></td>
-			</tr>
-			<tr>
-				<td>주소</td>
-				<td><input type="text" name="updateAddress" id="updateAddress"></td>
-			</tr>
-		<%
-			}
-		%>
-	</table>
-	<button type="submit" class="btn btn-success" id="myPageBtn">수정</button>
+				</table>
+				<button type="button" class="btn btn-success" id="myPageBtn">수정</button>
 	
 
-		<script>
-			/* $(document).ready(function(){
-			$('#myPageBtn').click(function(){
-
-				let getName= RegExp(/^[가-힣]+$/);
-				
-
-				if($('#updatePw').val() != $('#updatePwCk').val()){
-					alert('비밀번호가 맞지 않습니다 다시 입력해주세요');
-					$('#updatePw').val('');
-					$('#updatePwCk').val('');
-					return false;
-				}
-				if(!getName.test($("#updateName").val())){
-					alert("이름은 한글만 입력 가능합니다.")
-					$("#updateName").val("");
-					$("#updateName").focus();
-					return false;
-				} 
-				$('#myPageForm').submit();
-			});
-			}); */
-			
-		</script>
-	</form>
+				<script>
+					$(document).ready(function(){
+					$('#myPageBtn').click(function(){
+		
+						let getName= RegExp(/^[가-힣]+$/);
+						
+		
+						if($('#updatePw').val() != $('#updatePwCk').val()){
+							alert('비밀번호가 맞지 않습니다 다시 입력해주세요');
+							$('#updatePw').val('');
+							$('#updatePwCk').val('');
+							return false;
+						}
+						if(!getName.test($("#updateName").val())){
+							alert("이름은 한글만 입력 가능합니다.")
+							$("#updateName").val("");
+							$("#updateName").focus();
+							return false;
+						} 
+						$('#myPageForm').submit();
+					});
+					}); 
+					
+				</script>
+		</form>
+		<%
+			}
+		%>
+	
 	</div>
 	
 </body>
