@@ -10,10 +10,12 @@
 	}
 	
 	// 같은 폼에서 cart로 가기위한 코드 
-	String action = request.getParameter("action");	
-	if ("장바구니 추가".equals(action)) {	
-		 int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
-		 response.sendRedirect(request.getContextPath() + "/cartInsertAction.jsp");
+	String action = request.getParameter("action");	  // input value 값
+	if ("장바구니 추가".equals(action)) {	 // input 버튼이 클릭이 되면
+		 int goodsNo = Integer.parseInt(request.getParameter("goodsNo")); // 값 넘겨받고
+		 int quantity = Integer.parseInt(request.getParameter("quantity")); // 값 넘겨받기
+		 response.sendRedirect(request.getContextPath() + "/cartInsertAction.jsp?goodsNo=" + goodsNo +  "&quantity=" + quantity);
+		 // 그 값을 넘겨주면서 이동
 	}
 	
 	
