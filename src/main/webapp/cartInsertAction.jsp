@@ -1,33 +1,21 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>장바구니 추가 테스트</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import = "vo.*" %>
+<%@ page import = "dao.*" %>
+<%@ page import = "java.sql.*" %>
 <%
-String goodsNoString = request.getParameter("goodsNo");
-int goodsNo = 0; // 기본값 설정
+	if(session.getAttribute("loginId") == null) { // 로그인 되어 있으면
+		response.sendRedirect(request.getContextPath()+"/main.jsp");
+		return;
+	}
+	
+	int goodsNo = Integer.parseInt(request.getParameter("goodsNo")); // 넘겨온 값 받기
+	int quantity = Integer.parseInt(request.getParameter("quantity")); // 넘겨온 값 받기
+	
+	String memberId = (String)(session.getAttribute("loginId")); //session 값 가져오기 
+	
+	CartDao cartDao = new CartDao(); 
+	Cart cart = cartDao.insertCart(goodsNo, quantity, memberId);
+	
+	response.sendRedirect(request.getContextPath() + "/cartForm.jsp?");
 
-if (goodsNoString != null && !goodsNoString.isEmpty()) {
-    try {
-        goodsNo = Integer.parseInt(goodsNoString);
-        // "goodsNo"를 정수로 변환
 %>
-    <p>장바구니에 상품 번호 <%= goodsNo %>를 추가했습니다.</p>
-<%
-    } catch (NumberFormatException e) {
-        // 정수로 변환할 수 없는 경우
-%>
-    <p>상품 번호가 올바르지 않습니다.</p>
-<%
-    }
-} else {
-    // "goodsNo" 파라미터가 전달되지 않은 경우
-%>
-    <p>상품 번호가 전달되지 않았습니다.</p>
-<%
-}
-%>
-</body>
-</html>
