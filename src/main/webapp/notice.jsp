@@ -1,14 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- /*
-* Bootstrap 5
-* Template Name: Furni
-* Template Author: Untree.co
-* Template URI: https://untree.co/
-* License: https://creativecommons.org/licenses/by/3.0/
-*/ -->
+<%@ page import ="java.sql.*" %>
+<%@ page import = "java.util.*" %>
+<%@ page import = "dao.*" %>
+<%@ page import = "vo.*" %>
+<%
+	int currentPage = 1;
+	if(request.getParameter("currentPage") != null){
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+	}
+	int rowPerPage = 10;
+	int beginRow = (currentPage-1)*rowPerPage;
+	NoticeDao noticeDao = new NoticeDao();
+	
+	ArrayList <Notice> list = noticeDao.noticeList(beginRow, rowPerPage);
+%>
 <!doctype html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="css/default.css">
+  <link rel="stylesheet" href="css/style.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="author" content="Untree.co">
@@ -24,7 +35,7 @@
 		<link href="css/style.css" rel="stylesheet">
 		<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
 	</head>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<body>
 
 		<!-- Start Header/Navigation -->
@@ -83,122 +94,47 @@
 		
 
 		<!-- Start Blog Section -->
-		<div class="blog-section">
-			<div class="container">
-				
-				<div class="row">
-
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/post-1.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">자주 묻는 질문: 배송</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 19, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/post-2.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">재입고 문의</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Robert Fox</a></span> <span>on <a href="#">Dec 15, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/post-3.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">Small Space Furniture Apartment Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 12, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/post-1.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">First Time Home Owner Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 19, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/post-2.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">How To Keep Your Furniture Clean</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Robert Fox</a></span> <span>on <a href="#">Dec 15, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/post-3.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">Small Space Furniture Apartment Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 12, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/post-1.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">First Time Home Owner Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 19, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/post-2.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">How To Keep Your Furniture Clean</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Robert Fox</a></span> <span>on <a href="#">Dec 15, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-sm-6 col-md-4 mb-5">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/post-3.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">Small Space Furniture Apartment Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 12, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
+		<div class="blog-section" style="text-align: center;">
+    		<table border="2" style="margin: 0 auto; border-collapse: collapse; width: 90%;">
+        		<tr>
+            		<th>notice_no</th>
+            		<th>notice_title</th>
+            		<th>createdate</th>
+            		<th>updatedate</th>
+        	    </tr>
+        <%
+            for(Notice n : list){
+        %>
+        		<tr>
+            		<td><%=n.getNoticeNo() %></td>
+            		<td><a href="noticeOne.jsp?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle() %></a></td>
+            		<td><%=n.getCreatedate() %></td>
+           		 	<td><%=n.getUpdatedate() %></td>
+        		</tr>
+        <%
+            }
+        %>
+    		</table>
 		</div>
+
+
+	
+
+
+		<ol style="text-align: center;">
+    		<li style="display: inline-block;" class="first"><a href="#a">첫페이지</a></li>
+    		<li style="display: inline-block;" class="prev"><a href="#a">이전페이지</a></li>
+    		<li style="display: inline-block;"><a href="#a">1</a></li>
+   			<li style="display: inline-block;"><a href="#a">2</a></li>
+   		    <li style="display: inline-block;"><a href="#a">3</a></li>
+   			<li style="display: inline-block;" class="next"><a href="#a">다음페이지</a></li>
+   			<li style="display: inline-block;" class="last"><a href="#a">마지막페이지</a></li>
+		</ol>
+		
+		
+		
+
+	
 		<!-- End Blog Section -->	
 
 		
