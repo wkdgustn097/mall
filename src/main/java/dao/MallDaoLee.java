@@ -278,4 +278,70 @@ public class MallDaoLee {
 	    rs1.close();
 		return myPageInfoList;
 	}
+	public String deleteUser(String idIn) throws Exception  {
+		
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		// id값을 받아서 고객이 맞는지 먼저 체크 
+		String sqlCk = "SELECT customer_no cusromerNo FROM customer WHERE customer_id = ?";
+		PreparedStatement stmtCk = conn.prepareStatement(sqlCk);
+		stmtCk.setString(1, idIn);
+		ResultSet rsCk = stmtCk.executeQuery();
+		
+		if (rsCk.next()) { // 고객 아이디 확인완료 -> 삭제
+			System.out.println("고객 아이디 확인완료");
+			String cusromerNo = rsCk.getString("cusromerNo");	//고객번호 추출
+			
+			String sqlDel1 = "DELETE A, D FROM customer_addr A INNER JOIN customer_detail D ON A.customer_no = D.customer_no  WHERE D.customer_no= ?";
+			PreparedStatement stmtDel1 = conn.prepareStatement(sqlDel1);
+			stmtDel1.setString(1, cusromerNo);		// 고객번호로 1차 정보 삭제
+			int rowDel1 = stmtDel1.executeUpdate(); // 삭제(업데이트) 확인
+			
+			if (rowDel1  > 0) { 	// 1차정보 삭제완료
+				System.out.println("고객 아이디 1차 삭제 성공");
+				
+				String sqlDel11 = "DELETE FROM customer WHERE customer_id= ?";
+				PreparedStatement stmtDel11 = conn.prepareStatement(sqlDel11);
+				stmtDel11.setString(1, idIn);
+				int rowDel11 = stmtDel11.executeUpdate(); // 삭제(업데이트) 확인
+				
+				if (rowDel11  > 0) { 	// 2차정보 삭제완료
+					System.out.println("고객 아이디 2차 삭제 성공");
+					conn.close();
+					stmtCk.close();
+					rsCk.close();
+					stmtDel1.close();
+					stmtDel11.close();
+					String deleteUser="true";
+					return deleteUser;
+				}
+				
+			}
+		}else {
+			String sqlDel2 = "DELETE FROM manager WHERE manager_id = ?";
+			PreparedStatement stmtDel2 = conn.prepareStatement(sqlDel2);
+			stmtDel2.setString(1, idIn);
+			int rowDel2 = stmtDel2.executeUpdate(); // 삭제(업데이트) 확인
+			if (rowDel2  > 0) { 	// 삭제완료
+				System.out.println("매니저 아이디 삭제 성공");
+				conn.close();
+				stmtCk.close();
+				rsCk.close();
+				stmtDel2.close();
+				String deleteUser="true";
+				return deleteUser;
+			}
+		}
+		System.out.println("아이디 삭제 실패");
+		conn.close();
+		stmtCk.close();
+		rsCk.close();
+		String deleteUser="false";
+		return deleteUser;
+	}
 }
