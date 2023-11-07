@@ -30,7 +30,7 @@
 							if(session.getAttribute("loginId") != null) { 	// 로그인 되어 있으면	
 						%>
 						<li><a class="nav-link" href="logout.jsp">Logout</a></li>
-						<li><a class="nav-link" href="myPage.jsp">MyPage</a></li>
+						<li><a class="nav-link" href="myPageInfo.jsp">MyPage</a></li>
 						<%
 							}
 						%>
