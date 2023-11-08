@@ -18,8 +18,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<br>
 <div class="container ">
-	<h1>로그인</h1>
+	
+	<h1>Login</h1>
+	<br>
 	<%
 		if(msg != null) {
 	%>
@@ -27,27 +30,30 @@
 	<%
 		}
 	%>
+	
 	<form method="post" action="<%=request.getContextPath()%>/loginAction.jsp">
-		<table border="1" class="table table-bordered table-striped">
+		
+			<table>
 			<tr>
-				<th><h2>아이디</h2></th>
+				<td><div class="form-label"><h2>ID &nbsp;</h2></div></td>
 				<td><h2><input type="text" name="id"></h2></td>
 			</tr>
 			<tr>
-				<th><h2>패스워드</h2></th>
+				<td><div class="form-label"><h2>PW </h2></div></td>
 				<td><h2><input type="password" name="pw"></h2></td>
 			</tr>
-			<tr>
-				<th colspan="2">
+			</table>
+			<br>
+				
 					<button type="submit" class="btn btn-primary">로그인</button>
 					<a href="<%=request.getContextPath()%>/insert.jsp" 
 					class="btn btn-success">회원가입</a>
 					<a href="<%=request.getContextPath()%>/managerInsert.jsp" 
 					class="btn btn-success">매니저가입</a>
-				</th>
-			</tr>
-		</table>
+				
+		
 	</form>
 	</div>
+	
 </body>
 </html>
