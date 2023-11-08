@@ -28,6 +28,7 @@
 			
 		}else if((managerNo1 = logOn.get(0).getManagerNo()) != 0){ // 매니저 로그인 성공	
 			session.setAttribute("loginId", managerId1);
+			session.setAttribute("managerId", managerId1);
 			System.out.println(managerNo1 + "<<<<메니저번호");
 			System.out.println(managerId1 + "<<<<매니저아이디");
 			response.sendRedirect(request.getContextPath()+"/main.jsp");

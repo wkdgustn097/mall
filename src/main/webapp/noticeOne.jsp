@@ -11,9 +11,11 @@
     <title>noticeOne</title>
 </head>
 <%
-	
-    int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-    Class.forName("org.mariadb.jdbc.Driver");
+	int noticeNo = 1;
+	if(request.getParameter("noticeNo") != null){
+		noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+	}
+	Class.forName("org.mariadb.jdbc.Driver");
     System.out.println("드라이브 로딩 성공");
     String url = "jdbc:mariadb://localhost:3306/mall";
     String dbuser = "root";
