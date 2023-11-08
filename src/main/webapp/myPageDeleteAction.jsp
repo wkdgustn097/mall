@@ -5,12 +5,11 @@
 <%@ page import = "java.util.*" %>
 <%@ page import = "dao.*" %>
 <%@ page import="java.net.URLEncoder"%>
-<%	
-
-	String idIn = (String)(session.getAttribute("loginId"));
+<%
+String idIn = (String)(session.getAttribute("loginId"));
 	String pwIn = request.getParameter("beforePw");
-	MallDaoLee mallDaoLee = new MallDaoLee();
-	String deleteUser = mallDaoLee.deleteUser(idIn);
+	UserDao userDao = new UserDao();
+	String deleteUser = userDao.deleteUser(idIn);
 	
 	if(deleteUser.equals("false")){
 		System.out.println("삭제실패");
@@ -19,5 +18,4 @@
 		System.out.println("삭제성공");
 		response.sendRedirect(request.getContextPath()+"/logout.jsp");
 	}
-	
 %>

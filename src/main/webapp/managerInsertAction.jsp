@@ -6,13 +6,13 @@
 <%@ page import = "dao.*" %>
 <%@ page import="java.net.URLEncoder"%>
 <%
-	String managerId = request.getParameter("insertId");
+String managerId = request.getParameter("insertId");
 	String managerPw = request.getParameter("insertPw");
 	String managerName = request.getParameter("insertName");
 	
-	MallDaoLee mallDaoL = new MallDaoLee();
+	UserDao userDao = new UserDao();
 	System.out.println(managerId);
-	Map<String, Object> result = mallDaoL.insertManager(managerId, managerPw, managerName);
+	Map<String, Object> result = userDao.insertManager(managerId, managerPw, managerName);
 	
 	String status = (String) result.get("status");
 	System.out.println(status + "<---매니저아이디 체크 ");
@@ -24,5 +24,4 @@
 	}else{
 		response.sendRedirect(request.getContextPath()+"/login.jsp");
 	}
-
 %>

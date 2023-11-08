@@ -12,9 +12,9 @@
 	String managerId = request.getParameter("id");
 	String managerPw = request.getParameter("pw");
 	
-	MallDao mallDao = new MallDao();
+	UserDao userDao = new UserDao();
 
-	ArrayList<Login> logOn = mallDao.login(customerId,customerPw,managerId,managerPw);
+	ArrayList<Login> logOn = userDao.login(customerId,customerPw,managerId,managerPw);
 	if (logOn.size() > 0) {	// logOn에 값이 없으면 로그인 실패로 보냄
 		int customerNo1 = logOn.get(0).getCustomerNo();
 		int managerNo1 = logOn.get(0).getManagerNo();
