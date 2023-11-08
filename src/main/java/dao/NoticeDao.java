@@ -5,9 +5,9 @@ import java.sql.*;
 
 public class NoticeDao {
 	
-	public int getLastPage(int rowPerPage)throws Exception{
+	public int lastPage(int total)throws Exception{
 		
-		int totalRow = 0;
+		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
 		String dbuser = "root";
@@ -19,14 +19,11 @@ public class NoticeDao {
 		ResultSet rs = stmt.executeQuery();
 		
 		if(rs.next()) {
-			totalRow = rs.getInt("count(*)");
-		}
-		int lastPage = totalRow / rowPerPage;
-		if(totalRow % rowPerPage != 0) {
-			lastPage += 1;
+			row = rs.getInt("count(*)");
 		}
 		
-		return lastPage;
+		
+		return row;
 	}
 
 	
@@ -43,6 +40,7 @@ public class NoticeDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1,notice.getNoticeTitle());
 		stmt.setString(2,notice.getNoticeContent());
+		stmt.setInt(3, notice.getNoticeNo());
 		System.out.println(stmt + "<-- stmt updateNoticeAction()");
 		row = stmt.executeUpdate();
 		return row;
@@ -78,10 +76,11 @@ public class NoticeDao {
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		String sql = "INSERT INTO notice(notice_title, notice_content, createdate, updatedate) VALUES (?, ?, NOW(), NOW())";
+		String sql = "INSERT INTO notice(manager_no, notice_title, notice_content, createdate, updatedate) VALUES (?, ?, ?, NOW(), NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, notice.getNoticeTitle());
-		stmt.setString(2, notice.getNoticeContent());
+		stmt.setInt(1, notice.getManagerNo());
+		stmt.setString(2, notice.getNoticeTitle());
+		stmt.setString(3, notice.getNoticeContent());
 		System.out.println(stmt + "<-- stmt insertNoticeAction()");
 		row = stmt.executeUpdate();
 		return row;

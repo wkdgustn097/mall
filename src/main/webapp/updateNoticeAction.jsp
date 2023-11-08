@@ -8,14 +8,15 @@
 	Notice n = new Notice();
 	n.setNoticeTitle(request.getParameter("getNoticeTitle"));
 	n.setNoticeContent(request.getParameter("getNoticeContent"));
+	n.setUpdatedate(request.getParameter("getUpdatedate"));
 	
 	int row = nd.updateNoticeAction(n);
 	
 	if(row == 1){
 		System.out.println("수정완료");
-		response.sendRedirect(request.getContextPath()+"/NoticeOne.jsp");
+		response.sendRedirect(request.getContextPath()+"/notice.jsp");
 	}
-		response.sendRedirect(request.getContextPath()+"/NoticeForm.jsp?NoticeNo");
+		response.sendRedirect(request.getContextPath()+"/noticeOne.jsp?noticeNo");
 %>
 <!DOCTYPE html>
 <html>
