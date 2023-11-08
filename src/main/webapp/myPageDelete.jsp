@@ -20,7 +20,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<br>
 	<div class="container">
+	<h1> 회원탈퇴 </h1>
 		<%
 			if(msg != null) {
 		%>

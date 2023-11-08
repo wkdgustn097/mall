@@ -19,9 +19,12 @@ if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면
 </head>
 <body>
 	<div class="container">
+	<br>
 		<h1>회원가입</h1>
+	<br>
+	
 		<form action="<%=request.getContextPath()%>/insertAction.jsp" id="insertForm"> <!-- form으로 데이터 전송 -->
-		<table border="1" class="table table-primary">
+		<table class="table table-hover ">
 		<tr>
 			<%
 				if(msg != null) {
@@ -55,6 +58,7 @@ if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면
 			<td><input type="text" name="insertAddress" id="insertAddress"></td>
 		</tr>
 		</table>
+		
 		<button type="submit" class="btn btn-success" id="insertBtn">회원가입</button>
 		<script>
 			

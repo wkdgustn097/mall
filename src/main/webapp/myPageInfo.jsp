@@ -44,7 +44,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<br>
+
 	<div class="container">
+		<h1> 내 정보 </h1>
 		<table class="table table-bordered table-hover">
 		<tr>
 			<td>아이디</td>
@@ -72,8 +75,11 @@
 		</tr>
 		
 		</table>
+		<br>
+		
 		<a href="<%=request.getContextPath()%>/myPage.jsp" 
 		class="btn btn-success">회원정보수정</a>
+		<br>
 		<br>
 		<a href="<%=request.getContextPath()%>/myPageDelete.jsp"
 		class="btn btn-danger">회원탈퇴</a>

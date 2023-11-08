@@ -17,9 +17,11 @@
 </head>
 <body>
 	<div class="container">
+	<br>
 		<h1>매니저 전용 페이지</h1>
+	<br>
 		<form action="<%=request.getContextPath()%>/managerInsertAction.jsp" id="insertForm"> <!-- from으로 데이터 전송 -->
-		<table border="1" class="table table-primary">
+		<table class="table table-hover ">
 		<tr>
 			<%
 				if(msg != null) {
