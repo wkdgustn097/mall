@@ -12,8 +12,8 @@
 	String customerPhone = request.getParameter("insertPhone");
 	String address = request.getParameter("insertAddress");
 	
-	MallDao mallDao = new MallDao();
-	Map<String, Object> result = mallDao.insert(customerId, customerPw, customerName, customerPhone, address);
+	UserDao userDao = new UserDao();
+	Map<String, Object> result = userDao.insert(customerId, customerPw, customerName, customerPhone, address);
 	
 	String status = (String) result.get("status");
 	System.out.println(status);

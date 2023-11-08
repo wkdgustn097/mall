@@ -5,14 +5,13 @@
 <%@ page import = "java.util.*" %>
 <%@ page import = "dao.*" %>
 <%@ page import="java.net.URLEncoder"%>
-<%	
-
-	String idIn = (String)(session.getAttribute("loginId"));
+<%
+String idIn = (String)(session.getAttribute("loginId"));
 	String pwIn = request.getParameter("beforePw");
-	MallDaoLee mallDaoLee = new MallDaoLee();
+	UserDao userDao = new UserDao();
 	
 	// 마이페이지 패스워드 체크 
-	String pwCk = mallDaoLee.pwCk(idIn, pwIn);
+	String pwCk = userDao.pwCk(idIn, pwIn);
 	System.out.println(pwIn);
 	System.out.println(pwCk);
 	if (pwCk.equals("false")) {	// 이전패스워드 확인 실패

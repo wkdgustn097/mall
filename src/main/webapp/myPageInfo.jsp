@@ -9,13 +9,15 @@
 <%@ page import = "dao.*" %>
 <%@ page import="java.net.URLEncoder"%>
 <%
+
+
 	if(session.getAttribute("loginId") == null) { // 로그인이 안되어있으면 login.jsp로 보냄
 		response.sendRedirect(request.getContextPath()+"/login.jsp");
 		return;
 	}
 	String idIn = (String)(session.getAttribute("loginId"));
-	MallDaoLee mallDao = new MallDaoLee();
-	List<String> myPageInfo = mallDao.myPageInfo(idIn);
+	UserDao userDao = new UserDao();
+	List<String> myPageInfo = userDao.myPageInfo(idIn);
 	
 	String loadId = null;
 	String loadName = null;
