@@ -76,10 +76,11 @@ public class NoticeDao {
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		String sql = "INSERT INTO notice(notice_title, notice_content, createdate, updatedate) VALUES (?, ?, NOW(), NOW())";
+		String sql = "INSERT INTO notice(manager_no, notice_title, notice_content, createdate, updatedate) VALUES (?, ?, ?, NOW(), NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, notice.getNoticeTitle());
-		stmt.setString(2, notice.getNoticeContent());
+		stmt.setInt(1, notice.getManagerNo());
+		stmt.setString(2, notice.getNoticeTitle());
+		stmt.setString(3, notice.getNoticeContent());
 		System.out.println(stmt + "<-- stmt insertNoticeAction()");
 		row = stmt.executeUpdate();
 		return row;
