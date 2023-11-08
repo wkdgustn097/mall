@@ -199,31 +199,66 @@ public class CartDao {
 	
 	
 	// cartOrderAction에 사용되는 dao
-	public Orders insertCartOrder(int goodsNo,int customerNo, int customerAddrNo,int quantity,int totalPrice) throws Exception{
+	public Orders insertCartOrder(int customerNo) throws Exception{
 		Orders orders = new Orders();
 		Class.forName("org.mariadb.jdbc.Driver");
-		System.out.println("드라이브 로딩성공");
+		System.out.println("---성공---");
 		String url = "jdbc:mariadb://localhost:3306/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		String sql1 = "SELECT c.goods_no goodsNo, c.quantity quantity, ca.customer_addr_no customerAddrNo, g.goods_price goodsPrice FROM cart c INNER JOIN customer_addr ca ON c.customer_no = ca.customer_no INNER JOIN goods g ON c.goods_no = g.goods_no WHERE c.customer_no = ?";
+		PreparedStatement stmt1 = conn.prepareStatement(sql1);
+		stmt1.setInt(1, customerNo);
+		System.out.println(stmt1  + "<--stmt");	
+		ResultSet rs = stmt1.executeQuery(); 
+		
+		// select문이 있으면, 하나씩 처리
+		while(rs.next()) {
+            int goodsNo = rs.getInt("goodsNo");
+            int customerAddrNo = rs.getInt("customerAddrNo");
+            int quantity = rs.getInt("quantity");
+            int goodsPrice = rs.getInt("goodsPrice");
+            int totalPrice = goodsPrice * quantity;
+			
+			String sql2 = "INSERT INTO orders(goods_no, customer_no,customer_addr_no, quantity, total_price, orders_state, createdate, updatedate) VALUES(?,?,?,?,?,'주문완료',NOW(), NOW())";
+			PreparedStatement stmt2 = conn.prepareStatement(sql2);
+			stmt2.setInt(1, goodsNo);
+			stmt2.setInt(2, customerNo);
+			stmt2.setInt(3, customerAddrNo);
+			stmt2.setInt(4, quantity);
+			stmt2.setInt(5, totalPrice);
+			System.out.println(stmt2  + "<--stmt");	
+			
+			// stmt2를 실행하여 INSERT 쿼리를 수행
+			int rowsInserted = stmt2.executeUpdate(); 
+		    // INSERT 문을 실행한 결과가 1이면 성공
+		    if (rowsInserted == 1) {
+			       System.out.println("INSERT 성공");
+			   } else {
+			       System.out.println("INSERT 실패");
+			   }
+			
+			String sql3 = "DELETE FROM cart WHERE customer_no = ? and goods_no = ?";
+			PreparedStatement stmt3 = conn.prepareStatement(sql3);
+			stmt3.setInt(1, customerNo);
+			stmt3.setInt(2, goodsNo);
+			System.out.println(stmt3  + "<--stmt");	
+			
+		    // stmt3를 실행하여 DELETE 쿼리를 수행
+		    int rowsDeleted = stmt3.executeUpdate();
 
-		String sql = "INSERT INTO orders(goods_no, customer_no,customer_addr_no, quantity, total_price, orders_state, createdate, updatedate) VALUES(?,?,?,?,?,'주문완료',NOW(), NOW())";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, goodsNo);
-		stmt.setInt(2, customerNo);
-		stmt.setInt(3, customerAddrNo);
-		stmt.setInt(4, quantity);
-		stmt.setInt(5, totalPrice);
-		System.out.println(stmt  + "<--stmt");	
-		int row = stmt.executeUpdate();	//업데이트
-		if (row==1) {					//업데이트 확인
-			System.out.println("입력성공");
-		}  else {
-			System.out.println("입력실패");
+		    // DELETE 문을 실행한 결과가 1이면 성공
+		    if (rowsDeleted == 1) {
+		        System.out.println("DELETE 성공");
+		    } else {
+		        System.out.println("DELETE 실패");
+		    }
+
 		}
-		stmt.close();
-		stmt.close();
+		stmt1.close();
+		rs.close();
 		conn.close();
 		return orders;
 		
