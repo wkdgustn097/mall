@@ -89,13 +89,54 @@
 					$(document).ready(function(){
 					$('#myPageBtn').click(function(){
 		
+
+						let getId= RegExp(/^[a-zA-Z0-9]{4,12}$/);
 						let getName= RegExp(/^[가-힣]+$/);
+						let getExp = /^\d{3}-\d{3,4}-\d{4}$/;
 						
-		
+						
+						
+						
+						if($('#updatePw').val()==""){ 
+							alert("비밀번호를 입력하세요");        
+							$('#insertPw').focus();     
+							return false;
+						}
+						if($('#updatePw').val()==" " || $('#updatePw').val()=="  " || $('#updatePw').val()=="   "){ 
+							alert("공백은 입력 불가능 합니다");
+							$("#updatePw").val("");
+							$('#updatePw').focus();    
+							return false;
+						}
+						
+						if($('#updatePwCk').val()==""){
+							alert("비밀번호 확인을 입력하세요"); 
+							$('#updatePwCk').focus();
+							return false;
+						}
+						if($('#updatePwCk').val()==" " || $('#updatePwCk').val()=="  " || $('#updatePwCk').val()=="   "){
+							alert("공백은 입력 불가능 합니다"); 
+							$("#updatePwCk").val("");
+							$('#updatePwCk').focus(); 
+							return false;
+						}
 						if($('#updatePw').val() != $('#updatePwCk').val()){
 							alert('비밀번호가 맞지 않습니다 다시 입력해주세요');
 							$('#updatePw').val('');
 							$('#updatePwCk').val('');
+							return false;
+						}
+						
+						
+						if($('#updateName').val()==""){
+							alert("이름을 입력하세요");  
+							$('#updateName').focus(); 
+							return false;
+						}
+						if($('#updateName').val()==" " || $('#updateName').val()=="  " || $('#updateName').val()=="   "){
+							alert("공백은 입력 불가능 합니다"); 
+							$("#updateName").val("");
+							$('#updateName').focus(); 
 							return false;
 						}
 						if(!getName.test($("#updateName").val())){
@@ -103,7 +144,42 @@
 							$("#updateName").val("");
 							$("#updateName").focus();
 							return false;
-						} 
+						}
+						
+						
+						if($('#updatePhone').val()==""){
+							alert("전화번호를 입력하세요"); 
+							$('#updatePhone').focus();
+							return false;
+						}
+						if($('#updatePhone').val()==" " || $('#updatePhone').val()=="  " || $('#updatePhone').val()=="   "){
+							alert("공백은 입력 불가능 합니다");
+							$("#updatePhone").val("");
+							$('#updatePhone').focus(); 
+							return false;
+						}
+						if(!getExp.test($("#updatePhone").val())){
+							alert("유효한 휴대폰번호를 입력해주세요 (010-****-****)");
+							$("#updatePhone").val("");
+							$("#updatePhone").focus();
+							return false;
+						}
+						
+						
+						if($('#updateAddress').val()==""){
+							alert("주소를 입력하세요");  
+							$('#updateAddress').focus(); 
+							return false;
+						}
+						if($('#updateAddress').val()==" " || $('#updateAddress').val()=="  " || $('#updateAddress').val()=="   "){
+							alert("공백은 입력 불가능 합니다");
+							$("#updateAddress").val("");
+							$('#updateAddress').focus(); 
+							return false;
+						}
+						
+						
+						
 						$('#myPageForm').submit();
 					});
 					}); 
