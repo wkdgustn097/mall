@@ -13,6 +13,14 @@ if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면
 <jsp:include page="/inc/menuLogin.jsp"></jsp:include> <!-- 네비게이션바 -->
 <!DOCTYPE html>
 <html>
+<style>
+	.my-input {border-radius : 5px;
+		outline: 1px outset #000000;
+	}
+	.my-text{
+		font-weight: 900;
+	}
+</style>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -24,7 +32,7 @@ if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면
 	<br>
 	
 		<form action="<%=request.getContextPath()%>/insertAction.jsp" id="insertForm"> <!-- form으로 데이터 전송 -->
-		<table class="table table-hover ">
+		<table class="table table-hover">
 		<tr>
 			<%
 				if(msg != null) {
@@ -33,29 +41,29 @@ if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면
 			<%
 				}
 			%>
-			<td>아이디</td>
-			<td><input type="text" name="insertId" id="insertId"></td>
+			<td class="my-text">아이디</td>
+			<td><input class="my-input text-bg-secondary" type="text" name="insertId" id="insertId"></td>
 		</tr>
 		<tr>
-			<td>비밀번호</td>
-			<td><input type="password" name="insertPw" id="insertPw"></td>
+			<td class="my-text">비밀번호</td>
+			<td><input class="my-input text-bg-secondary" type="password" name="insertPw" id="insertPw"></td>
 		</tr>
 		<tr>
-			<td>비밀번호 확인</td>
-			<td><input type="password" name="insertPwCk" id="insertPwCk"></td>
+			<td class="my-text">비밀번호 확인</td>
+			<td><input class="my-input text-bg-secondary" type="password" name="insertPwCk" id="insertPwCk"></td>
 		</tr>
 		
 		<tr>
-			<td>이름</td>
-			<td><input type="text" name="insertName" id="insertName"></td>
+			<td class="my-text">이름</td>
+			<td><input class="my-input text-bg-secondary" type="text" name="insertName" id="insertName"></td>
 		</tr>
 		<tr>
-			<td>전화번호</td>
-			<td><input type="text" name="insertPhone" id="insertPhone"></td>
+			<td class="my-text">전화번호</td>
+			<td><input class="my-input text-bg-secondary" type="text" name="insertPhone" id="insertPhone"></td>
 		</tr>
 		<tr>
-			<td>주소</td>
-			<td><input type="text" name="insertAddress" id="insertAddress"></td>
+			<td class="my-text">주소</td>
+			<td><input class="my-input text-bg-secondary" type="text" name="insertAddress" id="insertAddress"></td>
 		</tr>
 		</table>
 		
