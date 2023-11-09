@@ -167,37 +167,6 @@ public class CartDao {
 		return list;
 	}
 	
-	
-	
-	
-	// cartOrderAction에 사용되는 dao / goodsNo, totalPrice, quantity 추출용
-	public CartCustJoin selectCartOrder(int customerNo) throws Exception{
-		CartCustJoin cartCustJoin = new CartCustJoin();
-		Class.forName("org.mariadb.jdbc.Driver");
-		System.out.println("드라이브 로딩성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
-		String dbuser = "root";                           
-		String dbpw = "java1234";          
-		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		
-		String sql = "SELECT g.goods_no goodsNo, g.goods_price goodsPrice, quantity FROM cart c INNER JOIN goods g ON c.goods_no = g.goods_no WHERE c.customer_no = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, customerNo);
-		System.out.println(stmt  + "<--stmt");
-		ResultSet rs = stmt.executeQuery(); 
-		if(rs.next()) {
-			cartCustJoin.setGoodsNo(rs.getInt("goodsNo"));
-			cartCustJoin.setGoodsPrice(rs.getInt("goodsPrice"));
-			cartCustJoin.setQuantity(rs.getInt("quantity"));
-		}
-		rs.close();
-		stmt.close();
-		conn.close();
-		return cartCustJoin;
-	}
-	
-	
-	
 	// cartOrderAction에 사용되는 dao
 	public Orders insertCartOrder(int customerNo) throws Exception{
 		Orders orders = new Orders();
@@ -262,5 +231,41 @@ public class CartDao {
 		conn.close();
 		return orders;
 		
+	}
+	
+	
+	//cartForm 상품 갯수 변경에 쓰이는 dao
+	public String[] updateQuantity(String newQuantity, String cartNo) throws Exception{  // 배열로 값 받
+		int row = 0;
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 로딩성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                           
+		String dbpw = "java1234";          
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		System.out.println(newQuantity  + "<--newQuantity");	
+		System.out.println(cartNo  + "<--cartNo");	
+		
+	    String[] newQuantityArray = newQuantity.split(","); // newQuantity와 cartNo를 각각 쉼표로 분리하여 배열에 저장
+	    String[] cartNoArray = cartNo.split(","); // newQuantity와 cartNo를 각각 쉼표로 분리하여 배열에 저장
+	    
+	    for (int i = 0; i < newQuantityArray.length; i++) {
+	        System.out.println(newQuantityArray[i] + "<--newQuantity");  // 디버깅 
+	        System.out.println(cartNoArray[i] + "<--cartNo"); // 디버깅 
+		
+			String sql = "UPDATE cart SET quantity = ? WHERE cart_no = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, newQuantityArray[i]);
+			stmt.setString(2, cartNoArray[i]);
+			System.out.println(stmt  + "<--stmt------------>");	
+			
+			int row1 = stmt.executeUpdate();
+		    if (row1 == 1) {
+		        System.out.println("update성공");
+		     } else {
+		        System.out.println("update실패");
+		     }
+	    }
+	    return new String[]{String.valueOf(row)};
 	}
 }
