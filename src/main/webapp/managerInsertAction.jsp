@@ -6,7 +6,7 @@
 <%@ page import = "dao.*" %>
 <%@ page import="java.net.URLEncoder"%>
 <%
-String managerId = request.getParameter("insertId");
+	String managerId = request.getParameter("insertId");
 	String managerPw = request.getParameter("insertPw");
 	String managerName = request.getParameter("insertName");
 	

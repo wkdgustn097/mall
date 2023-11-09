@@ -2,7 +2,11 @@
 <%@ page import="java.util.*" %>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "vo.Manager" %>
-<%
+<%	
+	if(session.getAttribute("managerId") == null){
+		response.sendRedirect(request.getContextPath()+"/notice.jsp");
+		return;
+	}
 	String url = "jdbc:mariadb://localhost:3306/mall";
 	String dbuser = "root";
 	String dbpw = "java1234";
@@ -27,6 +31,7 @@
 	rs.close();
 	stmt.close();
 	conn.close();	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -66,10 +71,8 @@
     		</tr>
 		</table>
 		<button>완료</button>
+
 	</form>
-	
-	<script>
-	
-	</script>
+		
 </body>
 </html>
