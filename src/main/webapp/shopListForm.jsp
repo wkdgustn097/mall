@@ -16,7 +16,7 @@
 	int total = 0;
 	
 	// totalRow는 goods가 기
-	MallDao mallDao = new MallDao();
+	ShopListDao mallDao = new ShopListDao();
 	ArrayList<Gijoin> list = mallDao.selectShopList(beginRow, rowPerPage);
 	int totalRow = mallDao.lastPage(total);
 	int lastPage = totalRow/rowPerPage;
