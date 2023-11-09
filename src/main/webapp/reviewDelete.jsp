@@ -50,6 +50,9 @@
             <td><%=n.getReviewContent() %></td>
             <td><%=n.getCreatedate() %></td>
             <td><%=n.getUpdatedate() %></td>
+            <form action="<%=request.getContextPath()%>/reviewDeleteAction.jsp">
+            <td><input name="reviewNo" value="<%=n.getReviewNo() %>" readonly><button type="submit">리뷰삭제</button></td>
+            </form>
         </tr>
         <%
             }
@@ -57,17 +60,6 @@
     </table>
 
 </div>
-
-	<br>
-	<br>
-	<a href="<%=request.getContextPath()%>/main.jsp" class="btn btn-success">홈으로</a>
-	<br>
-	<br>
-	<a href="<%=request.getContextPath()%>/reviewInsert.jsp" class="btn btn-success">리뷰입력</a>
-	<br>
-	<br>
-	<a href="<%=request.getContextPath()%>/reviewDelete.jsp" class="btn btn-success">리뷰삭제</a>
-	
 </div>
 </body>
 </html>
