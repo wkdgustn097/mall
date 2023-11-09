@@ -3,6 +3,11 @@ package dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.InputStream;
+import com.oreilly.servlet.*;
+
+
+
 
 import vo.*;
 import java.sql.*;
@@ -61,5 +66,51 @@ public class ShopListDao {
 		conn.close();
 		return list;
 	}
+	
+	
+	public Gijoin insertShopGoods(String goodsTitle, String goodsPrice, String goodsMemo, String fileName, String originName, String contentType) throws Exception{
+		Gijoin gijoin = new Gijoin();
+		//Driver 설정
+		Class.forName("org.mariadb.jdbc.Driver");
+		String url = "jdbc:mariadb://localhost:3306/mall" ;
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+
+		String sql = "INSERT INTO goods (goods_title, goods_price, soldout, goods_memo, createdate, updatedate) values (?, ?, 'N', ?, NOW(), NOW())";
+		PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); 
+		stmt.setString(1, goodsTitle);
+		stmt.setString(2, goodsPrice);
+		stmt.setString(3, goodsMemo);
+		
+		int row1 = stmt.executeUpdate();
+		ResultSet rs = stmt.getGeneratedKeys();
+		
+		int goodsNo = 0;
+		if(rs.next()){
+			goodsNo = rs.getInt(1);
+			System.out.println(goodsNo);
+		   }
+		
+		String sql1 = "INSERT INTO goods_img (goods_no, filename, origin_name, content_type, createdate, updatedate) values (?, ? ,?, ?, NOW(), NOW())";
+		PreparedStatement stmt1 = conn.prepareStatement(sql1); 
+		stmt1.setInt(1, goodsNo);
+		stmt1.setString(2, fileName);
+		stmt1.setString(3, originName);
+		stmt1.setString(4, contentType);
+		int row2 = stmt1.executeUpdate();
+		
+		//db자원을 반납
+		stmt1.close();
+		rs.close();
+		stmt.close();
+		conn.close();
+		
+		
+		
+		return gijoin;
+	}
+	
+	
 	
 }
