@@ -15,6 +15,14 @@
 <jsp:include page="/inc/menu.jsp"></jsp:include> <!-- 네비게이션바 -->
 <!DOCTYPE html>
 <html>
+<style>
+	.my-input {border-radius : 5px;
+	
+	}
+	.my-text{
+		font-weight: 700;
+	}
+</style>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -37,12 +45,12 @@
 				<form action="<%=request.getContextPath()%>/myPageAction.jsp">	<!-- 비밀번호 확인 전송 form -->
 					<table border="1" class="table">
 						<tr>
-							<td>아이디</td>
-							<td><%=loginId%></td>
+							<td class="my-text">아이디</td>
+							<td class="my-text"><%=loginId%></td>
 						</tr>	
 						<tr>
-							<td>원래 비밀번호</td>
-							<td><input type="password" name="beforePw" id="beforePw"></td>
+							<td class="my-text">원래 비밀번호</td>
+							<td class="my-text"><input class="my-input" type="password" name="beforePw" id="beforePw"></td>
 						</tr>
 					</table>
 					<button type="submit" class="btn btn-success">수정</button>
@@ -56,29 +64,29 @@
 			<form action="<%=request.getContextPath()%>/myPageActionGo.jsp" id="myPageForm">	<!-- 마이페이지 수정 form -->
 				<table border="1" class="table">
 						<tr>
-							<td>아이디</td>
-							<td><%=loginId%></td>
+							<td class="my-text">아이디</td>
+							<td class="my-text"><%=loginId%></td>
 						</tr>
 				<tr>
-					<td>새로운비밀번호</td>
-					<td><input type="password" name="updatePw" id="updatePw"></td>
+					<td class="my-text">새로운비밀번호</td>
+					<td><input class="my-input" type="password" name="updatePw" id="updatePw"></td>
 				</tr>
 				<tr>
-					<td>비밀번호 확인</td>
-					<td><input type="password" name="updatePwCk" id="updatePwCk"></td>
+					<td class="my-text">비밀번호 확인</td>
+					<td><input class="my-input" type="password" name="updatePwCk" id="updatePwCk"></td>
 				</tr>
 				
 				<tr>
-					<td>이름</td>
-					<td><input type="text" name="updateName" id="updateName"></td>
+					<td class="my-text">이름</td>
+					<td><input class="my-input" type="text" name="updateName" id="updateName"></td>
 				</tr>
 				<tr>
-					<td>전화번호</td>
-					<td><input type="text" name="updatePhone" id="updatePhone"></td>
+					<td class="my-text">전화번호</td>
+					<td><input class="my-input" type="text" name="updatePhone" id="updatePhone"></td>
 				</tr>
 				<tr>
-					<td>주소</td>
-					<td><input type="text" name="updateAddress" id="updateAddress"></td>
+					<td class="my-text">주소</td>
+					<td><input class="my-input" type="text" name="updateAddress" id="updateAddress"></td>
 				</tr>
 			
 				</table>

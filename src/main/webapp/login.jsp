@@ -13,6 +13,9 @@
 <jsp:include page="/inc/menuLogin.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
+<style>
+	.my-input {border-radius : 10px;}
+</style>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -36,11 +39,11 @@
 			<table>
 			<tr>
 				<td><div class="form-label"><h2>ID &nbsp;</h2></div></td>
-				<td><h2><input type="text" name="id"></h2></td>
+				<td><h2><input class="my-input" type="text" name="id"></h2></td>
 			</tr>
 			<tr>
 				<td><div class="form-label"><h2>PW </h2></div></td>
-				<td><h2><input type="password" name="pw"></h2></td>
+				<td><h2><input class="my-input" type="password" name="pw"></h2></td>
 			</tr>
 			</table>
 			<br>
