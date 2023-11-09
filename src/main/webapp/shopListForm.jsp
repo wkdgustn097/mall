@@ -67,8 +67,16 @@
 
 		<div class="untree_co-section product-section before-footer-section">
 		    <div class="container">
+		    	<% 
+				   if(session.getAttribute("managerId") != null){
+				%>
+					<a href="<%=request.getContextPath()%>/insertShopForm.jsp" class="btn btn-black btn-lg py-3 btn-block">상품 추가하기</a><br>
+					<br>
+				<% 
+				   }
+				%>
+				
 		      	<div class="row">
-					
 							<%
 								int i = 1;
 								for(Gijoin g : list) {
@@ -93,7 +101,6 @@
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>
-		
 		
 	<!-- 페이징 부트 스트랩 사용  -->
 	<div class="container">
