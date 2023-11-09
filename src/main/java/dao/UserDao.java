@@ -50,7 +50,7 @@ public class UserDao {
 		
 		
 		//1단계 custoemr id pw 저장 (1)		
-		String sql1 = "INSERT INTO customer(customer_id,customer_pw,createdate,updatedate,ACTIVE)VALUES(?,?,NOW(),NOW(),'Y')";
+		String sql1 = "INSERT INTO customer(customer_id,customer_pw,createdate,updatedate,ACTIVE)VALUES(?,PASSWORD(?),NOW(),NOW(),'Y')";
 		PreparedStatement stmt1 = conn.prepareStatement(sql1);
 		stmt1.setString(1, customerId);
 		stmt1.setString(2, customerPw);
@@ -104,7 +104,7 @@ public class UserDao {
 			
 			
 			// customer_pw_history INSERT
-			String SqlHis = "INSERT INTO customer_pw_history(customer_no,customer_pw,createdate)VALUES(?,?,NOW())";
+			String SqlHis = "INSERT INTO customer_pw_history(customer_no,customer_pw,createdate)VALUES(?,PASSWORD(?),NOW())";
 			PreparedStatement stmtHis = conn.prepareStatement(SqlHis);
 			stmtHis.setString(1, customerNo);	
 			stmtHis.setString(2, customerPw);
@@ -155,7 +155,7 @@ public class UserDao {
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
 		// 고객 로그인 시도
-		String sql1 = "SELECT customer_id customerId1, customer_no customerNo1 FROM customer WHERE customer_id = ? AND customer_pw = ? ";
+		String sql1 = "SELECT customer_id customerId1, customer_no customerNo1 FROM customer WHERE customer_id = ? AND customer_pw = PASSWORD(?) ";
 		PreparedStatement stmt1 = conn.prepareStatement(sql1);
 		stmt1.setString(1, customerId);
 		stmt1.setString(2, customerPw);
@@ -173,7 +173,7 @@ public class UserDao {
 			return login;
 		} else { // 로그인 실패 -> 매니저로그인 시도
 			
-			String sql2 = "SELECT manager_id managerId, manager_no managerNo FROM manager WHERE manager_id = ? AND manager_pw = ?";
+			String sql2 = "SELECT manager_id managerId, manager_no managerNo FROM manager WHERE manager_id = ? AND manager_pw = PASSWORD(?)";
 			PreparedStatement stmt2 = conn.prepareStatement(sql2);
 			stmt2.setString(1, managerId);
 			stmt2.setString(2, managerPw);
@@ -245,7 +245,7 @@ public class UserDao {
 		
 		
 		// 메니저 계정생성 	
-		String sql1 = "INSERT INTO manager(manager_id,manager_pw,manager_name,createdate,updatedate,ACTIVE)VALUES(?,?,?,NOW(),NOW(),'Y')";
+		String sql1 = "INSERT INTO manager(manager_id,manager_pw,manager_name,createdate,updatedate,ACTIVE)VALUES(?,PASSWORD(?),?,NOW(),NOW(),'Y')";
 		PreparedStatement stmt1 = conn.prepareStatement(sql1);
 		stmt1.setString(1, managerId);
 		stmt1.setString(2, managerPw);
@@ -264,7 +264,7 @@ public class UserDao {
 				System.out.println(managerNo + "  <--- managerNo추출성공");
 				
 				// manager_pw_history INSERT
-				String SqlHis = "INSERT INTO manager_pw_history(manager_no,manager_pw,createdate)VALUES(?,?,NOW())";
+				String SqlHis = "INSERT INTO manager_pw_history(manager_no,manager_pw,createdate)VALUES(?,PASSWORD(?),NOW())";
 				PreparedStatement stmtHis = conn.prepareStatement(SqlHis);
 				stmtHis.setString(1, managerNo);	
 				stmtHis.setString(2, managerPw);
@@ -316,7 +316,7 @@ public class UserDao {
 		System.out.println(pwIn);
 		
 		// 패스워드 체크 로직
-		String sqlCId = "SELECT customer_no customerCNo FROM customer where customer_id = ? AND customer_pw = ?";
+		String sqlCId = "SELECT customer_no customerCNo FROM customer where customer_id = ? AND customer_pw = PASSWORD(?)";
 		PreparedStatement stmtCId = conn.prepareStatement(sqlCId);
 		stmtCId.setString(1, idIn);
 		stmtCId.setString(2, pwIn);
@@ -329,7 +329,7 @@ public class UserDao {
 			String result = "true"; 	
 			return result;
 		}else {
-		String sqlMId = "SELECT manager_no managerMNo FROM manager where manager_id = ? AND manager_pw = ?";
+		String sqlMId = "SELECT manager_no managerMNo FROM manager where manager_id = ? AND manager_pw = PASSWORD(?)";
 		PreparedStatement stmtMId = conn.prepareStatement(sqlMId);
 		stmtMId.setString(1, idIn);
 		stmtMId.setString(2, pwIn);
@@ -395,38 +395,40 @@ public class UserDao {
 		System.out.println(managerNo);
 		
 		if(customerNo != null) {
-			String sqlHis1 = "SELECT customer_pw customerHisPw FROM customer_pw_history WHERE customer_no = ?";
+			String sqlHis1 = "SELECT customer_pw customerHisPw FROM customer_pw_history WHERE customer_no = ? AND customer_pw = PASSWORD(?)";
 			PreparedStatement stmtHis1 = conn.prepareStatement(sqlHis1);
 			stmtHis1.setString(1, customerNo);
+			stmtHis1.setString(2, updatePw);
 			ResultSet rsHis1 = stmtHis1.executeQuery();
-			if(rsHis1.next()) {	// 매니저 아이디 확인 완료
+			if(rsHis1.next()) {	
 				String customerHisPw = rsHis1.getString("customerHisPw");
 				System.out.println(customerHisPw + "  <--- customer_pw_history 추출성공");
 				stmtHis1.close();
 				rsHis1.close();
-				if(customerHisPw.equals(updatePw)) {
-					System.out.println("고객 비밀번호 중복");
-					conn.close();
-					String result = "false";
-					return result;
-				}
+				
+				System.out.println("고객 비밀번호 중복");
+				conn.close();
+				String result = "false";
+				return result;
+				
 			}
 		}
 		if(managerNo != null){
-			String sqlHis2 = "SELECT manager_pw managerHisPw FROM manager_pw_history WHERE manager_no = ?";
+			String sqlHis2 = "SELECT manager_pw managerHisPw FROM manager_pw_history WHERE manager_no = ? AND manager_pw = PASSWORD(?)";
 			PreparedStatement stmtHis2 = conn.prepareStatement(sqlHis2);
 			stmtHis2.setString(1, managerNo);
+			stmtHis2.setString(2, updatePw);
 			ResultSet rsHis2 = stmtHis2.executeQuery();
-			if(rsHis2.next()) {	// 매니저 아이디 확인 완료
+			if(rsHis2.next()) {
 				String managerHisPw = rsHis2.getString("managerHisPw");
 				System.out.println(managerHisPw + "  <--- manager_pw_history 추출성공");
 				stmtHis2.close();
 				rsHis2.close();
-				if(managerHisPw.equals(updatePw)) {
-					conn.close();
-					String result = "false";
-					return result;
-				}
+				
+				conn.close();
+				String result = "false";
+				return result;
+				
 			}
 		}
 		
@@ -461,7 +463,7 @@ public class UserDao {
 		*/
 		
 		
-		String sql1 = "UPDATE customer C INNER JOIN customer_addr A ON C.customer_no = A.customer_no INNER JOIN customer_detail D ON A.customer_no = D.customer_no SET C.customer_pw = ?, D.customer_name = ?, D.customer_phone = ?, A.address = ?, C.updatedate = NOW(), A.updatedate = NOW(), D.updatedate = NOW() WHERE C.customer_id = ?";
+		String sql1 = "UPDATE customer C INNER JOIN customer_addr A ON C.customer_no = A.customer_no INNER JOIN customer_detail D ON A.customer_no = D.customer_no SET C.customer_pw = PASSWORD(?), D.customer_name = ?, D.customer_phone = ?, A.address = ?, C.updatedate = NOW(), A.updatedate = NOW(), D.updatedate = NOW() WHERE C.customer_id = ?";
 		PreparedStatement stmt1 = conn.prepareStatement(sql1);
 		
 		stmt1.setString(1, updatePw);	
@@ -500,7 +502,7 @@ public class UserDao {
 				}
 				
 				// customer_pw_history INSERT
-				String SqlHis = "INSERT INTO customer_pw_history(customer_no,customer_pw,createdate)VALUES(?,?,NOW())";
+				String SqlHis = "INSERT INTO customer_pw_history(customer_no,customer_pw,createdate)VALUES(?,PASSWORD(?),NOW())";
 				PreparedStatement stmtHis = conn.prepareStatement(SqlHis);
 				stmtHis.setString(1, customerNo);	
 				stmtHis.setString(2, updatePw);
@@ -525,7 +527,7 @@ public class UserDao {
 		}
 		else{	// 실패시 매니저 업데이트
 			
-			String sql2 = "UPDATE manager SET manager_pw = ?, manager_name = ?, updatedate = NOW() WHERE manager_id = ?";
+			String sql2 = "UPDATE manager SET manager_pw = PASSWORD(?), manager_name = ?, updatedate = NOW() WHERE manager_id = ?";
 			PreparedStatement stmt2 = conn.prepareStatement(sql2);
 			
 			stmt2.setString(1, updatePw);	
@@ -561,7 +563,7 @@ public class UserDao {
 					}
 					
 					// manager_pw_history INSERT
-					String SqlHis = "INSERT INTO manager_pw_history(manager_no,manager_pw,createdate)VALUES(?,?,NOW())";
+					String SqlHis = "INSERT INTO manager_pw_history(manager_no,manager_pw,createdate)VALUES(?,PASSWORD(?),NOW())";
 					PreparedStatement stmtHis = conn.prepareStatement(SqlHis);
 					stmtHis.setString(1, managerNo);	
 					stmtHis.setString(2, updatePw);

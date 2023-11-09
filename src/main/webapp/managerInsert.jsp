@@ -56,20 +56,66 @@
 				let getId= RegExp(/^[a-zA-Z0-9]{4,12}$/);
 				let getName= RegExp(/^[가-힣]+$/);
 				
-				
-	        	if (!getId.test($('#insertId').val())){
+
+				if($('#insertId').val()==""){ //id값이 없을 경우
+					alert("아이디를 입력하세요");         //메세지 경고창을 띄운 후
+					$('#insertId').focus();     // id 텍스트박스에 커서를 위치
+					return false;
+				}
+				if($('#insertId').val()==" " || $('#insertId').val()=="  " || $('#insertId').val()=="   "){ 
+					alert("공백은 입력 불가능 합니다"); 
+					$("#insertId").val("");
+					$('#insertId').focus(); 
+					return false;
+				}
+				if (!getId.test($('#insertId').val())){
 					alert("아이디는 4~12자, 영문 대소문자, 숫자만 가능합니다.");
 					$("#insertId").val("");
 					$('#insertId').focus();
 					return false;
 	        	}
-				 
 				
 				
+				if($('#insertPw').val()==""){ 
+					alert("비밀번호를 입력하세요");        
+					$('#insertPw').focus();     
+					return false;
+				}
+				if($('#insertPw').val()==" " || $('#insertPw').val()=="  " || $('#insertPw').val()=="   "){ 
+					alert("공백은 입력 불가능 합니다");
+					$("#insertPw").val("");
+					$('#insertPw').focus();    
+					return false;
+				}
+				
+				if($('#insertPwCk').val()==""){
+					alert("비밀번호 확인을 입력하세요"); 
+					$('#insertPwCk').focus();
+					return false;
+				}
+				if($('#insertPwCk').val()==" " || $('#insertPwCk').val()=="  " || $('#insertPwCk').val()=="   "){
+					alert("공백은 입력 불가능 합니다"); 
+					$("#insertPwCk").val("");
+					$('#insertPwCk').focus(); 
+					return false;
+				}
 				if($('#insertPw').val() != $('#insertPwCk').val()){
 					alert('비밀번호가 맞지 않습니다 다시 입력해주세요');
 					$('#insertPw').val('');
 					$('#insertPwCk').val('');
+					return false;
+				}
+				
+				
+				if($('#insertName').val()==""){
+					alert("이름을 입력하세요");  
+					$('#insertName').focus(); 
+					return false;
+				}
+				if($('#insertName').val()==" " || $('#insertName').val()=="  " || $('#insertName').val()=="   "){
+					alert("공백은 입력 불가능 합니다"); 
+					$("#insertName").val("");
+					$('#insertName').focus(); 
 					return false;
 				}
 				if(!getName.test($("#insertName").val())){
@@ -77,7 +123,9 @@
 					$("#insertName").val("");
 					$("#insertName").focus();
 					return false;
-				} 
+				}
+				
+				
 				$('#insertForm').submit();
 			});
 			});
