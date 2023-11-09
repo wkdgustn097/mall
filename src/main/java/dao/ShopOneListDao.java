@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import vo.Gijoin;
 
-public class MallDaoHs {
+public class ShopOneListDao {
 	
 	public Gijoin selectShopOneList(Gijoin inputGijoin) throws Exception{
 		Gijoin gijoin = null;

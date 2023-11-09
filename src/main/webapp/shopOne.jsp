@@ -4,7 +4,7 @@
 <%@ page import = "dao.*" %>
 <%
 	Gijoin gijoin = new Gijoin();
-	MallDaoHs mallDaoHs = new MallDaoHs();
+	ShopOneListDao mallDaoHs = new ShopOneListDao();
 	
 	
 	// goodsNo db 열 가져와서 int로 변환하고, setGoodNo로 저장 --> goodsNo 정수형 저장 함수!
