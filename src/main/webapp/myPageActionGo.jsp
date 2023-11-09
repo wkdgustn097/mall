@@ -19,7 +19,7 @@ String idIn = (String)(session.getAttribute("loginId"));
 	String reslut = userDao.updateUser(idIn, updatePw, updateName, updatePhone, updateAddress);
 	System.out.println(reslut); 
 	if (reslut.equals("false")){	// 업데이트 실패시
-		String msg = URLEncoder.encode("ERROR : 0000 (관리자에게 문의하세요)");
+		String msg = URLEncoder.encode("이전 비밀번호랑 다른 비밀번호를 입력해주세요.");
 		String myPageOpen = "false"; 
 		response.sendRedirect(request.getContextPath()+"/myPage.jsp?myPageOpen="+myPageOpen+"&msg="+msg);
 	}else if(reslut.equals("true")){	// 업데이트 성공

@@ -364,6 +364,87 @@ public class UserDao {
 		// 데이터 확인
 		System.out.println(idIn + "<-아이디 , "+updatePw + "<-비밀번호 , "+updateName + "<-이름 , "+updatePhone + "<-전화번호 , "+updateAddress + "<-주소 , ");
 		
+		
+		String customerNo = null;
+		String managerNo = null;
+		// id값을 받아서 고객 또는 매니저 번호 추출
+		String sqlNo1 = "SELECT customer_no cusromerNo FROM customer WHERE customer_id = ?";
+		PreparedStatement stmtNo1 = conn.prepareStatement(sqlNo1);
+		stmtNo1.setString(1, idIn);
+		ResultSet rsNo1 = stmtNo1.executeQuery();
+		if (rsNo1.next()) { // 고객 아이디 확인완료
+			System.out.println("고객 아이디 확인완료");
+			customerNo = rsNo1.getString("cusromerNo");	//고객번호 추출
+		}else {		// 없으면 매니저번호 확인
+			String sqlNo2 = "SELECT manager_no managerNo FROM manager WHERE manager_id = ?";
+			PreparedStatement stmtNo2 = conn.prepareStatement(sqlNo2);
+			stmtNo2.setString(1, idIn);
+			ResultSet rsNo2 = stmtNo2.executeQuery();
+			if(rsNo2.next()) {	// 매니저 아이디 확인 완료
+				managerNo = rsNo2.getString("managerNo");
+				System.out.println(managerNo + "  <--- managerNo추출성공");
+				stmtNo2.close();
+				rsNo2.close();
+			}
+		}
+		
+		stmtNo1.close();
+		rsNo1.close();
+		
+		System.out.println(customerNo);
+		System.out.println(managerNo);
+		
+		if(customerNo != null) {
+			String sqlHis1 = "SELECT customer_pw customerHisPw FROM customer_pw_history WHERE customer_no = ?";
+			PreparedStatement stmtHis1 = conn.prepareStatement(sqlHis1);
+			stmtHis1.setString(1, customerNo);
+			ResultSet rsHis1 = stmtHis1.executeQuery();
+			if(rsHis1.next()) {	// 매니저 아이디 확인 완료
+				String customerHisPw = rsHis1.getString("customerHisPw");
+				System.out.println(customerHisPw + "  <--- customer_pw_history 추출성공");
+				stmtHis1.close();
+				rsHis1.close();
+				if(customerHisPw.equals(updatePw)) {
+					System.out.println("고객 비밀번호 중복");
+					conn.close();
+					String result = "false";
+					return result;
+				}
+			}
+		}else {
+			String sqlHis2 = "SELECT manager_pw managerHisPw FROM manager_pw_history WHERE manager_no = ?";
+			PreparedStatement stmtHis2 = conn.prepareStatement(sqlHis2);
+			stmtHis2.setString(1, managerNo);
+			ResultSet rsHis2 = stmtHis2.executeQuery();
+			if(rsHis2.next()) {	// 매니저 아이디 확인 완료
+				String managerHisPw = rsHis2.getString("managerHisPw");
+				System.out.println(managerHisPw + "  <--- manager_pw_history 추출성공");
+				stmtHis2.close();
+				rsHis2.close();
+				if(managerHisPw.equals(updatePw)) {
+					conn.close();
+					String result = "false";
+					return result;
+				}
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/*
 		UPDATE customer C
 		INNER JOIN customer_addr A ON C.customer_no = A.customer_no
@@ -398,7 +479,7 @@ public class UserDao {
 			stmtNo.setString(1, idIn);
 			ResultSet rsNo = stmtNo.executeQuery();
 			if(rsNo.next()) {
-				String customerNo = rsNo.getString("customerNo");
+				customerNo = rsNo.getString("customerNo");
 				System.out.println(customerNo + "  <--- customerNo추출성공");
 				
 				
@@ -459,7 +540,7 @@ public class UserDao {
 				stmtNo.setString(1, idIn);
 				ResultSet rsNo = stmtNo.executeQuery();
 				if(rsNo.next()) {
-					String managerNo = rsNo.getString("managerNo");
+					managerNo = rsNo.getString("managerNo");
 					System.out.println(managerNo + "  <--- managerNo추출성공");
 					
 					
@@ -508,7 +589,6 @@ public class UserDao {
 		conn.close();
 		stmt1.close();
 		String result = "false";
-		
 		return result;
 		
 	}
