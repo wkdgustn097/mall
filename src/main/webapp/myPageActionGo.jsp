@@ -20,7 +20,7 @@ String idIn = (String)(session.getAttribute("loginId"));
 	System.out.println(reslut); 
 	if (reslut.equals("false")){	// 업데이트 실패시
 		String msg = URLEncoder.encode("이전 비밀번호랑 다른 비밀번호를 입력해주세요.");
-		String myPageOpen = "false"; 
+		String myPageOpen = "true"; 
 		response.sendRedirect(request.getContextPath()+"/myPage.jsp?myPageOpen="+myPageOpen+"&msg="+msg);
 	}else if(reslut.equals("true")){	// 업데이트 성공
 		response.sendRedirect(request.getContextPath()+"/main.jsp");

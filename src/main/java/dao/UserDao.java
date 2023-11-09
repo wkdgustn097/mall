@@ -411,7 +411,8 @@ public class UserDao {
 					return result;
 				}
 			}
-		}else {
+		}
+		if(managerNo != null){
 			String sqlHis2 = "SELECT manager_pw managerHisPw FROM manager_pw_history WHERE manager_no = ?";
 			PreparedStatement stmtHis2 = conn.prepareStatement(sqlHis2);
 			stmtHis2.setString(1, managerNo);
