@@ -80,8 +80,17 @@
                   </div>
                </div>
                <br>
+              <%  
+				   if(session.getAttribute("managerId") != null){
+              %> 
+          		   <a href="<%=request.getContextPath()%>/updateShopForm.jsp?goodsNo=<%=gijoin.getGoodsNo()%>"  class="btn btn-success">수정</a>
+		  		   <a href="<%=request.getContextPath()%>/deleteShopAction.jsp?goodsNo=<%=gijoin.getGoodsNo()%>" class="btn btn-success">삭제</a>
+              <%
+              		}
+              %>
              </div>
-              
+             
+
             
               <div class="col-md-6 mb-5 mb-md-0">
                 <h2 class="h3 mb-3 text-black">상품 정보</h2>

@@ -9,6 +9,7 @@ public class Gijoin {
 		private String createdate;
 		private String updatedate;
 		private String originName;
+		private String filename;
 		public int getGoodsNo() {
 			return goodsNo;
 		}
@@ -56,6 +57,12 @@ public class Gijoin {
 		}
 		public void setOriginName(String originName) {
 			this.originName = originName;
+		}
+		public String getFilename() {
+			return filename;
+		}
+		public void setFilename(String filename) {
+			this.filename = filename;
 		}
 		
 		

@@ -30,8 +30,7 @@
 		if(file.exists()){
 			file.delete();
 		}
-		String msg = "only image jpeg or png";
-		response.sendRedirect(request.getContextPath()+"/insertProductForm.jsp?msg="+msg);
+		response.sendRedirect(request.getContextPath()+"/shopListForm.jsp");
 		return;
 	}
 	
