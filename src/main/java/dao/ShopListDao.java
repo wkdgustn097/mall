@@ -1,16 +1,15 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.io.InputStream;
-import com.oreilly.servlet.*;
 
-
-
-
-import vo.*;
-import java.sql.*;
+import vo.Gijoin;
+import vo.GoodsSuccess;
+import vo.Goods_img;
 
 public class ShopListDao {
 	
@@ -212,6 +211,107 @@ public class ShopListDao {
 		stmt.close();
 		conn.close();
 		return goods_img;
+	}
+	
+	
+	public String deleteShopGoods(int goodsNo) throws Exception{
+		String name = null;
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 로딩성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                           
+		String dbpw = "java1234";          
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		conn.setAutoCommit(false);
+		
+		String sql = "SELECT filename FROM goods_img WHERE goods_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, goodsNo);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			name = rs.getString("filename");
+		}
+		
+		String sql1 = "DELETE FROM goods_img WHERE goods_no = ?";
+		PreparedStatement stmt1 = conn.prepareStatement(sql1);
+		stmt1.setInt(1, goodsNo);
+		int row1 = stmt1.executeUpdate();
+		
+		String sql2 = "DELETE FROM cart WHERE goods_no = ?";
+		PreparedStatement stmt2 = conn.prepareStatement(sql2);
+		stmt2.setInt(1, goodsNo);
+		int row2 = stmt2.executeUpdate();
+		
+		int ordersNo = 0;
+		
+		String sql3 = "SELECT orders_no FROM orders WHERE goods_no = ?";
+		PreparedStatement stmt3 = conn.prepareStatement(sql3);
+		stmt3.setInt(1, goodsNo);
+		ResultSet rs1 = stmt3.executeQuery();
+		if(rs.next()) {
+			ordersNo = rs1.getInt("orders_no");
+		}
+		
+		String sql4 = "DELETE FROM review WHERE orders_no = ?";
+		PreparedStatement stmt4 = conn.prepareStatement(sql4);
+		stmt4.setInt(1, ordersNo);
+		int row4 = stmt4.executeUpdate();
+
+		String sql5 = "DELETE FROM orders WHERE goods_no = ?";
+		PreparedStatement stmt5 = conn.prepareStatement(sql5);
+		stmt5.setInt(1, goodsNo);
+		int row5 = stmt5.executeUpdate();
+
+		
+		int questionNo = 0;
+		
+		String sql6 = "SELECT question_no FROM question WHERE goods_no = ?";
+		PreparedStatement stmt6 = conn.prepareStatement(sql6);
+		stmt6.setInt(1, goodsNo);
+		ResultSet rs6 = stmt6.executeQuery();
+		if(rs.next()) {
+			questionNo = rs6.getInt("question_no");
+		}
+		
+		String sql7 = "DELETE FROM question_comment WHERE question_no = ?";
+		PreparedStatement stmt7 = conn.prepareStatement(sql7);
+		stmt7.setInt(1, questionNo);
+		int row7 = stmt7.executeUpdate();
+		
+		String sql8 = "DELETE FROM question WHERE goods_no = ?";
+		PreparedStatement stmt8 = conn.prepareStatement(sql8);
+		stmt8.setInt(1, goodsNo);
+		int row8 = stmt8.executeUpdate();
+
+		
+		
+		String sql9 = "DELETE FROM goods WHERE goods_no = ?";
+		PreparedStatement stmt9 = conn.prepareStatement(sql9);
+		stmt9.setInt(1, goodsNo);
+		int row9 = stmt9.executeUpdate();
+		if(row9==1) {
+			conn.commit();
+		} else {
+			conn.rollback();
+		}
+		
+		conn.close();
+		stmt.close();
+		rs.close();
+		conn.close();
+		stmt1.close();
+		rs1.close();
+		stmt2.close();
+		stmt3.close();
+		rs6.close();
+		stmt4.close();
+		stmt5.close();
+		stmt6.close();
+		stmt7.close();
+		stmt8.close();
+		stmt9.close();
+
+		return name;
 	}
 	
 }
