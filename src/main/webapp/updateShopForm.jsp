@@ -1,9 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import = "vo.*" %>
+<%@ page import = "dao.*" %>
 <%
 	if(session.getAttribute("managerId") == null){
-		response.sendRedirect(request.getContextPath()+"/main.jsp");
+		response.sendRedirect(request.getContextPath()+"/notice.jsp");
 		return;
-	}
+	}	
+
+	Gijoin gijoin = new Gijoin();
+	ShopListDao shopListDao = new ShopListDao();
+	
+	gijoin.setGoodsNo(Integer.parseInt(request.getParameter("goodsNo")));
+	
+	Gijoin gigjoin = shopListDao.selectShopUpdateList(gijoin);
+	
+	System.out.println(gijoin.getGoodsTitle() + "<--goodsTitle");
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +46,7 @@
 					<div class="row justify-content-between">
 						<div class="col-lg-5">
 							<div class="intro-excerpt">
-								<h1>상품 추가하기</h1>
+								<h1>상품 수정하기</h1>
 							</div>
 						</div>
 						<div class="col-lg-7">
@@ -49,28 +61,35 @@
 		<div class="untree_co-section before-footer-section">
             <div class="container">
              <div class="p-3 p-lg-5 border bg-white">
-             <h1 class="mb-4 section-title">상품 추가하기</h1>
+             <h1 class="mb-4 section-title">상품 수정하기</h1>
              <br>
-             <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/insertShopAction.jsp">
+             <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/updateShopAction.jsp">
+             <input type="hidden" name="goodsNo" value="<%=gigjoin.getGoodsNo()%>">
+             <input type="hidden" name="oldName" value="<%=gigjoin.getFilename()%>">
+         
 				<table class ="table">
 					<tr>
 						<td><p>상품이름</p></td>
-						<td><input type="text" name="goodsTitle"></td>
+						<td><input type="text" class="form-control" id="c_companyname" name="goodsTitle" value="<%=gigjoin.getGoodsTitle()%>"></td>
 					</tr>
 					<tr>
 						<td><p class="product-title">상품가격</p></td>
-						<td><input type="number" name="goodsPrice"></td>
+						<td><input type="number" class="form-control" id="c_companyname" name="goodsPrice" value="<%=gigjoin.getGoodsPrice()%>"></td>
 					</tr>
 					<tr>
 						<td><p class="product-title">상품설명</p></td>
-						<td><textarea rows="4" cols="50" name="goodsMemo"></textarea></td>
+						<td><input type="text" class="form-control" id="c_companyname" name="goodsMemo" value="<%=gigjoin.getGoodsMemo()%>"></td>
 					</tr>
 					<tr>
 						<td><p class="product-title">상품이미지</p></td>
+						<td><img src="<%=request.getContextPath()%>/upload/<%=gigjoin.getFilename()%>" class="img-fluid product-thumbnail"></td>
+					</tr>
+					<tr>
+						<td><span>상품이미지 수정</span>
 						<td><input type="file" name="goodsImage"></td>
 					</tr>
 				</table>
-				<button type="submit" type="button" class="btn btn-black btn-lg py-3 btn-block">상품입력</button>
+				<button type="submit" type="button" class="btn btn-black btn-lg py-3 btn-block">상품수정</button>
 			 </form>
 			</div>
             </div>

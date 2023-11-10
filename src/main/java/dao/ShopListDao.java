@@ -112,5 +112,106 @@ public class ShopListDao {
 	}
 	
 	
+	public Gijoin selectShopUpdateList(Gijoin inputGijoin) throws Exception{
+		Gijoin gijoin = null;
+		System.out.println(inputGijoin.getGoodsNo()+"<--inputGijoin");
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 로딩성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                           
+		String dbpw = "java1234";          
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		String sql = "SELECT g.goods_no goodsNo, goods_title goodsTitle, goods_price goodsPrice, soldout, goods_memo goodsMemo, g.createdate createdate, g.updatedate updatedate, origin_name originName, filename FROM goods g INNER JOIN goods_img gi on g.goods_no = gi.goods_no WHERE g.goods_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1,inputGijoin.getGoodsNo());
+		System.out.println(stmt  + "<--stmt");
+		ResultSet rs = stmt.executeQuery(); 
+		if(rs.next()) {
+			gijoin = new Gijoin();
+			gijoin.setGoodsNo(rs.getInt("goodsNo"));
+			gijoin.setGoodsTitle(rs.getString("goodsTitle"));
+			gijoin.setGoodsPrice(rs.getInt("goodsPrice"));
+			gijoin.setSoldout(rs.getString("soldout"));
+			gijoin.setGoodsMemo(rs.getString("goodsMemo"));
+			gijoin.setCreatedate(rs.getString("createdate"));
+			gijoin.setUpdatedate(rs.getString("updatedate"));
+			gijoin.setOriginName(rs.getString("originName"));
+			gijoin.setFilename(rs.getString("filename"));
+		}
+		System.out.println(gijoin.getGoodsTitle() + "<----gijoin");
+		rs.close();
+		stmt.close();
+		conn.close();
+		return gijoin;
+	}
+	
+	
+	public GoodsSuccess updateShopGoods(String goodsTitle, String goodsPrice, String goodsMemo, int goodsNo) throws Exception{
+		GoodsSuccess goodsSuccess = new GoodsSuccess();
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 로딩성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                           
+		String dbpw = "java1234";          
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		conn.setAutoCommit(false);
+		
+		String sql = "UPDATE goods SET goods_title = ?, goods_price = ?, goods_memo = ?, updatedate = NOW() WHERE goods_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, goodsTitle);
+		stmt.setString(2, goodsPrice);
+		stmt.setString(3, goodsMemo);
+		stmt.setInt(4, goodsNo);
+		System.out.println(stmt + "<--stmt");
+		int row = stmt.executeUpdate();		
+		System.out.println(row + "<--row");
+		if(row != 1) {
+			conn.rollback();
+			stmt.close();
+			conn.close();
+			goodsSuccess.setSuccess("실패");
+			System.out.println("----------------실패-------------");
+			return goodsSuccess;
+		}
+		conn.commit();
+		stmt.close();
+		conn.close();
+		return goodsSuccess;
+	}
+	
+	public Goods_img updateShopGoodsImage(String originName, String filename, String contentType, int goodsNo) throws Exception{
+		Goods_img goods_img = new Goods_img();
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 로딩성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                           
+		String dbpw = "java1234";          
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		conn.setAutoCommit(false);
+		
+		String sql = "UPDATE goods_img SET filename = ?, origin_name = ?, content_type = ?, updatedate = NOW() WHERE goods_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, filename);
+		stmt.setString(2, originName);
+		stmt.setString(3, contentType);
+		stmt.setInt(4, goodsNo);
+		System.out.println(stmt + "<--stmt");
+		
+		
+		int row = stmt.executeUpdate();
+		System.out.println(row + "<--row");
+		if(row != 1) {
+			conn.rollback();
+			stmt.close();
+			conn.close();
+			System.out.println("----------------실패-------------");
+			return goods_img;
+		}
+		conn.commit();
+		stmt.close();
+		conn.close();
+		return goods_img;
+	}
 	
 }
