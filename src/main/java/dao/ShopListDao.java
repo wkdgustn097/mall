@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import vo.Gijoin;
+import vo.GoodsReviewCountJoin;
 import vo.GoodsSuccess;
 import vo.Goods_img;
 
@@ -224,6 +225,7 @@ public class ShopListDao {
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		conn.setAutoCommit(false);
 		
+		// 삭제할 image의 filename 호출 
 		String sql = "SELECT filename FROM goods_img WHERE goods_no = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, goodsNo);
@@ -232,11 +234,15 @@ public class ShopListDao {
 			name = rs.getString("filename");
 		}
 		
+		// goods_img 의 goods_no 삭제 
 		String sql1 = "DELETE FROM goods_img WHERE goods_no = ?";
 		PreparedStatement stmt1 = conn.prepareStatement(sql1);
 		stmt1.setInt(1, goodsNo);
 		int row1 = stmt1.executeUpdate();
 		
+		// 여기서 부터 goods_no를 FK를 사용하고 있는 컬럼들 삭제 
+		
+		// cart 삭
 		String sql2 = "DELETE FROM cart WHERE goods_no = ?";
 		PreparedStatement stmt2 = conn.prepareStatement(sql2);
 		stmt2.setInt(1, goodsNo);
@@ -244,6 +250,8 @@ public class ShopListDao {
 		
 		int ordersNo = 0;
 		
+		
+		// order_no 호출 / order를 삭제하기 위해서 order_no를 FK로 쓰고 있는 review부터 삭제 
 		String sql3 = "SELECT orders_no FROM orders WHERE goods_no = ?";
 		PreparedStatement stmt3 = conn.prepareStatement(sql3);
 		stmt3.setInt(1, goodsNo);
@@ -262,7 +270,8 @@ public class ShopListDao {
 		stmt5.setInt(1, goodsNo);
 		int row5 = stmt5.executeUpdate();
 
-		
+		// question_no 호출 / question를 삭제하기 위해서 question_no를 FK로 쓰고 있는 question_comment부터 삭제 
+
 		int questionNo = 0;
 		
 		String sql6 = "SELECT question_no FROM question WHERE goods_no = ?";
@@ -284,7 +293,7 @@ public class ShopListDao {
 		int row8 = stmt8.executeUpdate();
 
 		
-		
+		// 연결된 FK삭제 후 goods 삭제 
 		String sql9 = "DELETE FROM goods WHERE goods_no = ?";
 		PreparedStatement stmt9 = conn.prepareStatement(sql9);
 		stmt9.setInt(1, goodsNo);
@@ -312,6 +321,54 @@ public class ShopListDao {
 		stmt9.close();
 
 		return name;
+	}
+	
+	public ArrayList<GoodsReviewCountJoin> goodsReviewSelect() throws Exception{
+		ArrayList<GoodsReviewCountJoin> list = new ArrayList<GoodsReviewCountJoin>();
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 로딩성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                           
+		String dbpw = "java1234";          
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		String sql = "SELECT\n"
+				+ "    r.orders_no ordersNo,\n"
+				+ "    g.goods_no goodsNo,\n"
+				+ "    g.goods_title goodsTitle,\n"
+				+ "    g.goods_price goodsPrice,\n"
+				+ "    gi.filename filename,\n"
+				+ "    COUNT(r.orders_no) AS orders_count\n"
+				+ "FROM\n"
+				+ "    review r\n"
+				+ "JOIN\n"
+				+ "    orders o ON r.orders_no = o.orders_no\n"
+				+ "JOIN\n"
+				+ "    goods g ON o.goods_no = g.goods_no\n"
+				+ "JOIN\n"
+				+ "    goods_img gi ON g.goods_no = gi.goods_no\n"
+				+ "GROUP BY\n"
+				+ "    r.orders_no, g.goods_title, g.goods_price, gi.filename\n"
+				+ "ORDER BY\n"
+				+ "    orders_count DESC\n"
+				+ "\n"
+				+ " LIMIT 0,7";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		System.out.println(stmt + "<-- stmt-------------");
+		ResultSet rs = stmt.executeQuery(); 
+		list = new ArrayList<>();
+		while(rs.next()) {
+			GoodsReviewCountJoin g = new GoodsReviewCountJoin();
+			g.setGoodsNo(rs.getInt("goodsNo"));
+			g.setGoodsTitle(rs.getString("goodsTitle"));
+			g.setGoodsPrice(rs.getInt("goodsPrice"));
+			g.setFilename(rs.getString("Filename"));
+			list.add(g);
+		}
+		rs.close();
+		stmt.close();
+		conn.close();
+		return list;
 	}
 	
 }
