@@ -8,7 +8,7 @@
 	
 	// totalRow는 goods가 기
 	ShopListDao mallDao = new ShopListDao();
-	ArrayList<GoodsReviewCountJoin> list = mallDao.goodsReviewSelect();
+	ArrayList<GoodsReviewCountJoin> list = mallDao.goodsSaleSelect();
 
 
 %>
@@ -107,7 +107,7 @@
 		<div class="untree_co-section product-section before-footer-section">
 		    <div class="container">		
 		      	<div class="row">
-		      	<h1>후기 순</h1>
+		      	<h1>판매량 순</h1>
 		      	<div style="padding-left:160px; padding-bottom:20px;">
 					<button class="button" style="vertical-align:middle; width:40%;" onclick="redirectToBestForm()"><span>Review Best</span></button>
 					<button class="button" style="vertical-align:middle; width:40%;" onclick="redirectToBestFormSale()"><span>Sales Rate Best</span></button>
@@ -116,8 +116,8 @@
 							<%
 								int i = 1;
 								for(GoodsReviewCountJoin g : list) {
-							// ORDER BY로 제일 리뷰가 많은 상품이 1번째로 오니
-							// i가 1이면 금메달
+									// ORDER BY로 제일 리뷰가 많은 상품이 1번째로 오니
+									// i가 1이면 금메달
 							%>
 		      		<!-- Start Column 1 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">

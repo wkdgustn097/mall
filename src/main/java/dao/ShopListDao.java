@@ -332,13 +332,13 @@ public class ShopListDao {
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
+		// review가 많은 순서대로 출력 
 		String sql = "SELECT\n"
-				+ "    r.orders_no ordersNo,\n"
 				+ "    g.goods_no goodsNo,\n"
 				+ "    g.goods_title goodsTitle,\n"
 				+ "    g.goods_price goodsPrice,\n"
 				+ "    gi.filename filename,\n"
-				+ "    COUNT(r.orders_no) AS orders_count\n"
+				+ "    COUNT(o.goods_no) AS orders_count\n"
 				+ "FROM\n"
 				+ "    review r\n"
 				+ "JOIN\n"
@@ -348,11 +348,56 @@ public class ShopListDao {
 				+ "JOIN\n"
 				+ "    goods_img gi ON g.goods_no = gi.goods_no\n"
 				+ "GROUP BY\n"
-				+ "    r.orders_no, g.goods_title, g.goods_price, gi.filename\n"
+				+ "    o.goods_no, g.goods_title, g.goods_price, gi.filename\n"
 				+ "ORDER BY\n"
 				+ "    orders_count DESC\n"
 				+ "\n"
 				+ " LIMIT 0,7";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		System.out.println(stmt + "<-- stmt-------------");
+		ResultSet rs = stmt.executeQuery(); 
+		list = new ArrayList<>();
+		while(rs.next()) {
+			GoodsReviewCountJoin g = new GoodsReviewCountJoin();
+			g.setGoodsNo(rs.getInt("goodsNo"));
+			g.setGoodsTitle(rs.getString("goodsTitle"));
+			g.setGoodsPrice(rs.getInt("goodsPrice"));
+			g.setFilename(rs.getString("Filename"));
+			list.add(g);
+		}
+		rs.close();
+		stmt.close();
+		conn.close();
+		return list;
+	}
+	
+	// order가 많은 순서대로 출력 
+	public ArrayList<GoodsReviewCountJoin> goodsSaleSelect() throws Exception{
+		ArrayList<GoodsReviewCountJoin> list = new ArrayList<GoodsReviewCountJoin>();
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 로딩성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                           
+		String dbpw = "java1234";          
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		String sql = "SELECT\n"
+				+ "    o.goods_no,\n"
+				+ "    g.goods_no goodsNo,\n"
+				+ "    g.goods_title goodsTitle,\n"
+				+ "    g.goods_price goodsPrice,\n"
+				+ "    gi.filename filename,\n"
+				+ "    COUNT(o.goods_no) AS orders_count\n"
+				+ "FROM\n"
+				+ "    orders o \n"
+				+ "JOIN\n"
+				+ "    goods g ON o.goods_no = g.goods_no\n"
+				+ "JOIN\n"
+				+ "    goods_img gi ON g.goods_no = gi.goods_no\n"
+				+ "GROUP BY\n"
+				+ "    g.goods_title, g.goods_price, gi.filename, o.goods_no\n"
+				+ "ORDER BY\n"
+				+ "    orders_count DESC LIMIT 0,7;";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		System.out.println(stmt + "<-- stmt-------------");
 		ResultSet rs = stmt.executeQuery(); 
