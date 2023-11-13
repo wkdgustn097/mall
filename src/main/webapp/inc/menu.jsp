@@ -16,7 +16,6 @@
 							<a class="nav-link" href="shopListForm.jsp">SHOP</a>
 						</li>
 						<li><a class="nav-link" href="bestForm.jsp">BEST</a></li>
-						<li><a class="nav-link" href="about.html">SALE</a></li>
 						<li><a class="nav-link" href="notice.jsp">NOTICE</a></li>
 						<li><a class="nav-link" href="review.jsp">REVIEW</a></li>
 						<li><a class="nav-link" href="contact.html">Q&A</a></li>
