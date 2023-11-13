@@ -4,13 +4,13 @@
 <%@ page import = "dao.*" %>
 
 <%
-int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
-
-System.out.println(reviewNo);
-
-ReviewDao reviewDao = new ReviewDao();
-
-String result = reviewDao.reviewDel(reviewNo);
+	int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+	
+	System.out.println(reviewNo);
+	
+	ReviewDao reviewDao = new ReviewDao();
+	
+	String result = reviewDao.reviewDel(reviewNo);
 
 	
 %>
