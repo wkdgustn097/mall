@@ -26,7 +26,35 @@ public class NoticeDao {
 		return row;
 	}
 
+	// 호출: noticeOne.jsp
+	public Notice noticeOne(int noticeNo) throws Exception{
 	
+		Class.forName("org.mariadb.jdbc.Driver");
+	    System.out.println("드라이브 로딩 성공");
+	    String url = "jdbc:mariadb://localhost:3306/mall";
+	    String dbuser = "root";
+	    String dbpw = "java1234";
+	    Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+	    System.out.println("db접속 성공");
+
+	    String sql = "SELECT notice_title noticeTitle, notice_content noticeContent, createdate, updatedate from notice where notice_no = ? ";
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    stmt.setInt(1,noticeNo);	// sql문의 notice_no = ? 값을 받기 위함
+	    System.out.println(stmt + "<--stmt noticeOne()");	// sql문을 실행한 값을 담기 위한 stmt에 값이 잘 들어왔나 디버깅
+	    ResultSet rs = stmt.executeQuery();		//select했으니 executeQuery
+	    
+	    Notice n = new Notice();
+	    
+	   if(rs.next()) {
+		   
+		   n.setNoticeTitle(rs.getString("noticeTitle"));
+           n.setNoticeContent(rs.getString("noticeContent"));
+           n.setCreatedate(rs.getString("createdate"));
+           n.setUpdatedate(rs.getString("updatedate"));
+          
+	   }
+	    return n;
+	}
 	
 	// 호출: updateNoticeAction.jsp
 	public int updateNoticeAction (Notice notice) throws Exception{
@@ -46,9 +74,7 @@ public class NoticeDao {
 		return row;
 	}
 	
-	// 호출 : updateNoticeForm.jsp
 
-	
 	
 	// 호출 : deleteNoticeAction.jsp
 	public int deleteNoticeAction (Notice notice) throws Exception{
@@ -58,10 +84,9 @@ public class NoticeDao {
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		String sql = "DELETE from notice where notice_no = ? and manager_no = ?";
+		String sql = "DELETE from notice where notice_no = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1,notice.getNoticeNo());
-		stmt.setInt(2, notice.getManagerNo());
 		System.out.println(stmt + "<-- stmt deleteNoticeAction()");
 		row = stmt.executeUpdate();
 		return row;
@@ -86,6 +111,7 @@ public class NoticeDao {
 		return row;
 	}
 	
+	
 	// 호출: noticeList.jsp
 	public ArrayList<Notice> noticeList(int beginRow, int rowPerPage) throws Exception{
 		ArrayList<Notice> list = new ArrayList<>();
@@ -100,7 +126,6 @@ public class NoticeDao {
 		stmt.setInt(1, beginRow);
 		stmt.setInt(2, rowPerPage);
 		ResultSet rs = stmt.executeQuery();
-		list = new ArrayList<>();
 		while (rs.next()) {
 		    Notice n = new Notice();
 		    n.setNoticeNo(rs.getInt("noticeNo"));

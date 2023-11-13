@@ -3,62 +3,67 @@
 <%@ page import="dao.*" %>
 <%@ page import="vo.*" %>
 <%@ page import="java.util.*" %>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>noticeOne</title>
-</head>
 <%
-	int noticeNo = 1;
-	if(request.getParameter("noticeNo") != null){
-		noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-	}
-	Class.forName("org.mariadb.jdbc.Driver");
-    System.out.println("드라이브 로딩 성공");
-    String url = "jdbc:mariadb://localhost:3306/mall";
-    String dbuser = "root";
-    String dbpw = "java1234";
-    Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-    System.out.println("db접속 성공");
+	int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));	
+	
+	NoticeDao noticeDao = new NoticeDao();	//--> dao 패키지 안에 있는 NoticeDao를 사용할 것이다.(이름: noticeDao로 명명)
+	Notice n = noticeDao.noticeOne(noticeNo);	// --> vo 패키지 안에 있는 Notice를 사용할 것이다.(이름: n으로 명명)
+	
+	
 
-    String sql = "SELECT notice_title noticeTitle, notice_content noticeContent, createdate, updatedate from notice where notice_no = ?";
-    PreparedStatement stmt = conn.prepareStatement(sql);
-    stmt.setInt(1, noticeNo);
-    ResultSet rs = stmt.executeQuery();
-    Notice notice = null;
-
-    if (rs.next()) {
-        notice = new Notice();
-        notice.setNoticeTitle(rs.getString("noticeTitle"));
-        notice.setNoticeContent(rs.getString("noticeContent"));
-        notice.setCreatedate(rs.getString("createdate"));
-        notice.setUpdatedate(rs.getString("updatedate"));
-    }
-    rs.close();
-    stmt.close();
-    conn.close();
 %>
-<body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="favicon.png">
 
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+		<!-- Bootstrap CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="css/tiny-slider.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
+	</head>
+
+<body>
+ 	<div class="p-3 p-l   g-5 border bg-white">  
+ 
     <h1>공지사항 상세페이지</h1>
     <table border="1">
         <tr>
             <th>notice_title</th>
-            <td><%=notice.getNoticeTitle()%></td>
+            <td><%=n.getNoticeTitle()%></td>
         </tr>
         <tr>
-            <td>공지내용</td>
-            <td>
-                <textarea name="notice_content" rows="10" cols="50"><%=notice.getNoticeContent() %></textarea>
-            </td>
+            <th>notice_content</th>
+            <td><%=n.getNoticeContent()%></td>
+        </tr>
+        <tr>
+        	<th>createdate</th>
+        	<td><%=n.getCreatedate()%></td>
+        </tr>
+        <tr>
+        	<th>updatedate</th>
+        	<td><%=n.getUpdatedate()%></td>
         </tr>
     </table>
    	<div>
+   	<%
+    	if(session.getAttribute("managerId") != null){
+    %>
    		<a href="<%=request.getContextPath() %>/updateNoticeForm.jsp?noticeNo=<%=noticeNo%>">수정</a>
 
     	<a href="<%=request.getContextPath() %>/deleteNoticeAction.jsp?noticeNo=<%=noticeNo%>">삭제</a>
+    <%
+    	}
+    %>
+	</div>
 	</div>
 </body>
 </html>

@@ -22,11 +22,34 @@
 	if(totalRow % rowPerPage !=0){
 		lastPage = lastPage + 1;
 	}
+
 %>
 <!doctype html>
 <html lang="en">
 <jsp:include page="/inc/menu.jsp"></jsp:include>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <style>
+	  table {
+	    width: 100%;
+	    border-collapse: collapse;
+	}
+	
+	table, th, td {
+	    border: 1px solid #ddd;
+	}
+	
+	th, td {
+	    padding: 10px;
+	    text-align: left;
+	}
+	
+	th {
+	    background-color: #f8f8f8;
+	}
+	  	
+  </style>
   <link rel="stylesheet" href="css/default.css">
   <link rel="stylesheet" href="css/style.css">
   <meta charset="utf-8">
@@ -58,11 +81,7 @@
 								<p class="mb-4">기타 문의사항은 Q&A 게시판을 통해 문의해 주세요.</p>
 							</div>
 						</div>
-						<div class="col-lg-7">
-							<div class="hero-img-wrap">
-								<img src="images/couch.png" class="img-fluid">
-							</div>
-						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -73,7 +92,7 @@
     <table border="2" style="margin: 0 auto; border-collapse: collapse; width: 90%;">
        	<tr>
             <th>notice_no</th>
-            <th>notice_title</th>
+			<th>notice_title</th>
             <th>createdate</th>
             <th>updatedate</th>
         </tr>
@@ -81,8 +100,8 @@
             for(Notice n : list){
         %>
         <tr>
-            <td><%=n.getNoticeNo() %></td>
-            <td><a href="noticeOne.jsp?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle() %></a></td>
+            <td style="align-text:center;"><%=n.getNoticeNo() %></td>
+            <td><a href="<%=request.getContextPath()%>/noticeOne.jsp?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle() %></a></td>
             <td><%=n.getCreatedate() %></td>
             <td><%=n.getUpdatedate() %></td>
         </tr>
@@ -91,8 +110,13 @@
         %>
     </table>
 
-    
-    <a href="insertNoticeForm.jsp">추가</a>
+    <%
+    	if(session.getAttribute("managerId") != null){
+    %>
+  	  <button id="btn"><a href="insertNoticeForm.jsp">추가</a></button>
+    <%
+    	}
+    %>
 </div>
 		
 		</div>
