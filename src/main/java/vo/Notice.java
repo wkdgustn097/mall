@@ -43,5 +43,9 @@ public class Notice {
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
 	}
+	public void add(Notice n) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
