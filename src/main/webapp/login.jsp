@@ -14,7 +14,54 @@
 <!DOCTYPE html>
 <html>
 <style>
-	.my-input {border-radius : 10px;}
+@import "bourbon";
+
+body {
+	background: #eee !important;	
+}
+
+.wrapper {	
+	margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.form-signin {
+  max-width: 550px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1);  
+
+  .form-signin-heading,
+	.checkbox {
+	  margin-bottom: 30px;
+	}
+
+	.form-control {
+	  position: relative;
+	  font-size: 16px;
+	  height: auto;
+	  padding: 10px;
+		@include box-sizing(border-box);
+
+		&:focus {
+		  z-index: 2;
+		}
+	}
+
+	input[type="text"] {
+	  margin-bottom: -1px;
+	  border-bottom-left-radius: 0;
+	  border-bottom-right-radius: 0;
+	}
+
+	input[type="password"] {
+	  margin-bottom: 20px;
+	  border-top-left-radius: 0;
+	  border-top-right-radius: 0;
+	}
+}
+
 </style>
 <head>
 <meta charset="UTF-8">
@@ -22,41 +69,27 @@
 </head>
 <body>
 <br>
-<div class="container ">
 	
-	<h1>Login</h1>
-	<br>
-	<%
-		if(msg != null) {
-	%>
-			<div><%=msg%></div>		
-	<%
-		}
-	%>
-	
-	<form method="post" action="<%=request.getContextPath()%>/loginAction.jsp">
-		
-			<table>
-			<tr>
-				<td><div class="form-label"><h2>ID &nbsp;</h2></div></td>
-				<td><h2><input class="my-input" type="text" name="id"></h2></td>
-			</tr>
-			<tr>
-				<td><div class="form-label"><h2>PW </h2></div></td>
-				<td><h2><input class="my-input" type="password" name="pw"></h2></td>
-			</tr>
-			</table>
-			<br>
-				
-					<button type="submit" class="btn btn-primary">로그인</button>
-					<a href="<%=request.getContextPath()%>/insert.jsp" 
-					class="btn btn-success">회원가입</a>
-					<a href="<%=request.getContextPath()%>/managerInsert.jsp" 
-					class="btn btn-success">매니저가입</a>
-				
-		
-	</form>
-	</div>
+
+  <div class="wrapper">
+
+    <form class="form-signin" method="post" action="<%=request.getContextPath()%>/loginAction.jsp">       
+      <h2 class="form-signin-heading">Please login</h2>
+      <%
+			if(msg != null) {
+		%>
+				<span><%=msg%></span>		
+		<%
+			}
+		%>
+      <input type="text" class="form-control" name="id" placeholder="User ID"/>
+      <input type="password" class="form-control" name="pw" placeholder="Password"/>      
+      <br>
+      <button class="btn btn-lg btn-primary btn-block " type="submit">Login</button>
+      <a href="<%=request.getContextPath()%>/insert.jsp" class="btn btn-success">회원가입</a>
+      <a href="<%=request.getContextPath()%>/managerInsert.jsp" class="btn btn-success">매니저가입</a>  
+    </form>
+  </div>
 	
 </body>
 </html>
