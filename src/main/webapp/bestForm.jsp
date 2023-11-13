@@ -145,7 +145,7 @@
 							<%=i%>위
 							</p>
 							</span>
-						    <a class="product-item" href="<%=request.getContextPath()%>/shopOne.jsp?goodsNo=<%=g.getGoodsNo()%>">
+						    <a class="product-item" href="<%=request.getContextPath()%>/bestFormOne.jsp?goodsNo=<%=g.getGoodsNo()%>">
 							<img src="<%=request.getContextPath()%>/upload/<%=g.getFilename()%>" class="img-fluid product-thumbnail">
 							<h3 class="product-title"><%=g.getGoodsTitle()%></h3>
 							<strong class="product-price"><%=g.getGoodsPrice() %></strong>

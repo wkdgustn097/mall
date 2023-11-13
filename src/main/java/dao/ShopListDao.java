@@ -11,6 +11,7 @@ import vo.Gijoin;
 import vo.GoodsReviewCountJoin;
 import vo.GoodsSuccess;
 import vo.Goods_img;
+import vo.ReviewCustJoin;
 
 public class ShopListDao {
 	
@@ -415,5 +416,39 @@ public class ShopListDao {
 		conn.close();
 		return list;
 	}
+	
+	
+	public ArrayList<ReviewCustJoin> bestFormOne(ReviewCustJoin input, int beginPage, int rowPerPage) throws Exception{
+		ArrayList<ReviewCustJoin> list = new ArrayList<ReviewCustJoin>();
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이브 로딩성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                           
+		String dbpw = "java1234";          
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		System.out.println("goodsNo : " + input.getGoodsNo());
+		
+		String sql = "SELECT c.customer_id customerId, r.review_content reviewContent, o.goods_no goodsNo  FROM orders o INNER JOIN customer c ON o.customer_no = c.customer_no INNER JOIN review r ON r.orders_no = o.orders_no WHERE o.goods_no = ? LIMIT ?,?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1,input.getGoodsNo());
+		stmt.setInt(2,beginPage);
+		stmt.setInt(3,rowPerPage);
+		System.out.println(stmt  + "<--stmt");
+		ResultSet rs = stmt.executeQuery();
+		list = new ArrayList<>();
+		while(rs.next()) {
+			ReviewCustJoin r = new ReviewCustJoin();
+			r.setGoodsNo(rs.getInt("goodsNo"));
+			r.setCustomerId(rs.getString("customerId"));
+			r.setReviewContent(rs.getString("reviewContent"));
+		    System.out.println("CustomerId: " + r.getCustomerId() + ", ReviewContent: " + r.getReviewContent());
+			list.add(r);
+		}
+		rs.close();
+		stmt.close();
+		conn.close();
+		return list;
+	}
+	
 	
 }
