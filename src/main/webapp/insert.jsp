@@ -13,62 +13,154 @@ if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면
 <jsp:include page="/inc/menuLogin.jsp"></jsp:include> <!-- 네비게이션바 -->
 <!DOCTYPE html>
 <html>
-<style>
-	.my-input {border-radius : 5px;
-		outline: 1px outset #000000;
-	}
-	.my-text{
-		font-weight: 900;
-	}
-</style>
 <head>
+<style>
+* {
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  font-family:sans-serif;
+
+}
+
+body {
+  background-image:#34495e;
+}
+
+.joinForm {
+  position:absolute;
+  width:400px;
+  height:400px;
+  padding: 30px, 20px;
+  background-color:#FFFFFF;
+  text-align:center;
+  top:40%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  border-radius: 15px;
+}
+
+.joinForm h2 {
+  text-align: center;
+  margin: 30px;
+}
+
+.textForm {
+  border-bottom: 2px solid #adadad;
+  margin: 30px;
+  padding: 10px 10px;
+}
+
+
+.id {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.pw {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.name {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.email {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.nickname {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.cellphoneNo {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+.btn {
+  position:relative;
+  left:40%;
+  transform: translateX(-50%);
+  margin-bottom: 40px;
+  width:80%;
+  height:40px;
+  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec);
+  background-position: left;
+  background-size: 200%;
+  color:white;
+  font-weight: bold;
+  border:none;
+  cursor:pointer;
+  transition: 0.4s;
+  display:inline;
+}
+
+.btn:hover {
+  background-position: right;
+}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="container">
-	<br>
-		<h1>회원가입</h1>
-	<br>
-	
-		<form action="<%=request.getContextPath()%>/insertAction.jsp" id="insertForm"> <!-- form으로 데이터 전송 -->
-		<table class="table table-hover">
-		<tr>
-			<%
-				if(msg != null) {
-			%>
-					<span><%=msg%></span>		
-			<%
-				}
-			%>
-			<td class="my-text">아이디</td>
-			<td><input class="my-input text-bg-secondary" type="text" name="insertId" id="insertId"></td>
-		</tr>
-		<tr>
-			<td class="my-text">비밀번호</td>
-			<td><input class="my-input text-bg-secondary" type="password" name="insertPw" id="insertPw"></td>
-		</tr>
-		<tr>
-			<td class="my-text">비밀번호 확인</td>
-			<td><input class="my-input text-bg-secondary" type="password" name="insertPwCk" id="insertPwCk"></td>
-		</tr>
-		
-		<tr>
-			<td class="my-text">이름</td>
-			<td><input class="my-input text-bg-secondary" type="text" name="insertName" id="insertName"></td>
-		</tr>
-		<tr>
-			<td class="my-text">전화번호</td>
-			<td><input class="my-input text-bg-secondary" type="text" name="insertPhone" id="insertPhone"></td>
-		</tr>
-		<tr>
-			<td class="my-text">주소</td>
-			<td><input class="my-input text-bg-secondary" type="text" name="insertAddress" id="insertAddress"></td>
-		</tr>
-		</table>
-		
-		<button type="submit" class="btn btn-success" id="insertBtn">회원가입</button>
-		<script>
+<form action="<%=request.getContextPath()%>/insertAction.jsp" method="POST" class="joinForm" id="insertForm">
+                                                                                               
+      <h2>회원가입</h2>
+      <div class="textForm">
+        <input name="insertId" id="insertId" class="id" placeholder="아이디">
+      </div>
+      <div class="textForm">
+        <input name="insertPw" id="insertPw" type="password" class="pw" placeholder="비밀번호">
+      </div>
+       <div class="textForm">
+        <input name="insertPwCk" id="insertPwCk" type="password" class="pw" placeholder="비밀번호 확인">
+      </div>
+      <div class="textForm">
+        <input name="insertName" id="insertName" type="text" class="name" placeholder="이름">
+      </div>
+      <div class="textForm">
+        <input name="insertAddress" id="insertAddress" type="text" class="nickname" placeholder="주소">
+      </div>
+      <div class="textForm">
+        <input name="insertPhone" id="insertPhone" type="text" class="cellphoneNo" placeholder="전화번호">
+      </div>
+      <button type="submit" class="btn" id="insertBtn">회원가입</button>
+      <script>
 			
 			$(document).ready(function(){
 			$('#insertBtn').click(function(){
@@ -185,9 +277,6 @@ if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면
 			});
 			
 		</script>
-		
-		
-		</form>
-	</div>
+    </form>
 </body>
 </html>

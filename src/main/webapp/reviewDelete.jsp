@@ -6,6 +6,13 @@
 <%@ page import = "dao.*" %>
 <%@ page import = "vo.*" %>
 <%
+	if(session.getAttribute("managerId") == null) {
+		response.sendRedirect(request.getContextPath()+"/main.jsp");
+		return;
+	}
+	String msg = request.getParameter("msg");
+%>
+<%
 	int currentPage = 1;
 	if(request.getParameter("currentPage") != null){
 	currentPage = Integer.parseInt(request.getParameter("currentPage"));
