@@ -27,7 +27,7 @@
 						<%
 							}
 						%>
-						<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
+						
 					</ul>
 				</div>
 			</div>

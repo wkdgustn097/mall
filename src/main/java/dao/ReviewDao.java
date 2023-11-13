@@ -67,22 +67,25 @@ public class ReviewDao {
 	}
 	
 	
-	public ArrayList<Review> reviewList(int beginRow, int rowPerPage) throws Exception{
-		ArrayList<Review> list = new ArrayList<>();
+	public ArrayList<ReviewOrderGoodsJoin> reviewList(int beginRow, int rowPerPage) throws Exception{
+		ArrayList<ReviewOrderGoodsJoin> list = new ArrayList<>();
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT review_no reviewNo, review_content reviewContent, orders_no ordersNo , createdate, updatedate FROM review LIMIT ?, ?";
+		String sql = "SELECT G.goods_title goodsTitle, R.review_no reviewNo, R.review_content reviewContent, R.orders_no ordersNo , R.createdate createdate, R.updatedate updatedate FROM review R JOIN orders O ON r.orders_no = o.orders_no JOIN goods G ON G.goods_no = O.goods_no ORDER BY R.review_no DESC LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);
 		stmt.setInt(2, rowPerPage);
 		ResultSet rs = stmt.executeQuery();
 		list = new ArrayList<>();
 		while (rs.next()) {
-		    Review n = new Review();
+			
+			
+			ReviewOrderGoodsJoin n = new ReviewOrderGoodsJoin();
+			n.setGoodsTitle(rs.getString("goodsTitle"));
 		    n.setReviewNo(rs.getInt("reviewNo"));
 		    n.setOrdersNo(rs.getInt("ordersNo"));
 		    n.setReviewContent(rs.getString("reviewContent"));
@@ -96,6 +99,34 @@ public class ReviewDao {
 		
 		return list;
 	}
+	
+	public ArrayList<ReviewOrderGoodsJoin> reviewOrdersNo(String loginId)throws Exception{
+		Class.forName("org.mariadb.jdbc.Driver");
+		String url = "jdbc:mariadb://localhost:3306/mall";
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		ArrayList<ReviewOrderGoodsJoin> ordersNoList = new ArrayList<>();
+		 
+		String sql = "SELECT O.orders_no ordersNo, G.goods_title goodsTitle FROM customer C JOIN orders O ON C.customer_no = O.customer_no JOIN goods G ON O.goods_no = G.goods_no WHERE customer_id = ? AND O.orders_state = '배송완료' ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, loginId);
+		ResultSet rs = stmt.executeQuery();
+		System.out.println("주문번호 확인 완료");
+			while (rs.next()) {
+				ReviewOrderGoodsJoin n = new ReviewOrderGoodsJoin();
+				n.setOrdersNo(rs.getInt("ordersNo"));
+				n.setGoodsTitle(rs.getString("goodsTitle"));
+	            
+				ordersNoList.add(n);
+			}
+		
+		System.out.println(ordersNoList);
+		return ordersNoList;
+	}
+
+	
+	
 	public int lastPage(int total)throws Exception{
 		
 		int row = 0;

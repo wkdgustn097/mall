@@ -142,6 +142,13 @@ body {
                                                                                                
       <h2>회원가입</h2>
       <div class="textForm">
+        <%
+			if(msg != null) {
+		%>
+				<span><%=msg%></span>		
+		<%
+			}
+		%>
         <input name="insertId" id="insertId" class="id" placeholder="아이디">
       </div>
       <div class="textForm">
