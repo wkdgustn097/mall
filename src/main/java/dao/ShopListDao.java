@@ -35,6 +35,27 @@ public class ShopListDao {
 		return row;
 	}
 	
+	public int lastPageReview(int total, Gijoin gijoin) throws Exception{
+		int row = 0;
+		Class.forName("org.mariadb.jdbc.Driver");
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                           
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		String sql = "SELECT COUNT(o.orders_no) FROM orders o INNER JOIN goods g ON o.goods_no = g.goods_no INNER JOIN review r ON r.orders_no = o.orders_no WHERE g.goods_no=? GROUP BY o.goods_no ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1,gijoin.getGoodsNo());
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			row = rs.getInt("COUNT(o.orders_no)");
+		}
+		rs.close();
+		stmt.close();
+		conn.close();
+		return row;
+	}
+	
 	public ArrayList<Gijoin> selectShopList(int beginRow, int rowPerPage) throws Exception{
 		ArrayList<Gijoin> list = new ArrayList<Gijoin>();
 		Class.forName("org.mariadb.jdbc.Driver");

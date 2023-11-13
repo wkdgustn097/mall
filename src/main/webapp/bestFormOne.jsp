@@ -31,7 +31,9 @@
 	
 	
 	// 밑에서 넘어온 goodsNo를 바탕으로 cuurentPage가 1이 아닐시 넘어온 goodsNo를 바탕으로 select 
-	if(request.getParameter("currentPage") != null){
+	// 이전 버튼을 눌러 current을 1로 만들었는데 current 값은 NULL값이 아니므로 
+	// request.getParameter("currentPage") != null 이 코드는 사용불가 
+	if(currentPage != 1){
 		ReviewCustJoin reviewPage = new ReviewCustJoin();
 		intPage = Integer.parseInt(request.getParameter("goodsNo"));
 		reviewPage.setGoodsNo(intPage);
@@ -45,11 +47,14 @@
 	
 	Gijoin gigjoin = shoponedao.selectShopOneList(gijoin);
 	
-	int totalRow = shopdao.lastPage(total);
+	int totalRow = shopdao.lastPageReview(total, gijoin);
+   	System.out.println(totalRow + "<<<<<<totalRow");
 	int lastPage = totalRow/rowPerPage;
+   	System.out.println(lastPage + "<<<<<<lastPage");
     if(totalRow % rowPerPage != 0){
         lastPage = lastPage + 1;
      }
+
 %>
 <!doctype html>
 <html lang="en">
@@ -151,7 +156,7 @@
                      <%
 		 				 }
                    	  
-                   		 if(currentPage < lastPage-1) {	
+                   		 if(currentPage < lastPage) {	
                      %>
                     <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/bestFormOne.jsp?currentPage=<%=currentPage+1%>&goodsNo=<%=lastGoodsNo%>">다음</a></li>
                     <%
