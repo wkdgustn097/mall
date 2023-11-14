@@ -23,6 +23,7 @@ String idIn = (String)(session.getAttribute("loginId"));
 		String myPageOpen = "true"; 
 		response.sendRedirect(request.getContextPath()+"/myPage.jsp?myPageOpen="+myPageOpen+"&msg="+msg);
 	}else if(reslut.equals("true")){	// 업데이트 성공
-		response.sendRedirect(request.getContextPath()+"/main.jsp");
+		String msg = URLEncoder.encode("회원정보 수정 완료");
+		response.sendRedirect(request.getContextPath()+"/myPageInfo.jsp?msg="+msg);
 	}
 %>

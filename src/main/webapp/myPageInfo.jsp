@@ -7,7 +7,8 @@
 <%@ page import = "vo.*" %>
 <%@ page import = "java.util.*" %>
 <%@ page import = "dao.*" %>
-<%@ page import="java.net.URLEncoder"%>
+<%@ page import="java.net.URLDecoder"%>
+
 <%
 
 
@@ -33,11 +34,22 @@
 		createdate = myPageInfo.get(4);
 		updatedate = myPageInfo.get(5);
     }
+	
 %>
 
 
 <!DOCTYPE html>
 <html>
+<%
+	String msg = request.getParameter("msg");
+    if (msg != null) {
+%>
+        <script>
+            alert("<%= URLDecoder.decode(msg, "UTF-8") %>");
+        </script>
+<%
+    }
+%>
 <jsp:include page="/inc/menu.jsp"></jsp:include> <!-- 네비게이션바 -->
 <head>
 <meta charset="UTF-8">
