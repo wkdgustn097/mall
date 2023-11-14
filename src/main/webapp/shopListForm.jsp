@@ -53,6 +53,7 @@
 						<div class="col-lg-5">
 							<div class="intro-excerpt">
 								<h1>Shop</h1>
+								<p class="mb-4">여러가지 화장품을 구경해보세요</p>
 							</div>
 						</div>
 						<div class="col-lg-7">
