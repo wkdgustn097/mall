@@ -78,10 +78,6 @@
 
 		<div class="untree_co-section">
 		    <div class="container">
-		      <div class="row">
-		        <div class="col-md-6">
-		          <div class="row mb-5">
-		            <div class="col-md-12">
 		              <h2 class="h3 mb-3 text-black">장바구니</h2>
 		              <div class="p-3 p-lg-5 border bg-white">
 		                <table class="table site-block-order-table mb-5">
@@ -137,11 +133,7 @@
 		              </div>
 		            </div>
 		          </div>
-		        </div>
-		      </div>
 		      <!-- </form> -->
-		    </div>
-		  </div>
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>
