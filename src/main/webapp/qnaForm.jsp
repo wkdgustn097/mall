@@ -70,7 +70,7 @@
 		                    %>
 		                    <tr>
 		                      <td><%=q.getQuestionNo()%></td>
-		                      <td><a href="<%=request.getContextPath()%>/QnaOne.jsp?questionNo=<%=q.getQuestionNo()%>"><%=q.getQuestionTitle()%></a></td>
+		                      <td><a href="<%=request.getContextPath()%>/qnaOne.jsp?questionNo=<%=q.getQuestionNo()%>"><%=q.getQuestionTitle()%></a></td>
 		                     </tr>
 		                    <%
 		                   		 }
