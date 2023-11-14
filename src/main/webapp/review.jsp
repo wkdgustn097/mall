@@ -11,7 +11,7 @@
 	currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
 
-	int rowPerPage = 5;
+	int rowPerPage = 8;
 	int beginRow = (currentPage-1)*rowPerPage;
 	int total = 0;
 	
@@ -86,52 +86,53 @@
 					</div>
 				</div>
 			</div>
+			
+			
+		<div class="untree_co-section">
+		    <div class="container">
+		              <h2 class="h3 mb-3 text-black">상품리뷰</h2>
+		              <div class="p-3 p-lg-5 border bg-white">
+		                <table class="table site-block-order-table mb-5">
+		                  <thead>
+			                    <tr>
+						            <th width="12%" >리뷰번호</th>
+						            <th width="25%" align="center">상품이름</th>
+						            <th width="65%" align="center">리뷰내용</th>
+	        					</tr>
+		                  </thead>
+		                  <tbody>
+		                     <%
+						            for(ReviewOrderGoodsJoin n : list){
+						     %>
+						     <tr>
+						            <td >&nbsp; &nbsp; &nbsp; <%=n.getReviewNo() %></td>
+						            <td ><%=n.getGoodsTitle() %></td>
+						            <td style="height:48px;"><%=n.getReviewContent() %></td>
+						     </tr>
+						     <%
+						            }
+						     %>
+		                  </tbody>
+		                </table>
 
-<div class="blog-section" style="text-align: center;padding-bottom: 0px;">
-    <table border="2" style="margin: 0 auto; border-collapse: collapse; width: 90%;">
-    <br>
-    <br>
-    <br>
-    <br>
-       	<tr>
-            <th width="10%" align="center">&nbsp; 리뷰번호</th>
-            <th width="18%" align="center">상품이름</th>
-            <th width="65%" align="center">리뷰내용</th>
-        </tr>
-        <%
-            for(ReviewOrderGoodsJoin n : list){
-        %>
-        <tr>
-            <td >&nbsp; &nbsp; &nbsp; <%=n.getReviewNo() %></td>
-            <td ><%=n.getGoodsTitle() %></td>
-            <td style="height:60px;"><%=n.getReviewContent() %></td>
-        </tr>
-        <%
-            }
-        %>
-    </table>
+		                <div class="form-group">
+		                  <a href="<%=request.getContextPath()%>/reviewInsert.jsp" class="btn btn-black btn-lg py-3 btn-block">리뷰입력</a>
+		                	<%
+								if(session.getAttribute("managerId") != null){
+							%>
+									<a href="<%=request.getContextPath()%>/reviewDelete.jsp" class="btn btn-black btn-lg py-3 btn-block">리뷰삭제</a>
+							<%
+								}
+							%>
+		                </div>
 
-</div>
+		              </div>
+		            </div>
+		          </div>
+		    
 
-	<br>
-	<br>
-	<a href="<%=request.getContextPath()%>/reviewInsert.jsp" class="btn btn-success" style="
-    margin-left: 70px;
-    margin-top: -15;
-    margin-bottom: 200px;">리뷰입력</a>
-	<%
-		if(session.getAttribute("managerId") != null){
-	%>
-			<a href="<%=request.getContextPath()%>/reviewDelete.jsp" class="btn btn-success"style="
-    margin-left: 20px;
-    margin-top: -15;
-    margin-bottom: 200px;">리뷰삭제</a>
-	<%
-		}
-	%>
-	<br>
-	<br>
-</div>
+	
+
 
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
