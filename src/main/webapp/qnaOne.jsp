@@ -7,7 +7,8 @@
 	
 	QnaDao qnaDao = new QnaDao();
 	QuestionGoCustJoin questionOne = qnaDao.qnaOne(questionGoCustJoin);
-	
+	int questionNo = questionOne.getQuestionNo();
+	System.out.println(questionNo + "<----questionNo");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,15 +59,15 @@
 				<table class ="table">
 					<tr>
 						<td><p>상품이름</p></td>
-						<td><input type="text" name="goodsTitle" value="<%=questionOne.getGoodsTitle()%>"></td>
+						<td><input type="text"  value="<%=questionOne.getGoodsTitle()%>"></td>
 					</tr>
 					<tr>
 						<td><p class="product-title">회원이름</p></td>
-						<td><input name="goodsPrice" value="<%=questionOne.getCustomerId()%>"></td>
+						<td><input  value="<%=questionOne.getCustomerId()%>"></td>
 					</tr>
 					<tr>
 						<td><p class="product-title">질문제목</p></td>
-						<td><input style="width:475px;" name="goodsMemo" value="<%=questionOne.getQuestionTitle()%>"></td>
+						<td><input style="width:475px;" value="<%=questionOne.getQuestionTitle()%>"></td>
 					</tr>
 					<tr>
 						<td><p class="product-title">질문내용</p></td>
@@ -82,16 +83,24 @@
 		        <%
 					}
 		        %>
+		        <%
+		      	    Question_comment question_comment = qnaDao.qnaOneComment(questionNo);
+		      	    
+		        	if(question_comment.getComment() != null) {
+		        %>
 		        &nbsp;<div class="p-3 p-lg-5 border bg-white">
 		           <h1 class="mb-4 section-title">QnA</h1>
 		           <br>
 		           	<table class ="table">
 		           		<tr>
-							<td><p>상품이름</p></td>
-							<td><input type="text" name="goodsTitle" value="<%=questionOne.getGoodsTitle()%>"></td>
+							<td><p>답변</p></td>
+							<td><textarea rows="5" cols="60"><%=question_comment.getComment()%></textarea></td>
 						</tr>
 		           	</table>
 		        </div>
+		        <%
+		        	}
+		        %>
             </div>
           </div>
 		
