@@ -18,7 +18,7 @@
 						<li><a class="nav-link" href="bestForm.jsp">BEST</a></li>
 						<li><a class="nav-link" href="notice.jsp">NOTICE</a></li>
 						<li><a class="nav-link" href="review.jsp">REVIEW</a></li>
-						<li><a class="nav-link" href="contact.html">Q&A</a></li>
+						<li><a class="nav-link" href="qnaForm.jsp">Q&A</a></li>
 						<%
 							if(session.getAttribute("managerId") != null) { 	// 매니저 로그인 되어 있으면	
 						%>
