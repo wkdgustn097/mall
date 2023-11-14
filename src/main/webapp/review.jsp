@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<%@ page import="java.net.URLEncoder"%>
+<%@ page import="java.net.URLDecoder"%>
 <%@ page import = "java.util.*" %>
 <%@ page import = "dao.*" %>
 <%@ page import = "vo.*" %>
@@ -24,6 +24,16 @@
 		lastPage = lastPage + 1;
 	}
 	
+%>
+<%
+	String msg = request.getParameter("msg");
+    if (msg != null) {
+%>
+        <script>
+            alert("<%= URLDecoder.decode(msg, "UTF-8") %>");
+        </script>
+<%
+    }
 %>
 <!doctype html>
 <html>
@@ -69,7 +79,7 @@
 				</div>
 			</div>
 
-<div class="blog-section" style="text-align: center;">
+<div class="blog-section" style="text-align: center;padding-bottom: 0px;">
     <table border="2" style="margin: 0 auto; border-collapse: collapse; width: 90%;">
     <br>
     <br>
@@ -97,7 +107,10 @@
 
 	<br>
 	<br>
-	<a href="<%=request.getContextPath()%>/reviewInsert.jsp" class="btn btn-success">리뷰입력</a>
+	<a href="<%=request.getContextPath()%>/reviewInsert.jsp" class="btn btn-success" style="
+    margin-left: 70px;
+    margin-top: -15;
+    margin-bottom: 200px;">리뷰입력</a>
 	<%
 		if(session.getAttribute("managerId") != null){
 	%>
