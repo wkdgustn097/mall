@@ -114,7 +114,10 @@
 	<%
 		if(session.getAttribute("managerId") != null){
 	%>
-			<a href="<%=request.getContextPath()%>/reviewDelete.jsp" class="btn btn-success">리뷰삭제</a>
+			<a href="<%=request.getContextPath()%>/reviewDelete.jsp" class="btn btn-success"style="
+    margin-left: 20px;
+    margin-top: -15;
+    margin-bottom: 200px;">리뷰삭제</a>
 	<%
 		}
 	%>
