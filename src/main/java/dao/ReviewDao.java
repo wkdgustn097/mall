@@ -9,7 +9,7 @@ import vo.*;
 
 public class ReviewDao {
 
-	public String reviewIn(int ordersNo, String reviewContent) throws Exception{
+	public String reviewIn(int ordersNo, String reviewContent, String loginId) throws Exception{
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 로딩성공");
 		String url = "jdbc:mariadb://localhost:3306/mall";  
@@ -27,6 +27,20 @@ public class ReviewDao {
 			String state = rsCk.getString("ordersState");
 			if(state.equals("배송완료")) {	// 배송완료 체크시 리뷰작성
 				System.out.println("배송완료 체크");
+				
+				
+				String sqlReviewCk = "SELECT review_content reviewContent FROM review R JOIN orders O ON R.orders_no = O.orders_no JOIN customer C ON O.customer_no = C.customer_no  WHERE R.orders_no = ? and C.customer_id = ?";
+				PreparedStatement stmtReviewCk = conn.prepareStatement(sqlReviewCk);
+				stmtReviewCk.setInt(1, ordersNo);
+				stmtReviewCk.setString(2, loginId);
+				ResultSet rsReviewCk = stmtReviewCk.executeQuery();
+				if(rsReviewCk.next()) {
+					System.out.println("리뷰 중복 등록 불가능");
+					String result = "duplication";
+					return result;
+				}
+				
+				
 				String sqlReviewIn = "INSERT INTO review(orders_no,review_content,createdate,updatedate) VALUES(?,?,NOW(),NOW())"; 
 				PreparedStatement stmtReviewIn = conn.prepareStatement(sqlReviewIn);
 				stmtReviewIn.setInt(1, ordersNo);
@@ -44,6 +58,9 @@ public class ReviewDao {
 		String result = "false";
 		return result;
 	}
+	
+	
+	
 	public String reviewDel(int reviewNo) throws Exception{
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 로딩성공");
