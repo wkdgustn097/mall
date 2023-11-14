@@ -17,8 +17,9 @@
 	ReviewDao reviewDao = new ReviewDao();
 	ArrayList<ReviewOrderGoodsJoin> ordersNoList = reviewDao.reviewOrdersNo((String)(session.getAttribute("loginId")));
 	
-	if(ordersNoList == null || ordersNoList.isEmpty()) {	// 주문번호가 없을시 main으로 보냄
-		response.sendRedirect(request.getContextPath()+"/main.jsp");
+	if(ordersNoList == null || ordersNoList.isEmpty()) {	// 주문번호가 없을시 main으로 보냄\
+		String msg1 = URLEncoder.encode("리뷰는 배송완료된 상품에 한해서 입력이 가능합니다");
+		response.sendRedirect(request.getContextPath()+"/review.jsp?msg1="+msg1);
 		return;
 	}
 	
