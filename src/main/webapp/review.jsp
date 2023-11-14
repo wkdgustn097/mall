@@ -35,6 +35,16 @@
 <%
     }
 %>
+<%
+	String msg1 = request.getParameter("msg1");
+    if (msg1 != null) {
+%>
+        <script>
+            alert("<%= URLDecoder.decode(msg1, "UTF-8") %>");
+        </script>
+<%
+    }
+%>
 <!doctype html>
 <html>
 <jsp:include page="/inc/menu.jsp"></jsp:include>
@@ -71,9 +81,7 @@
 							</div>
 						</div>
 						<div class="col-lg-7">
-							<div class="hero-img-wrap">
-								<img src="images/couch.png" class="img-fluid">
-							</div>
+							
 						</div>
 					</div>
 				</div>

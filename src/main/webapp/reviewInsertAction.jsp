@@ -3,6 +3,7 @@
 <%@ page import = "java.util.*" %>
 <%@ page import = "dao.*" %>
 <%@ page import="java.net.URLEncoder"%>
+<%@ page import="java.net.URLDecoder"%>
 
 <%
 	int ordersNo = Integer.parseInt(request.getParameter("ordersNo"));
