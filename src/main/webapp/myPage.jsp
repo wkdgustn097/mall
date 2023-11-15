@@ -53,7 +53,7 @@
 							<td class="my-text"><input class="my-input" type="password" name="beforePw" id="beforePw"></td>
 						</tr>
 					</table>
-					<button type="submit" class="btn btn-success">수정</button>
+					<button type="submit" class="btn btn-success" name="myPageBt" id="myPageBt">수정</button>
 				</form>
 		<%
 			}
@@ -95,12 +95,27 @@
 
 				<script>
 					$(document).ready(function(){
+					$('#myPageBt').click(function(){
+						if($('#beforePw').val()==""){ 
+							alert("비밀번호를 입력하세요");        
+							$('#beforePw').focus();     
+							return false;
+						}
+						if($('#beforePw').val()==" " || $('#updatePw').val()=="  " || $('#updatePw').val()=="   "){ 
+							alert("공백은 입력 불가능 합니다");
+							$('#beforePw').val("");
+							$('#beforePw').focus();    
+							return false;
+						}
+					});
 					$('#myPageBtn').click(function(){
 		
 
 						let getId= RegExp(/^[a-zA-Z0-9]{4,12}$/);
 						let getName= RegExp(/^[가-힣]+$/);
 						let getExp = /^\d{3}-\d{3,4}-\d{4}$/;
+						let getPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{8,16}$/;
+						
 						
 						
 						
@@ -116,6 +131,12 @@
 							$('#updatePw').focus();    
 							return false;
 						}
+						if (!getPw.test($('#insertPw').val())){
+							alert("비밀번호는 영문,숫자,특수문자를 각각 하나씩 포함한 8~16자리로 설정해주세요.");
+							$("#insertPw").val("");
+							$('#insertPw').focus();
+							return false;
+			        	}
 						
 						if($('#updatePwCk').val()==""){
 							alert("비밀번호 확인을 입력하세요"); 
