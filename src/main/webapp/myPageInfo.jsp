@@ -50,7 +50,7 @@
 <%
     }
 %>
-<jsp:include page="/inc/menu.jsp"></jsp:include> <!-- 네비게이션바 -->
+<jsp:include page="/inc/menuLogin.jsp"></jsp:include> <!-- 네비게이션바 -->
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>

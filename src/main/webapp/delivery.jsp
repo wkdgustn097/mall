@@ -93,9 +93,15 @@
             <td >&nbsp; &nbsp; &nbsp; <%=n.getOrdersNo() %></td>
             <td ><%=n.getGoodsTitle() %></td>
             <td style="height:60px;"><%=n.getOrdersState() %></td>
-            <form action="<%=request.getContextPath()%>/deliveryCkAction.jsp">
-            <td><input name="ordersNo" value="<%=n.getOrdersNo() %>" type="hidden"><button type="submit">배송완료 체크</button></td>
-            </form>
+            <%
+            	if(!(n.getOrdersState().equals("배송완료"))){
+            %>
+	            <form action="<%=request.getContextPath()%>/deliveryCkAction.jsp">
+	            <td><input name="ordersNo" value="<%=n.getOrdersNo() %>" type="hidden"><button type="submit">배송완료 체크</button></td>
+	            </form>
+	        <%
+            	}
+	        %>
         </tr>
         <%
             }

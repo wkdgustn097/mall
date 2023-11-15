@@ -5,9 +5,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!DOCTYPE html>
 <%
+	if(session.getAttribute("managerId") == null) {
+		response.sendRedirect(request.getContextPath()+"/main.jsp");
+		return;
+	}
 	String msg = request.getParameter("msg");
 %>
-<jsp:include page="/inc/menu.jsp"></jsp:include> <!-- 네비게이션바 -->
+<jsp:include page="/inc/menuLogin.jsp"></jsp:include> <!-- 네비게이션바 -->
 <html>
 <head>
 <meta charset="UTF-8">

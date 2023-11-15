@@ -23,24 +23,33 @@
 							if(session.getAttribute("managerId") != null) { 	// 매니저 로그인 되어 있으면	
 						%>
 						<li><a class="nav-link" href="delivery.jsp">배송관리</a></li>
+						
 						<%
 							}
 						%>
 					</ul>
-
-					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="login.jsp"><img src="images/user.svg"></a></li>
 						
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+					
+						<%
+							if(session.getAttribute("loginId") == null) { 	// 로그인 되어 있으면	
+						%>
+						<li><a class="nav-link" href="login.jsp"><img src="images/user.svg"></a></li>
+						<%
+							}
+						%>
 						<%
 							if(session.getAttribute("loginId") != null) { 	// 로그인 되어 있으면	
 						%>
-						<li><a class="nav-link" href="logout.jsp">Logout</a></li>
-						<li><a class="nav-link" href="myPageInfo.jsp">MyPage</a></li>
+						<li><a class="nav-link" href="myPageInfo.jsp"><img src="images/user.svg"></a></li>
+						<li><a class="nav-link" href="logout.jsp"><img src="images/logout.png"></a></li>
+						&nbsp;&nbsp;&nbsp;
+						<li><a class="nav-link" href="cartForm.jsp"><img src="images/cart.svg"></a></li>
 						<%
 							}
 						%>
 						
-						<li><a class="nav-link" href="cartForm.jsp"><img src="images/cart.svg"></a></li>
+						
 					</ul>
 				</div>
 			</div>
