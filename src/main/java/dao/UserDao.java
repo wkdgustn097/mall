@@ -17,7 +17,7 @@ public class UserDao {
 		Map<String, Object> result = new HashMap<>();
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://localhost:3306/mall?characterEncoding=UTF-8";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);

@@ -59,7 +59,7 @@
 				
 				let getId= RegExp(/^[a-zA-Z0-9]{4,12}$/);
 				let getName= RegExp(/^[가-힣]+$/);
-				
+				let getPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{8,16}$/;
 
 				if($('#insertId').val()==""){ //id값이 없을 경우
 					alert("아이디를 입력하세요");         //메세지 경고창을 띄운 후
@@ -91,7 +91,12 @@
 					$('#insertPw').focus();    
 					return false;
 				}
-				
+				if (!getPw.test($('#insertPw').val())){
+					alert("비밀번호는 영문,숫자,특수문자를 각각 하나씩 포함한 8~16자리로 설정해주세요.");
+					$("#insertPw").val("");
+					$('#insertPw').focus();
+					return false;
+	        	}
 				if($('#insertPwCk').val()==""){
 					alert("비밀번호 확인을 입력하세요"); 
 					$('#insertPwCk').focus();

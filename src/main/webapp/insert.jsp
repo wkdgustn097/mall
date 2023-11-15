@@ -14,18 +14,10 @@ if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <style>
-* {
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-  font-family:sans-serif;
 
-}
 
-body {
-  background-image:#34495e;
-}
 
 .joinForm {
   position:absolute;
@@ -134,11 +126,10 @@ body {
   background-position: right;
 }
 </style>
-<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<form action="<%=request.getContextPath()%>/insertAction.jsp" method="POST" class="joinForm" id="insertForm">
+<form action="<%=request.getContextPath()%>/insertAction.jsp" accept-charset="UTF-8" class="joinForm" id="insertForm">
                                                                                                
       <h2>회원가입</h2>
       <div class="textForm">
@@ -149,7 +140,7 @@ body {
 		<%
 			}
 		%>
-        <input name="insertId" id="insertId" class="id" placeholder="아이디">
+        <input name="insertId" id="insertId" type="text" class="id" placeholder="아이디">
       </div>
       <div class="textForm">
         <input name="insertPw" id="insertPw" type="password" class="pw" placeholder="비밀번호">
@@ -158,13 +149,13 @@ body {
         <input name="insertPwCk" id="insertPwCk" type="password" class="pw" placeholder="비밀번호 확인">
       </div>
       <div class="textForm">
-        <input name="insertName" id="insertName" type="text" class="name" placeholder="이름">
+        <input name="insertName" id="insertName" type="text" class="id" placeholder="이름">
       </div>
       <div class="textForm">
-        <input name="insertAddress" id="insertAddress" type="text" class="nickname" placeholder="주소">
+        <input name="insertAddress" id="insertAddress" type="text" class="id" placeholder="주소">
       </div>
       <div class="textForm">
-        <input name="insertPhone" id="insertPhone" type="text" class="cellphoneNo" placeholder="전화번호">
+        <input name="insertPhone" id="insertPhone" type="text" class="id" placeholder="전화번호">
       </div>
       <button type="submit" class="btn" id="insertBtn">회원가입</button>
       <script>
@@ -175,7 +166,8 @@ body {
 				let getId= RegExp(/^[a-zA-Z0-9]{4,12}$/);
 				let getName= RegExp(/^[가-힣]+$/);
 				let getExp = /^\d{3}-\d{3,4}-\d{4}$/;
-				
+				let getPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{8,16}$/;
+					
 				
 				if($('#insertId').val()==""){ //id값이 없을 경우
 					alert("아이디를 입력하세요");         //메세지 경고창을 띄운 후
@@ -207,7 +199,12 @@ body {
 					$('#insertPw').focus();    
 					return false;
 				}
-				
+				if (!getPw.test($('#insertPw').val())){
+					alert("비밀번호는 영문,숫자,특수문자를 각각 하나씩 포함한 8~16자리로 설정해주세요.");
+					$("#insertPw").val("");
+					$('#insertPw').focus();
+					return false;
+	        	}
 				if($('#insertPwCk').val()==""){
 					alert("비밀번호 확인을 입력하세요"); 
 					$('#insertPwCk').focus();
