@@ -12,21 +12,46 @@
 
 				<div class="collapse navbar-collapse" id="navbarsFurni">
 					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-
+					<li class="nav-item">
+							<a class="nav-link" href="shopListForm.jsp">SHOP</a>
+						</li>
+					<li><a class="nav-link" href="bestForm.jsp">BEST</a></li>
+					<li><a class="nav-link" href="notice.jsp">NOTICE</a></li>
+					<li><a class="nav-link" href="review.jsp">REVIEW</a></li>
+					<li><a class="nav-link" href="qnaForm.jsp">Q&A</a></li>
+					<%
+						if(session.getAttribute("managerId") != null) { 	// 매니저 로그인 되어 있으면	
+					%>
+					<li><a class="nav-link" href="delivery.jsp">배송관리</a></li>
+					<li><a class="nav-link" href="managerInsert.jsp">매니저 계정 생성</a></li>
+					<%
+						}
+					%>
+					
 						
 					</ul>
 
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+						<%
+							if(session.getAttribute("loginId") == null) { 	// 로그인 되어 있으면	
+						%>
 						<li><a class="nav-link" href="login.jsp"><img src="images/user.svg"></a></li>
+						<%
+							}
+						%>
 						
 						<%
 							if(session.getAttribute("loginId") != null) { 	// 로그인 되어 있으면
 						%>
-						<li><a class="nav-link" href="logout.jsp">Logout</a></li>
-						<li><a class="nav-link" href="myPage.jsp">MyPage</a></li>
+						<li><a class="nav-link" href="myPageInfo.jsp"><img src="images/user.svg"></a></li>
+						&nbsp;
+						<li><a class="nav-link" href="logout.jsp"><img src="images/logout.png"></a></li>
+						
+						<li><a class="nav-link" href="cartForm.jsp"><img src="images/cart.svg"></a></li>
 						<%
 							}
 						%>
+						
 						
 					</ul>
 				</div>

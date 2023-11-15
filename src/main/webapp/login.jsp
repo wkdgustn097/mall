@@ -86,8 +86,7 @@ body {
       <input type="password" class="form-control" name="pw" placeholder="Password"/>      
       <br>
       <button class="btn btn-lg btn-primary btn-block " type="submit">Login</button>
-      <a href="<%=request.getContextPath()%>/insert.jsp" class="btn btn-success">회원가입</a>
-      <a href="<%=request.getContextPath()%>/managerInsert.jsp" class="btn btn-success">매니저가입</a>  
+      <a href="<%=request.getContextPath()%>/insert.jsp" class="btn btn-success">회원가입</a> 
     </form>
   </div>
 	
