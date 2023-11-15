@@ -714,6 +714,93 @@ public class UserDao {
 				
 			}
 			
+			// orders, review, cart 삭제 쿼리
+			// orders_no 추출
+			String sqlOrders = "SELECT orders_no ordersNo FROM orders WHERE customer_no = ?";
+			PreparedStatement stmtOrders = conn.prepareStatement(sqlOrders);
+			stmtOrders.setString(1, customerNo);
+			ResultSet rsOrders = stmtOrders.executeQuery();
+			
+			while(rsOrders.next()){
+				int ordersNo = rsOrders.getInt("ordersNo");
+	            
+				// ordersNo 나온수만큼 review 삭제
+				String sqlReview = "DELETE FROM review WHERE orders_no = ?";
+				PreparedStatement stmtReview = conn.prepareStatement(sqlReview);
+				stmtReview.setInt(1, ordersNo);
+				int rowReview = stmtReview.executeUpdate(); // 삭제(업데이트) 확인
+				
+				if (rowReview  > 0) { 	
+					System.out.println(ordersNo +" < 리뷰삭제");
+				}else {
+					System.out.println(ordersNo +" < 이미 삭제된 리뷰");
+				}
+				
+			}
+			// cart 삭제
+			String sqlCart = "DELETE FROM cart WHERE customer_no = ?";
+			PreparedStatement stmtCart = conn.prepareStatement(sqlCart);
+			stmtCart.setString(1, customerNo);
+			int rowCart = stmtCart.executeUpdate(); // 삭제(업데이트) 확인
+			
+			if (rowCart  > 0) { 	
+				System.out.println("카트삭제완료");
+			}else {
+				System.out.println("카트가 비어있음");
+			}
+			// orders 삭제
+			String sqlOrdersDel = "DELETE FROM orders WHERE customer_no = ?";
+			PreparedStatement stmtOrdersDel = conn.prepareStatement(sqlOrdersDel);
+			stmtOrdersDel.setString(1, customerNo);
+			int rowOrdersDel = stmtOrdersDel.executeUpdate(); // 삭제(업데이트) 확인
+			
+			if (rowOrdersDel  > 0) { 	
+				System.out.println("주문정보 삭제완료");
+			}else {
+				System.out.println("주문정보가 비어있음");
+			}
+			
+			
+			
+			// question 삭제 쿼리
+			// question_no 추출
+			String sqlQues = "SELECT question_no questionNo FROM question WHERE customer_no = ?";
+			PreparedStatement stmtQues = conn.prepareStatement(sqlQues);
+			stmtQues.setString(1, customerNo);
+			ResultSet rsQues = stmtQues.executeQuery();
+			if(rsQues.next()){
+				String questionNo = rsQues.getString("questionNo");
+				System.out.println("question_no 추출완료");
+				
+				// question_comment DELETE
+				String sqlQuesCom = "DELETE FROM question_comment WHERE question_no = ?";
+				PreparedStatement stmtQuesCom = conn.prepareStatement(sqlQuesCom);
+				stmtQuesCom.setString(1, questionNo);
+				int rowQuesCom = stmtQuesCom.executeUpdate(); // 삭제(업데이트) 확인
+				
+				if (rowQuesCom  > 0) { 	
+					System.out.println("QnA 답변 삭제 완료");
+				}else {
+					System.out.println("QnA 답변 없음");
+				}
+				// question DELETE
+				String sqlQuesDel = "DELETE FROM question WHERE question_no = ?";
+				PreparedStatement stmtQuesDel = conn.prepareStatement(sqlQuesDel);
+				stmtQuesDel.setString(1, questionNo);
+				int rowQuesDel = stmtQuesDel.executeUpdate(); // 삭제(업데이트) 확인
+				
+				if (rowQuesDel  > 0) { 	
+					System.out.println("QnA 삭제 완료");
+				}else {
+					System.out.println("QnA 없음 (알수없는오류)");
+				}
+				
+			}else {
+				System.out.println("QnA 없음");
+			}
+			
+			
+			
 			
 			String sqlDel1 = "DELETE A, D FROM customer_addr A INNER JOIN customer_detail D ON A.customer_no = D.customer_no  WHERE D.customer_no= ?";
 			PreparedStatement stmtDel1 = conn.prepareStatement(sqlDel1);
@@ -764,7 +851,28 @@ public class UserDao {
 					System.out.println("매니저 pw_history삭제 실패");
 					
 				}
+				// question_comment DELETE
+				String sqlQuesCom = "DELETE FROM question_comment WHERE manager_no = ?";
+				PreparedStatement stmtQuesCom = conn.prepareStatement(sqlQuesCom);
+				stmtQuesCom.setString(1, managerNo);
+				int rowQuesCom = stmtQuesCom.executeUpdate(); // 삭제(업데이트) 확인
 				
+				if (rowQuesCom  > 0) { 	
+					System.out.println("QnA 답변 삭제 완료");
+				}else {
+					System.out.println("QnA 답변 없음");
+				}
+				// notice DELETE
+				String sqlNotice = "DELETE FROM notice WHERE manager_no = ?";
+				PreparedStatement stmtNotice = conn.prepareStatement(sqlNotice);
+				stmtNotice.setString(1, managerNo);
+				int rowNotice = stmtNotice.executeUpdate(); // 삭제(업데이트) 확인
+				
+				if (rowNotice  > 0) { 	
+					System.out.println("notice삭제완료");
+				}else {
+					System.out.println("작성된 notice없음");
+				}
 			
 			String sqlDel2 = "DELETE FROM manager WHERE manager_id = ?";
 			PreparedStatement stmtDel2 = conn.prepareStatement(sqlDel2);
