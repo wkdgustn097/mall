@@ -204,7 +204,7 @@ if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면
 					$("#insertPw").val("");
 					$('#insertPw').focus();
 					return false;
-	        	}
+	        	} 
 				if($('#insertPwCk').val()==""){
 					alert("비밀번호 확인을 입력하세요"); 
 					$('#insertPwCk').focus();
