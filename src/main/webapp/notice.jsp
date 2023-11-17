@@ -3,7 +3,6 @@
 <%@ page import = "java.util.*" %>
 <%@ page import = "dao.*" %>
 <%@ page import = "vo.*" %>
-
 <%
 	int currentPage = 1;
 	if(request.getParameter("currentPage") != null){
@@ -28,31 +27,7 @@
 <html lang="en">
 <jsp:include page="/inc/menu.jsp"></jsp:include>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-  <style>
-	  table {
-	    width: 100%;
-	    border-collapse: collapse;
-	}
-	
-	table, th, td {
-	    border: 1px solid #ddd;
-	}
-	
-	th, td {
-	    padding: 10px;
-	    text-align: left;
-	}
-	
-	th {
-	    background-color: #f8f8f8;
-	}
-	  	
-  </style>
-  <link rel="stylesheet" href="css/default.css">
-  <link rel="stylesheet" href="css/style.css">
-  <meta charset="utf-8">
+	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="author" content="Untree.co">
   <link rel="shortcut icon" href="favicon.png">
@@ -66,8 +41,8 @@
 		<link href="css/tiny-slider.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
 		<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
-	</head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
 	<body>
 	
 		<!-- Start Hero Section -->
@@ -86,16 +61,20 @@
 				</div>
 			</div>
 		<!-- End Hero Section -->
-
-		<!-- Start Blog Section -->
-	<div class="blog-section" style="text-align: center;">
-    <table border="2" style="margin: 0 auto; border-collapse: collapse; width: 90%;">
-       	<tr>
+		<form action="<%=request.getContextPath()%>/insertNoticeForm.jsp">
+		<div class="untree_co-section">
+		    <div class="container">
+		              <h2 class="h3 mb-3 text-black">Notice</h2>
+		              <div class="p-3 p-lg-5 border bg-white">
+		                <table class="table site-block-order-table mb-5">
+		
+       	<thead>
             <th>notice_no</th>
 			<th>notice_title</th>
             <th>createdate</th>
             <th>updatedate</th>
-        </tr>
+        </thead>
+        <tbody>
         <%
             for(Notice n : list){
         %>
@@ -108,32 +87,21 @@
         <%
             }
         %>
+        </tbody>
     </table>
 
     <%
     	if(session.getAttribute("managerId") != null){
     %>
-  	  <button id="btn"><a href="insertNoticeForm.jsp">추가</a></button>
+  	  <button class="btn btn-black btn-lg py-3 btn-block">추가</a></button>
     <%
     	}
     %>
 </div>
 		
 		</div>
-<!-- End Blog Section -->	
+		</form>	
 
-		
-
-		
-
-							
-
-			
-		<!-- End Testimonial Slider -->
-
-		
-
-		
 
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>

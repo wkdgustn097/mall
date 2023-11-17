@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import = "vo.*" %>
+<%@ page import = "dao.*" %>
 <%
-	if(session.getAttribute("managerId") == null){
-	response.sendRedirect(request.getContextPath()+"/notice.jsp");
-	return;
-	}
+	int questionNo = Integer.parseInt(request.getParameter("questionNo"));
 
-	int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+	QnaDao qnaDao = new QnaDao();
+	QuesGoManJoin quesGoManJoin = qnaDao.qnaManSelect(questionNo);
+	
+	
 %>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
- 	<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="author" content="Untree.co">
   <link rel="shortcut icon" href="favicon.png">
@@ -25,55 +27,61 @@
 		<link href="css/style.css" rel="stylesheet">
 		<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
 </head>
-<body>
-	<jsp:include page="/inc/menu.jsp"></jsp:include>
+
+	<body>
+
+		<jsp:include page="/inc/menu.jsp"></jsp:include>
+
 		<!-- Start Hero Section -->
 			<div class="hero">
 				<div class="container">
 					<div class="row justify-content-between">
 						<div class="col-lg-5">
 							<div class="intro-excerpt">
-								<h1>Notice</h1>
-								<p class="mb-4">공지사항을 잘 확인해주세요.</p>
-								<p class="mb-4">기타 문의사항은 Q&A 게시판을 통해 문의해 주세요.</p>
+								<h1>QnA</h1>
 							</div>
 						</div>
 						<div class="col-lg-7">
-							</div>
+							
 						</div>
 					</div>
 				</div>
-			
+			</div>
 		<!-- End Hero Section -->
 
-		<!-- Start Blog Section -->
+		
 		<div class="untree_co-section before-footer-section">
             <div class="container">
              <div class="p-3 p-lg-5 border bg-white">
              <h1 class="mb-4 section-title">QnA</h1>
              <br>
-			<form action="<%=request.getContextPath()%>/updateNoticeAction.jsp" method="post"  accept-charset="UTF-8">
-			<input type="hidden" name="notice_no" value="<%=noticeNo%>">
-			<table class="table">
-			<tr>
-				<td>제목</td>
-				<td>
-					<input type="text" name="notice_title">
-				</td>
-			</tr>
-			<tr>
-    			<td>공지내용</td>
-    			<td>
-       				 <textarea name="notice_content" rows="5" cols="50"></textarea>
-    			</td>
-			</tr>
-		</table>
-		<button class="btn btn-black btn-lg py-3 btn-block">공지사항수정</button>
-	</form>
-	</div>
-    </div>
-   </div>   
-          
+             <form action="<%=request.getContextPath()%>/qnaManInsertAction.jsp">
+             <input type="hidden" name="questionNo" value="<%=questionNo%>">
+				<table class ="table">
+					<tr>
+						<td><p class=product-title">상품이름</p></td>
+						<td><input type="text" value="<%=quesGoManJoin.getGoodsTitle()%>" readonly ="readonly" ></td>
+					</tr>
+					<tr>
+						<td><p class="product-title">회원이름</p></td>
+						<td><input value="<%=quesGoManJoin.getCustomerId()%>" readonly ="readonly"></td>
+					</tr>
+					<tr>
+						<td><p class="product-title">질문제목</p></td>
+						<td><input style="width:475px; " value="<%=quesGoManJoin.getQuestionTitle()%>" readonly ="readonly"></td>
+					</tr>
+					<tr>
+						<td><p class="product-title">답변내용</p></td>
+						<td><textarea rows="5" cols="60" name="comment" ></textarea></td>
+						
+					</tr>
+				</table>
+				 <button class="btn btn-black btn-lg py-3 btn-block">답변하기</button>
+				 </form>
+			</div>
+            </div>
+          </div>
+
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>

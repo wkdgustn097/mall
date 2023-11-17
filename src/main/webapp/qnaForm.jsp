@@ -55,7 +55,7 @@
 				</div>
 			</div>
 		<!-- End Hero Section -->
-		<form action="<%=request.getContextPath()%>/orderAction.jsp">
+		<form action="<%=request.getContextPath()%>/qnaCusInsertForm.jsp">
 		<div class="untree_co-section">
 		    <div class="container">
 		              <h2 class="h3 mb-3 text-black">QnA</h2>
@@ -78,15 +78,20 @@
 		                    %>
 		                  </tbody>
 		                </table>
-
-		                <div class="form-group">
-		                  <button class="btn btn-black btn-lg py-3 btn-block">주문하기</button>
-		                </div>
-
+		                <%
+    						if(session.getAttribute("managerId") == null){
+   						 %>
+  	  					<button class="btn btn-black btn-lg py-3 btn-block">문의하기</button>
+		              </div>
+    					<%
+    					}
+   						 %>
+		         
 		              </div>
 		            </div>
 		          </div>
 		      <!-- </form> -->
+		      
 		  </form>
 
 		<script src="js/bootstrap.bundle.min.js"></script>
