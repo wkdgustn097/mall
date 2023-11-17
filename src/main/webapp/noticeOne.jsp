@@ -32,18 +32,44 @@
 	</head>
 
 <body>
- 	<div class="p-3 p-l   g-5 border bg-white">  
+ 	<jsp:include page="/inc/menu.jsp"></jsp:include>
+
+		<!-- Start Hero Section -->
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Notice</h1>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- End Hero Section -->
+
+		
+		<div class="untree_co-section before-footer-section">
+            <div class="container">
+             <div class="p-3 p-lg-5 border bg-white">
+             <h1 class="mb-4 section-title">Notice</h1>
+             <br>
+				<table class ="table">
  
-    <h1>공지사항 상세페이지</h1>
-    <table border="1">
+    
         <tr>
             <th>notice_title</th>
             <td><%=n.getNoticeTitle()%></td>
         </tr>
         <tr>
-            <th>notice_content</th>
-            <td><%=n.getNoticeContent()%></td>
-        </tr>
+    		<th>notice_content</th>
+    		<td><textarea rows="6" cols="130" style="border: none;"><%=n.getNoticeContent()%></textarea></td>
+		</tr>
+        
+        
         <tr>
         	<th>createdate</th>
         	<td><%=n.getCreatedate()%></td>
@@ -57,13 +83,19 @@
    	<%
     	if(session.getAttribute("managerId") != null){
     %>
-   		<a href="<%=request.getContextPath() %>/updateNoticeForm.jsp?noticeNo=<%=noticeNo%>">수정</a>
+   		<a href="<%=request.getContextPath() %>/updateNoticeForm.jsp?noticeNo=<%=noticeNo%>" class="btn btn-success">수정</a>
 
-    	<a href="<%=request.getContextPath() %>/deleteNoticeAction.jsp?noticeNo=<%=noticeNo%>">삭제</a>
+    	<a href="<%=request.getContextPath() %>/deleteNoticeAction.jsp?noticeNo=<%=noticeNo%>" class="btn btn-success">삭제</a>
     <%
     	}
     %>
 	</div>
 	</div>
+	</div>
+	</div>
+
+		<script src="js/bootstrap.bundle.min.js"></script>
+		<script src="js/tiny-slider.js"></script>
+		<script src="js/custom.js"></script>
 </body>
 </html>

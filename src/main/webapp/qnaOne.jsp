@@ -5,10 +5,16 @@
 	QuestionGoCustJoin questionGoCustJoin = new QuestionGoCustJoin();
 	questionGoCustJoin.setQuestionNo(Integer.parseInt(request.getParameter("questionNo")));
 	
+	
+	
 	QnaDao qnaDao = new QnaDao();
-	QuestionGoCustJoin questionOne = qnaDao.qnaOne(questionGoCustJoin);
-	int questionNo = questionOne.getQuestionNo();
-	System.out.println(questionNo + "<----questionNo");
+	
+	 
+	int questionNo = Integer.parseInt(request.getParameter("questionNo"));
+	QuestionGoCustJoin questionOne = qnaDao.qnaOne(questionGoCustJoin);	
+	
+	Question_comment getQc = qnaDao.question_comment(questionNo);
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,35 +62,48 @@
              <div class="p-3 p-lg-5 border bg-white">
              <h1 class="mb-4 section-title">QnA</h1>
              <br>
+             	<input type="hidden" value=<%=questionOne.getQuestionNo() %>">
 				<table class ="table">
 					<tr>
 						<td><p>상품이름</p></td>
-						<td><input type="text"  value="<%=questionOne.getGoodsTitle()%>"></td>
+						<td><input type="text"  value="<%=questionOne.getGoodsTitle()%>"readonly="readonly"></td>
 					</tr>
 					<tr>
-						<td><p class="product-title">회원이름</p></td>
-						<td><input  value="<%=questionOne.getCustomerId()%>"></td>
+						<td><p class="product-title">회원ID</p></td>
+						<td><input  value="<%=questionOne.getCustomerId()%>"readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td><p class="product-title">질문제목</p></td>
-						<td><input style="width:475px;" value="<%=questionOne.getQuestionTitle()%>"></td>
+						<td><input style="width:475px;" value="<%=questionOne.getQuestionTitle()%>"readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td><p class="product-title">질문내용</p></td>
-						<td><textarea rows="5" cols="60"><%=questionOne.getQuestionContent()%></textarea></td>
+						<td><textarea rows="5" cols="60" readonly="readonly"><%=questionOne.getQuestionContent()%></textarea></td>
 					</tr>
 				</table>
+				<%
+		           	if(session.getAttribute("loginId") != null && session.getAttribute("managerId") == null){
+		           	%>
+		           	<a href="<%=request.getContextPath()%>/qnaCusUpdateForm.jsp?questionNo=<%=questionGoCustJoin.getQuestionNo()%>"  class="btn btn-success">수정</a>
+		  		   <a href="<%=request.getContextPath()%>/qnaCusDeleteAction.jsp?questionNo=<%=questionGoCustJoin.getQuestionNo()%>" class="btn btn-success">삭제</a>
+		       		<%
+		           	}
+		       		%>
 			</div>
 			<br>
 				<%
-					if(session.getAttribute("managerId") != null) { 	// 매니저 로그인 되어 있으면	
+					Question_comment question_comment = qnaDao.qnaOneComment(questionNo);
 				%>
-		        <button class="btn btn-black btn-lg py-3 btn-block">질문 답변하기</button>
+				<%
+					if(session.getAttribute("managerId") != null && question_comment.getComment() == null) { 	
+						
+				%>
+				
+		        <a class="btn btn-black btn-lg py-3 btn-block" href="<%=request.getContextPath()%>/qnaManInsertForm.jsp?questionNo=<%=questionNo%>">답변하기</a>
 		        <%
 					}
 		        %>
 		        <%
-		      	    Question_comment question_comment = qnaDao.qnaOneComment(questionNo);
 		      	    
 		        	if(question_comment.getComment() != null) {
 		        %>
@@ -97,6 +116,14 @@
 							<td><textarea rows="5" cols="60"><%=question_comment.getComment()%></textarea></td>
 						</tr>
 		           	</table>
+		           	<%
+		           	if(session.getAttribute("managerId") != null){
+		           	%>
+		           	<a href="<%=request.getContextPath()%>/qnaManUpdateForm.jsp?questionCommentNo=<%=getQc.getQuestionCommentNo()%>&questionNo=<%=questionNo%>" class="btn btn-success">수정</a>
+    				<a href="<%=request.getContextPath()%>/qnaManDeleteAction.jsp?questionCommentNo=<%=getQc.getQuestionCommentNo()%>" class="btn btn-success">삭제</a>
+		       		<%
+		           	}
+		       		%>
 		        </div>
 		        <%
 		        	}
