@@ -82,8 +82,8 @@ body {
 		<%
 			}
 		%>
-      <input type="text" class="form-control" name="id" placeholder="User ID"/>
-      <input type="password" class="form-control" name="pw" placeholder="Password"/>      
+      <input type="text" class="form-control" name="id" placeholder="User ID" value="admin1"/>
+      <input type="password" class="form-control" name="pw" placeholder="Password" value="1234"/>      
       <br>
       <button class="btn btn-lg btn-primary btn-block " type="submit">Login</button>
       <a href="<%=request.getContextPath()%>/insert.jsp" class="btn btn-success">회원가입</a> 
