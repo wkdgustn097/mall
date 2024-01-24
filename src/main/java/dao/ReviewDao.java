@@ -12,7 +12,7 @@ public class ReviewDao {
 	public String reviewIn(int ordersNo, String reviewContent, String loginId) throws Exception{
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 로딩성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String url = "jdbc:mariadb://3.36.253.196/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -64,7 +64,7 @@ public class ReviewDao {
 	public String reviewDel(int reviewNo) throws Exception{
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 로딩성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String url = "jdbc:mariadb://3.36.253.196/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -87,7 +87,7 @@ public class ReviewDao {
 	public ArrayList<ReviewOrderGoodsJoin> reviewList(int beginRow, int rowPerPage) throws Exception{
 		ArrayList<ReviewOrderGoodsJoin> list = new ArrayList<>();
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -119,7 +119,7 @@ public class ReviewDao {
 	
 	public ArrayList<ReviewOrderGoodsJoin> reviewOrdersNo(String loginId)throws Exception{
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -148,7 +148,7 @@ public class ReviewDao {
 		
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);

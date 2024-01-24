@@ -18,7 +18,7 @@ public class ShopListDao {
 	public int lastPage(int total) throws Exception{
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String url = "jdbc:mariadb://3.36.253.196/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -38,7 +38,7 @@ public class ShopListDao {
 	public int lastPageReview(int total, Gijoin gijoin) throws Exception{
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String url = "jdbc:mariadb://3.36.253.196/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -60,7 +60,7 @@ public class ShopListDao {
 		ArrayList<Gijoin> list = new ArrayList<Gijoin>();
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 로딩성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String url = "jdbc:mariadb://3.36.253.196/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -94,7 +94,7 @@ public class ShopListDao {
 		Gijoin gijoin = new Gijoin();
 		//Driver 설정
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall" ;
+		String url = "jdbc:mariadb://3.36.253.196/mall" ;
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -139,7 +139,7 @@ public class ShopListDao {
 		System.out.println(inputGijoin.getGoodsNo()+"<--inputGijoin");
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 로딩성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String url = "jdbc:mariadb://3.36.253.196/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -173,7 +173,7 @@ public class ShopListDao {
 		GoodsSuccess goodsSuccess = new GoodsSuccess();
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 로딩성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String url = "jdbc:mariadb://3.36.253.196/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -206,7 +206,7 @@ public class ShopListDao {
 		Goods_img goods_img = new Goods_img();
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 로딩성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String url = "jdbc:mariadb://3.36.253.196/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -241,7 +241,7 @@ public class ShopListDao {
 		String name = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 로딩성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String url = "jdbc:mariadb://3.36.253.196/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -349,7 +349,7 @@ public class ShopListDao {
 		ArrayList<GoodsReviewCountJoin> list = new ArrayList<GoodsReviewCountJoin>();
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 로딩성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String url = "jdbc:mariadb://3.36.253.196/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -398,7 +398,7 @@ public class ShopListDao {
 		ArrayList<GoodsReviewCountJoin> list = new ArrayList<GoodsReviewCountJoin>();
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 로딩성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String url = "jdbc:mariadb://3.36.253.196/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -443,7 +443,7 @@ public class ShopListDao {
 		ArrayList<ReviewCustJoin> list = new ArrayList<ReviewCustJoin>();
 		Class.forName("org.mariadb.jdbc.Driver");
 		System.out.println("드라이브 로딩성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String url = "jdbc:mariadb://3.36.253.196/mall";  
 		String dbuser = "root";                           
 		String dbpw = "java1234";          
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);

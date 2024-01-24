@@ -7,7 +7,7 @@
 		response.sendRedirect(request.getContextPath()+"/notice.jsp");
 		return;
 	}
-	String url = "jdbc:mariadb://localhost:3306/mall";
+	String url = "jdbc:mariadb://3.36.253.196/mall";
 	String dbuser = "root";
 	String dbpw = "java1234";
 

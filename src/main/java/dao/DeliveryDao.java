@@ -12,7 +12,7 @@ public class DeliveryDao {
 	public ArrayList<ReviewOrderGoodsJoin> reviewList(int beginRow, int rowPerPage) throws Exception{
 		ArrayList<ReviewOrderGoodsJoin> list = new ArrayList<>();
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -44,7 +44,7 @@ public class DeliveryDao {
 		
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -63,7 +63,7 @@ public class DeliveryDao {
 	public String deliveryCk(int ordersNo) throws Exception{
 		
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);

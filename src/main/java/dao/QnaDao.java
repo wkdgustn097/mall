@@ -16,7 +16,7 @@ public class QnaDao {
 	public ArrayList<Question> qnaList(int beginRow, int rowPerPage) throws Exception{
 		ArrayList<Question> list = new ArrayList<>();
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -38,7 +38,7 @@ public class QnaDao {
 	public QuestionGoCustJoin qnaOne(QuestionGoCustJoin qnaElement) throws Exception{
 		QuestionGoCustJoin questionGoCustJoin = new QuestionGoCustJoin();
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -62,7 +62,7 @@ public class QnaDao {
 	public Question_comment qnaOneComment(int inputQuestionNo) throws Exception{
 		Question_comment question_comment = new Question_comment();
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -82,7 +82,7 @@ public class QnaDao {
 	public QuesGoManJoin qnaManSelect(int questionNo) throws Exception{
 		QuesGoManJoin quesGoManJoin = new QuesGoManJoin();
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -104,7 +104,7 @@ public class QnaDao {
 	public int qnaCusUpdate(String questionTitle, String questionContent, int questionNo) throws Exception{
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -121,7 +121,7 @@ public class QnaDao {
 	public int qnaManUpdate(String comment, int questionCommentNo) throws Exception{
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -145,7 +145,7 @@ public class QnaDao {
 		System.out.println("-----------------------"); // 이 줄을 추가
 		System.out.println(questionNo + "< --- questionNo");
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -171,7 +171,7 @@ public class QnaDao {
 		int row = 0;
 		System.out.println(questionCommentNo + "< --- questionCommentNo");
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -186,7 +186,7 @@ public class QnaDao {
 		
 		Question_comment question_commentNo = new Question_comment();
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -206,7 +206,7 @@ public class QnaDao {
 	public int qnaManInsert(int questionNo, String managerId, String comment) throws Exception{
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -239,7 +239,7 @@ public class QnaDao {
 		
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
+		String url = "jdbc:mariadb://3.36.253.196/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
@@ -287,7 +287,7 @@ public class QnaDao {
 	public ArrayList<Goods> goodsList(String goodsTitle) throws Exception{
 	ArrayList<Goods> list = new ArrayList<>();
 	Class.forName("org.mariadb.jdbc.Driver");
-	String url = "jdbc:mariadb://localhost:3306/mall";
+	String url = "jdbc:mariadb://3.36.253.196/mall";
 	String dbuser = "root";
 	String dbpw = "java1234";
 	Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
