@@ -92,7 +92,7 @@ public class ReviewDao {
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT G.goods_title goodsTitle, R.review_no reviewNo, R.review_content reviewContent, R.orders_no ordersNo , R.createdate createdate, R.updatedate updatedate FROM review R JOIN orders O ON r.orders_no = o.orders_no JOIN goods G ON G.goods_no = O.goods_no ORDER BY R.review_no DESC LIMIT ?, ?";
+		String sql = "SELECT G.goods_title goodsTitle, R.review_no reviewNo, R.review_content reviewContent, R.orders_no ordersNo , R.createdate createdate, R.updatedate updatedate FROM review R JOIN orders O ON R.orders_no = O.orders_no JOIN goods G ON G.goods_no = O.goods_no ORDER BY R.review_no DESC LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);
 		stmt.setInt(2, rowPerPage);
