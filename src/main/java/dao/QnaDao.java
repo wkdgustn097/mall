@@ -198,7 +198,7 @@ public class QnaDao {
 		if(rs.next()) {
 			question_commentNo = new Question_comment();
 			question_commentNo.setQuestionCommentNo(rs.getInt("question_comment_no"));
-			question_commentNo.setQuestionCommentNo(rs.getInt("comment"));
+			question_commentNo.setComment(rs.getString("comment"));
 		}
 		
 		return question_commentNo;

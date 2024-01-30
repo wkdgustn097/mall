@@ -4,9 +4,10 @@
 <%@ page import="java.util.*" %>
 <%@ page import="dao.*" %>
 <%		
+		System.out.println(session.getAttribute("managerNo"));
+		Object managerNoObject = session.getAttribute("managerNo");
+		int managerNo = Integer.parseInt(managerNoObject.toString());
 
-		int	managerNo = Integer.parseInt(request.getParameter("manager_no"));
-		
     	String noticeTitle = request.getParameter("notice_title");
     	
     	String noticeContent = request.getParameter("notice_content");
