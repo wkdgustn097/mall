@@ -8,7 +8,7 @@
 		response.sendRedirect(request.getContextPath()+"/main.jsp");
 		return;
 	}
-	if(session.getAttribute("mamagerId") != null) { // 로그인 되어 있으면 
+	if(session.getAttribute("managerId") != null) { // 로그인 되어 있으면 
 		response.sendRedirect(request.getContextPath()+"/main.jsp");
 		return;
 	}
