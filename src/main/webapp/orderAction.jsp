@@ -8,6 +8,10 @@
 		response.sendRedirect(request.getContextPath()+"/main.jsp");
 		return;
 	}
+	if(session.getAttribute("mamagerId") != null) { // 로그인 되어 있으면 
+		response.sendRedirect(request.getContextPath()+"/main.jsp");
+		return;
+	}
 
 	int goodsNo = Integer.parseInt(request.getParameter("goodsNo")); // 넘겨받은 goodsNo
 	int goodsTotal = Integer.parseInt(request.getParameter("goodsTotal")); //hidden으로 받은 goodsTotal 
